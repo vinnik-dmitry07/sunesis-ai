@@ -1,106 +1,95 @@
-# Sunesis WD-40 valuation review
+# Sunesis: WD-40 valuation review
 
-A standalone browser review of Damodaran's FCFF Simple Ginzu workbook, extended
-with saved valuation scenarios, reverse DCF, acquisition and financing context,
-and diligence questions with benchmark provenance.
+`index.html` is a self-contained review of WD-40 Company (WDFC) built on Aswath Damodaran's FCFF Simple Ginzu workbook. Live page: https://vinnik-dmitry07.github.io/sunesis-ai/
 
-The original 70 proposed inputs remain intact. They produce **$88.1502958013**
-per share in both the original JavaScript engine and the independent Python DCF.
-The **$216.04** reference is the fiscal-year-end price disclosed in the proxy,
-dated to the preceding trading day, August 29, 2025. Later FY2025 filings are
-used retrospectively.
+The case is a retrospective FY2025 review. The reference price is the $216.04 Nasdaq close on 29 Aug 2025. Inputs use filings up to the FY2025 10-K of 27 Oct 2025. Anything published later is shown apart, labelled, and never enters a valuation.
+
+## Why the original case gives $88.15
+
+The 70 proposed inputs of the original case give $88.15029580134913 a share, in the page and in the Python port. That is correct arithmetic of inputs the case itself labels as placeholders: a WACC of 9% fading to 8% with no CAPM behind it, a flat 17.1% operating margin, 5% growth, and a return on new capital after year 10 equal to the cost of capital.
+
+The saved scenarios replace them with dated inputs: a CAPM cost of capital from the 29 Aug 2025 Treasury yield and Damodaran's September 2025 equity risk premiums, FY2026 guidance for year 1, and a regional build for years 2-5.
+
+| | Bear | Base | Bull |
+|---|---:|---:|---:|
+| DCF value per share | $70.37 | $125.34 | $214.28 |
+
+Starting from Base, the price needs one of: a 5.40% WACC in every year, a 31.1% operating margin by year 5, or 19.0% revenue growth in years 2-5. No return on new capital reaches it on its own. The price is the reference for that comparison; how close a case lands to it is not how the case is judged.
+
+## The football field
+
+Each method shows a Bear, Base and Bull value from its own named inputs, drawn against the price, the 52-week range and two dated analyst targets. A scenario-based field fits this case because every spread traces to inputs the page lists. Probabilities for the cases would be invented, so there is no probability-weighted view. Buyer-specific values appear as their own rows (buyout and strategic buyer). Interactive sensitivity is on the page as measured one-input changes, two grids around Base and a live reverse solve on your own review.
+
+| Method | Bear | Base | Bull | Basis |
+|---|---:|---:|---:|---|
+| DCF | $70.37 | $125.34 | $214.28 | Ginzu FCFF with the saved scenarios |
+| Trading comparables | $88.98 | $89.58 | $133.12 | EV/EBITDA quartiles of five peers on 29 Aug 2025 |
+| Precedent transactions | $80.87 | $90.36 | $114.89 | Control deals with disclosed EV and trailing EBITDA |
+| Dividend discount | $72.68 | $121.42 | $198.76 | CAPM cost of equity of each scenario |
+| Buyout, ability to pay | $65.10 | $74.87 | $106.28 | Highest price that meets the sponsor's target return |
+| Strategic buyer | $151.25 | $164.06 | $181.38 | Base DCF plus synergies at the lowest, median and highest share of revenue announced in precedent deals |
+
+WD-40's own EV/EBITDA history ($214.37 to $281.93) is shown as context. EVA restates each DCF exactly and serves as a consistency check. APV is left out: with debt at 2.9% of capital, the tax shield it would separate is too small to move the range.
 
 ## Use
 
-Open `index.html` directly or serve the repository. The page is self-contained,
-including the downloadable formula workbook. Review inputs individually, or
-inspect a saved scenario and preview its full replacement before applying it.
-One undo restores the prior review. Current browser edits move the current DCF;
-saved scenario snapshots retain their own assumptions.
+Open `index.html`, or the live page. Accept or edit each input, apply a saved scenario (one undo restores your previous review), and open any method for its inputs and sources. The review is kept in your browser's storage.
 
-The Excel download contains the saved scenarios, regional revenue builds, DCF,
-EVA, LBO, DDM, synergies, acquisition observations, sources and questions. Its
-inputs and calculations use live formulas. Browser edits can be exported through
-the existing review JSON action.
+The workbook link downloads `models/excel/wd40_valuation.xlsx`: the saved scenarios and every method with live formulas, plus Summary and Sources sheets. Edits you make on the page are not in it.
 
-## Reproduce
+## Rebuild
 
-Tested with Python 3.12 and Node 24. Python 3.9 compatibility is not asserted.
+Restore the raw files that are not committed (peer SEC facts, then the five benchmark datasets from their pinned revisions):
 
 ```bash
-python -m venv .venv
-.venv/bin/python -m pip install -r models/requirements.txt
-node models/measure.mjs
-.venv/bin/python -m models.build
-node models/verify.mjs
-.venv/bin/python -m models.build
+bash models/data/fetch.sh
 ```
 
-The final build incorporates the matching verification status. Repeating it
-with unchanged source and data leaves the HTML and workbook unchanged.
-`--skip-xlsx` is useful during page development; a workbook from another build
-is not offered as a current download.
-
-On Windows, use `.venv\Scripts\python.exe` in place of `.venv/bin/python`.
-No Excel installation is needed to run the browser or Python models.
+Install the Python packages:
 
 ```bash
-.venv/bin/python -m unittest discover -s models/tests -v
-node --test models/tests/review_state.test.mjs
-.venv/bin/python -m unittest discover -s models/questions -p 'test_*.py' -v
+python -m pip install -r models/requirements.txt
 ```
 
-The source model hash covers the original embedded workbook and calculation
-engine. Changing either requires a new measurement before rebuilding.
-
-## Sources and scenario basis
-
-Primary financial, transaction and capital-cost sources are recorded in
-`models/data/`. Reported EBIT, R&D-adjusted EBIT and issuer adjusted EBITDA are
-distinct measures. Market capitalization uses reported common shares; the DCF
-uses the original explicit dilution proxy.
-
-Bear/Base/Bull regional growth assumptions feed year-one growth and the
-years-two-to-five CAGR. This Ginzu compression preserves year-one and year-five
-revenue and exposes intermediate revenue differences. WACC, terminal ROIC and
-long-term margin targets remain analyst assumptions. The original FY2026
-pro forma guidance and the July 2026 revision are recorded separately.
-
-Trading peer ranges require verified historical market snapshots and currently
-show unavailable. The acquisition observations use announced consideration /
-TTM EBITDA and are labelled as adjacent-category context. They are not claimed
-to be fully reconciled enterprise-value transaction multiples. LBO assumptions
-describe a sponsor financing case; synergy assumptions describe a buyer case.
-
-## Diligence question provenance
-
-Thirty adapted questions are grouped under ten investment topics. Their source
-records come from actual FinanceBench, FinLFQA, PE Bench and FinCausal records.
-The public FinTextQA policy subset was inspected and excluded as inapplicable.
-Forecast questions include resolution rules and a retrospective-template label.
-
-Pinned revisions, download hashes and observed counts are in
-`models/data/benchmarks/manifest.json`. Raw snapshots are intentionally ignored.
-To repeat full provenance checks:
+Rebuild every model, check it, and embed the result in `index.html`:
 
 ```bash
-.venv/bin/python models/questions/collect.py
-.venv/bin/python models/questions/extract.py
-.venv/bin/python models/questions/build_questions.py
-.venv/bin/python -m unittest discover -s models/questions -p 'test_*.py' -v
+python -I models/build.py
 ```
 
-## Calculation verification
+The default release mode stops on any missing input or failed check. The Excel steps need Windows with Microsoft Excel; `--no-excel` (or `--partial`) runs without them and labels the build partial. The result is in `reports/05-checks.md`. Step-by-step details are in [models/README.md](models/README.md).
 
-The Python DCF is checked against actual Ginzu forecast rows across the original
-case, saved scenarios and boundary cases. The emitted page-book formulas are
-evaluated by the same browser engine and compared with their Python results.
-`models/out/verification.json` records the matching build and checked cells.
+## Checks in the current build
 
-The saved Excel formula values are populated and full recalculation on opening
-is enabled. A fresh Microsoft Excel recalculation has **not** been performed;
-the application and workbook disclose that limit.
+- 1,761 workbook formulas are evaluated by the page's engine and recalculated by Excel, each compared with its Python value (largest relative difference 5e-13).
+- Three input changes made inside the Excel file (a Base WACC, a Bull growth rate and a Bear terminal growth rate) recalculate to the values of a fresh Python build of the same change, 684 formulas each.
+- The Python DCF matches the page engine row by row for the original case and the three scenarios.
+- 15 Python contract tests and 17 Node tests run in every build: the original value, each scenario's year-1 guidance, the regional build, the buyout repayment rules, question provenance, check reports tied to the files they certify, and the page's apply, undo, reload and reverse solve.
 
-The original workbook attribution and its author permission statement remain
-in the application. No blanket license over third-party workbooks, source
-documents or datasets is asserted.
+## Diligence questions
+
+57 questions under 11 topics, adapted from FinanceBench, FinLFQA, FinCausal and PE Bench. FinTextQA's public questions cover bank regulation and none apply. Following The Mom Test, each topic splits a judgement into questions about specific past facts, then asks which model input those facts test. Answers are computed from filings, the original case and the models. Benchmark files are pinned by revision and sha256 in `models/data/benchmarks/manifest.json`; their reuse rights are not established, so the raw files are not committed.
+
+## Limits
+
+- The Python port covers the Ginzu branches the cases use. A case with a net operating loss, distress adjustment, option valuation, trapped cash or a reinvestment lag other than one year is refused at export.
+- The regional growth rates and the margin, terminal-return and long-run tax targets are analyst assumptions, labelled as such.
+- The guidance base leaves out about $17.0m of FY2025 revenue that the release does not split by segment.
+- Comps and precedent quartiles enter the workbook as computed constants; changing a peer or a deal needs a rebuild. One Quaker Houghton quarter of amortization is estimated; the page also shows the range without that peer.
+- Later information (the FY2026 10-K and the July 2026 guidance revision) is shown apart. The reported FY2026 net sales of $688.0m are not on the guidance basis, so they do not resolve the guidance question.
+
+## Reports
+
+| Report | Contents |
+|---|---|
+| `reports/01-baseline-and-sensitivities.md` | The original $88.15, one-input sensitivities and reverse solves |
+| `reports/02-assumptions.md` | Dated inputs of each scenario and their sources |
+| `reports/03-spreadsheet-spike.md` | Why every grouped term in the workbook is bracketed |
+| `reports/04-dcf-port.md` | The Python DCF against the engine |
+| `reports/05-checks.md` | The last build and its readiness |
+| `reports/06-questions.md` | Questions, answers, origins and the merge of the two earlier sets |
+| `reports/07-m0-comparison.md` | Comparison of the two earlier implementations |
+| `reports/08-change-ledger.md` | Values after each measured step of the merge |
+| `reports/09-readout.md` | Summary of the merge: states, errors fixed, limits |
+
+The original workbook's attribution and its author's permission statement remain in the page. No license over third-party workbooks, source documents or datasets is asserted.

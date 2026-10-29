@@ -23,7 +23,8 @@ if not REPORT.exists():
     head = ["# Change ledger", "",
             "One row per integration step, each measured with a full build. A delta is against the row above and depends on the order of the steps; the deltas are not independent effects.", "",
             "| State | What changed | " + " | ".join(cols) + " |", "|---|---|" + "|".join("---:" for _ in cols) + "|"]
-    REPORT.write_text("\n".join(head) + "\n", encoding="utf-8")
+    with open(REPORT, "w", encoding="utf-8", newline="\n") as f:
+        f.write("\n".join(head) + "\n")
 lines = REPORT.read_text(encoding="utf-8").rstrip("\n").split("\n")
 prev = None
 for l in reversed(lines):

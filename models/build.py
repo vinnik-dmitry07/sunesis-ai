@@ -126,6 +126,8 @@ if cells.exists():
     run("Page payload", ["node", "models/build_payload.mjs"])
     run("Payload embedded in index.html", PY + ["models/inject.py"])
     run("Payload embedding is idempotent", PY + ["models/inject.py", "--check"])
+    run("Contract tests on this build's artifacts", PY + ["-m", "unittest", "discover", "-s", "models/tests", "-p", "test_*.py"])
+    run("Page review and method formula tests", ["node", "--test"] + [str(p.relative_to(ROOT)) for p in sorted((M / "tests").glob("*.test.mjs")) if p.name != "scope.test.mjs"])
 else:
     skip("Engine check, Excel check and page payload", "no methods workbook was built")
 finish()
