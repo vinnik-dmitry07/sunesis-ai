@@ -142,25 +142,34 @@ LBO_SCEN = {  # exit EV/EBITDA from the peer quartiles, sponsor hurdle IRR, leve
 }
 LBO_ROWS = ["Entry price per share", "Diluted shares (m)", "Equity purchase price", "Existing debt refinanced", "Cash at entry", "Minimum cash",
             "Entry enterprise value", "EBITDA FY2025", "Entry EV / EBITDA", "Leverage (x FY2025 EBITDA)", "New debt", "SOFR, 29 Aug 2025",
-            "Credit spread", "Interest rate", "Transaction fees (% of entry EV)", "Financing fees (% of new debt)", "Total uses",
-            "Excess cash used", "Sponsor equity", "Revenue", "EBITDA (reported basis)", "FCFF before financing (DCF Base)", "Interest",
-            "Tax rate", "After-tax interest", "Cash flow after interest", "Debt repaid", "Debt, end of year", "Cash, end of year",
-            "Exit EV / EBITDA", "Exit enterprise value", "Exit equity value", "MOIC", "IRR", "Hurdle IRR", "Meets hurdle (1 = yes)",
+            "Credit spread", "Interest rate", "Transaction fees (% of entry EV)", "Financing fees (% of new debt)",
+            "Mandatory amortization (% of original debt a year)", "Exit fee (% of exit EV)", "Transaction fees", "Financing fees", "Total uses",
+            "Excess cash used", "Sponsor equity", "Total sources", "Sources minus uses",
+            "Revenue", "EBITDA (reported basis)", "FCFF before financing (DCF Base)", "Interest", "Tax rate", "After-tax interest",
+            "Cash flow after interest", "Cash available above minimum", "Mandatory repayment", "Funding shortfall (1 = yes)", "Cash sweep",
+            "Debt repaid", "Debt, end of year", "Cash, end of year", "Feasible (1 = no funding shortfall)",
+            "Exit EV / EBITDA", "Exit enterprise value", "Exit fee", "Exit equity value", "MOIC", "IRR", "Hurdle IRR", "Meets hurdle (1 = yes)",
             "R&D capitalization adjustment (% of revenue)", "D&A (% of revenue)"]
 L_ = {k: i for i, k in enumerate(LBO_ROWS)}
+LBO_TERMS = {"minimumCash": 30.0, "creditSpread": 0.035, "transactionFee": 0.02, "financingFee": 0.025, "mandatoryAmortization": 0.01, "exitFee": 0.02}
 
 
 def lbo_sheet(k, price):
+    """One entry price. Mandatory amortization is paid first, then a sweep of cash above the minimum, never more than the
+    debt outstanding. A year whose cash cannot meet the mandatory payment is a funding shortfall: no revolver or extra
+    equity is modelled, so the case is infeasible rather than silently borrowing more."""
     s = LBO_SCEN[k]
     sh = ps.Sheet.create_new_sheet(len(LBO_ROWS), 6, name=f"LBO {k.title()}", rows_labels=LBO_ROWS,
                                    columns_labels=["Entry / FY2025"] + [f"Year {t}" for t in range(1, 6)])
     f, B = sh.fn, sh.fn.brackets
-    one = f.const(1)
+    one, zero = f.const(1), f.const(0)
     c = lambda row, col: sh.iloc[L_[row], col]  # noqa: E731
     v = lambda row: sh.iloc[L_[row], 0]  # noqa: E731
+    T = LBO_TERMS
     for row, val in [("Entry price per share", price), ("Diluted shares (m)", 13.633263), ("Existing debt refinanced", 86.995), ("Cash at entry", 58.13),
-                     ("Minimum cash", 30.0), ("EBITDA FY2025", EBITDA25), ("Leverage (x FY2025 EBITDA)", s["lev"]), ("SOFR, 29 Aug 2025", SOFR_0829),
-                     ("Credit spread", 0.035), ("Transaction fees (% of entry EV)", 0.02), ("Financing fees (% of new debt)", 0.025),
+                     ("Minimum cash", T["minimumCash"]), ("EBITDA FY2025", EBITDA25), ("Leverage (x FY2025 EBITDA)", s["lev"]), ("SOFR, 29 Aug 2025", SOFR_0829),
+                     ("Credit spread", T["creditSpread"]), ("Transaction fees (% of entry EV)", T["transactionFee"]), ("Financing fees (% of new debt)", T["financingFee"]),
+                     ("Mandatory amortization (% of original debt a year)", T["mandatoryAmortization"]), ("Exit fee (% of exit EV)", T["exitFee"]),
                      ("Exit EV / EBITDA", s["exit"]), ("Hurdle IRR", s["hurdle"]), ("R&D capitalization adjustment (% of revenue)", RND_ADJ_PCT), ("D&A (% of revenue)", DA_PCT)]:
         sh.iloc[L_[row], 0] = float(val)
     sh.iloc[L_["Equity purchase price"], 0] = v("Entry price per share") * v("Diluted shares (m)")
@@ -168,10 +177,13 @@ def lbo_sheet(k, price):
     sh.iloc[L_["Entry EV / EBITDA"], 0] = v("Entry enterprise value") / v("EBITDA FY2025")
     sh.iloc[L_["New debt"], 0] = v("Leverage (x FY2025 EBITDA)") * v("EBITDA FY2025")
     sh.iloc[L_["Interest rate"], 0] = v("SOFR, 29 Aug 2025") + v("Credit spread")
-    sh.iloc[L_["Total uses"], 0] = (v("Equity purchase price") + v("Existing debt refinanced") + v("Entry enterprise value") * v("Transaction fees (% of entry EV)")
-                                    + v("New debt") * v("Financing fees (% of new debt)"))
+    sh.iloc[L_["Transaction fees"], 0] = v("Entry enterprise value") * v("Transaction fees (% of entry EV)")
+    sh.iloc[L_["Financing fees"], 0] = v("New debt") * v("Financing fees (% of new debt)")
+    sh.iloc[L_["Total uses"], 0] = v("Equity purchase price") + v("Existing debt refinanced") + v("Transaction fees") + v("Financing fees")
     sh.iloc[L_["Excess cash used"], 0] = v("Cash at entry") - v("Minimum cash")
     sh.iloc[L_["Sponsor equity"], 0] = v("Total uses") - v("New debt") - v("Excess cash used")
+    sh.iloc[L_["Total sources"], 0] = v("New debt") + v("Excess cash used") + v("Sponsor equity")
+    sh.iloc[L_["Sources minus uses"], 0] = v("Total sources") - v("Total uses")
     sh.iloc[L_["Debt, end of year"], 0] = v("New debt")
     sh.iloc[L_["Cash, end of year"], 0] = v("Minimum cash")
     for t in range(1, 6):
@@ -183,48 +195,66 @@ def lbo_sheet(k, price):
         sh.iloc[L_["Interest"], t] = v("Interest rate") * c("Debt, end of year", t - 1)
         sh.iloc[L_["After-tax interest"], t] = c("Interest", t) * B(one - c("Tax rate", t))
         sh.iloc[L_["Cash flow after interest"], t] = c("FCFF before financing (DCF Base)", t) - c("After-tax interest", t)
-        sh.iloc[L_["Debt repaid"], t] = f.conditional(c("Cash flow after interest", t) > c("Debt, end of year", t - 1), c("Debt, end of year", t - 1), c("Cash flow after interest", t))
+        sh.iloc[L_["Cash available above minimum"], t] = c("Cash, end of year", t - 1) + c("Cash flow after interest", t) - v("Minimum cash")
+        scheduled = v("Mandatory amortization (% of original debt a year)") * v("New debt")
+        sh.iloc[L_["Mandatory repayment"], t] = f.conditional(scheduled < c("Debt, end of year", t - 1), scheduled, c("Debt, end of year", t - 1))
+        sh.iloc[L_["Funding shortfall (1 = yes)"], t] = f.conditional(c("Cash available above minimum", t) < c("Mandatory repayment", t), one, zero)
+        room = c("Cash available above minimum", t) - c("Mandatory repayment", t)
+        cap = c("Debt, end of year", t - 1) - c("Mandatory repayment", t)
+        sh.iloc[L_["Cash sweep"], t] = f.conditional(room > zero, f.conditional(room < cap, room, cap), zero)
+        sh.iloc[L_["Debt repaid"], t] = c("Mandatory repayment", t) + c("Cash sweep", t)
         sh.iloc[L_["Debt, end of year"], t] = c("Debt, end of year", t - 1) - c("Debt repaid", t)
         sh.iloc[L_["Cash, end of year"], t] = c("Cash, end of year", t - 1) + c("Cash flow after interest", t) - c("Debt repaid", t)
+    sh.iloc[L_["Feasible (1 = no funding shortfall)"], 0] = f.conditional(sh.iloc[L_["Funding shortfall (1 = yes)"], 1:6].sum() > zero, zero, one)
     sh.iloc[L_["Exit enterprise value"], 0] = v("Exit EV / EBITDA") * c("EBITDA (reported basis)", 5)
-    sh.iloc[L_["Exit equity value"], 0] = v("Exit enterprise value") - c("Debt, end of year", 5) + c("Cash, end of year", 5)
+    sh.iloc[L_["Exit fee"], 0] = v("Exit enterprise value") * v("Exit fee (% of exit EV)")
+    sh.iloc[L_["Exit equity value"], 0] = v("Exit enterprise value") - v("Exit fee") - c("Debt, end of year", 5) + c("Cash, end of year", 5)
     sh.iloc[L_["MOIC"], 0] = v("Exit equity value") / v("Sponsor equity")
-    sh.iloc[L_["IRR"], 0] = v("MOIC") ** B(one / f.const(5)) - one
-    sh.iloc[L_["Meets hurdle (1 = yes)"], 0] = f.conditional(v("IRR") >= v("Hurdle IRR"), one, f.const(0))
+    sh.iloc[L_["IRR"], 0] = f.conditional(v("MOIC") > zero, v("MOIC") ** B(one / f.const(5)) - one, f.const(-1))
+    sh.iloc[L_["Meets hurdle (1 = yes)"], 0] = f.conditional(v("Feasible (1 = no funding shortfall)") == one, f.conditional(v("IRR") >= v("Hurdle IRR"), one, zero), zero)
+    # Python-side checks of the same sheet: sources equal uses, balances never negative, cash at least the minimum when feasible.
+    assert abs(v("Sources minus uses").value) < 1e-9
+    for t in range(1, 6):
+        assert c("Debt, end of year", t).value >= -1e-9
+        if v("Feasible (1 = no funding shortfall)").value == 1:
+            assert c("Cash, end of year", t).value >= T["minimumCash"] - 1e-9
     return sh
 
 
-def lbo_irr(k, price):
+def lbo_eval(k, price):
     sh = lbo_sheet(k, price)
-    return sh.iloc[L_["IRR"], 0].value, sh
+    return sh.iloc[L_["IRR"], 0].value, sh.iloc[L_["Feasible (1 = no funding shortfall)"], 0].value == 1
 
 
 lbo_solution, lbo = {}, {}
+GRID = [round(50 + 5 * i, 2) for i in range(int((230 - 50) / 5) + 1)]
 for k in LBO_SCEN:
-    grid = [round(50 + 5 * i, 2) for i in range(int((230 - 50) / 5) + 1)]
-    irrs = [lbo_irr(k, p)[0] for p in grid]
-    monotonic = all(a >= b for a, b in zip(irrs, irrs[1:]))
     h = LBO_SCEN[k]["hurdle"]
-    ok = [p for p, r in zip(grid, irrs) if r >= h]
-    status, price = "solved", None
-    if not ok:
-        status = f"no price at or above ${grid[0]:.0f} meets the hurdle"
-    elif ok[-1] == grid[-1]:
-        status, price = f"hurdle met across the grid up to ${grid[-1]:.0f}", grid[-1]
+    evals = [lbo_eval(k, p) for p in GRID]
+    irrs = [e[0] for e in evals]
+    feasible = all(e[1] for e in evals)
+    monotonic = all(a >= b for a, b in zip(irrs, irrs[1:]))
+    price, status = None, None
+    if not feasible:
+        status = "infeasible: the operating case cannot meet the mandatory debt payments"
     else:
-        lo, hi = ok[-1], ok[-1] + 5
-        for _ in range(40):
-            mid = (lo + hi) / 2
-            if lbo_irr(k, mid)[0] >= h:
-                lo = mid
-            else:
-                hi = mid
-            if hi - lo < 0.005:
-                break
-        price = lo
+        ok = [p for p, r in zip(GRID, irrs) if r >= h]
+        if not ok:
+            status = f"no solution: no price from ${GRID[0]:.0f} up meets the target return"
+        elif ok[-1] == GRID[-1]:
+            status, price = f"search ceiling reached: the target return is met at ${GRID[-1]:.0f}, the top of the search range", GRID[-1]
+        else:
+            lo, hi = ok[-1], ok[-1] + 5
+            while hi - lo >= 0.005:
+                mid = (lo + hi) / 2
+                if lbo_eval(k, mid)[0] >= h:
+                    lo = mid
+                else:
+                    hi = mid
+            status, price = "boundary found", lo
     lbo_solution[k] = {"price": price, "status": status, "hurdle": h, "exitMultiple": LBO_SCEN[k]["exit"], "leverage": LBO_SCEN[k]["lev"],
-                       "monotonicOnGrid": monotonic, "grid": list(zip(grid, irrs))}
-    lbo[k] = lbo_sheet(k, price if price else grid[0])
+                       "monotonicOnGrid": monotonic, "feasible": feasible, "terms": LBO_TERMS, "grid": list(zip(GRID, irrs))}
+    lbo[k] = lbo_sheet(k, price if price else GRID[0])
 
 # ---------------------------------------------------------------- strategic buyer synergies
 # Run-rate pre-tax cost synergies as % of target revenue: minimum, median and maximum announced in the precedent deals.
@@ -294,6 +324,7 @@ res = {
     "lbo": {k: {**{kk: vv for kk, vv in lbo_solution[k].items() if kk != "grid"}, "sponsorEquity": val(s, L_, "Sponsor equity"),
                 "entryEvToEbitda": val(s, L_, "Entry EV / EBITDA"), "moic": val(s, L_, "MOIC"), "irr": val(s, L_, "IRR"),
                 "debtYear5": s.iloc[L_["Debt, end of year"], 5].value, "interestRate": val(s, L_, "Interest rate"), "newDebt": val(s, L_, "New debt"),
+                "exitFee": val(s, L_, "Exit fee"), "sourcesMinusUses": val(s, L_, "Sources minus uses"),
                 "cells": [addr(s, L_, "Entry price per share"), addr(s, L_, "IRR"), addr(s, L_, "MOIC")]} for k, s in lbo.items()},
     "lboGrid": {k: lbo_solution[k]["grid"] for k in lbo_solution},
     "synergies": {k: {"pct": SYN[k], "perShare": val(s, S_, "Synergy value per share"), "buyerValue": val(s, S_, "Value per share to a buyer that keeps all synergies"),
@@ -304,6 +335,8 @@ res = {
 
 pc = lambda x, d=1: f"{x * 100:.{d}f}%"  # noqa: E731
 L, Dd, Sy = res["lbo"], res["ddm"], res["synergies"]
+LBO_STATUS = "; ".join(f"{k} {d['status']}" for k, d in L.items())
+LBO_MONOTONIC = "yes" if all(d["monotonicOnGrid"] for d in L.values()) else "no"
 methods = [
     {"id": "ddm", "group": "standalone", "label": "Dividend discount", "sublabel": "dividends only, Bear to Bull", "kind": "range",
      "low": Dd["bear"]["value"], "base": Dd["base"]["value"], "high": Dd["bull"]["value"], "status": "workbook",
@@ -315,11 +348,12 @@ methods = [
     {"id": "lbo", "group": "buyer", "label": "Buyout fund", "sublabel": "highest price that meets the target return", "kind": "range",
      "low": L["bear"]["price"], "base": L["base"]["price"], "high": L["bull"]["price"], "status": "workbook",
      "note": (f"Sources and uses at the entry price, new debt at SOFR on 29 Aug 2025 ({pc(SOFR_0829, 2)}) plus 3.5%, existing debt refinanced, cash above $30m used, 2% transaction and 2.5% financing fees. "
-              "The Base DCF operating case funds interest and repays debt for five years, then the business is sold at the peer EV/EBITDA quartile. "
-              "With one equity payment in and one out, IRR = MOIC^(1/5) - 1. Each price is the highest at which the IRR meets the target; it is found on a $5 grid from $50 to $230 and refined to the cent. "
-              "IRR falls steadily as price rises in every scenario."),
-     "table": [["Scenario", "Debt / EBITDA", "Target IRR", "Exit EV / EBITDA", "Highest price", "Entry EV / EBITDA", "Sponsor equity ($m)", "MOIC", "IRR"]] +
-              [[k.title(), f"{d['leverage']:.1f}x", pc(d["hurdle"], 1), f"{d['exitMultiple']:.1f}x", f"${d['price']:.2f}", f"{d['entryEvToEbitda']:.1f}x", f"{d['sponsorEquity']:,.0f}", f"{d['moic']:.2f}x", pc(d["irr"], 2)] for k, d in L.items()],
+              "The Base DCF operating case funds interest, a mandatory 1% a year of the original debt, then a sweep of cash above the minimum, for five years; the business is then sold at the peer EV/EBITDA quartile less a 2% exit fee. "
+              "A year whose cash cannot meet the mandatory payment would make the case infeasible, since no revolver or extra equity is modelled; no scenario has one. "
+              "With one equity payment in and one out, IRR = MOIC^(1/5) - 1. Each price is the highest at which the IRR meets the target, bracketed on a $5 grid from $50 to $230 and refined to under a cent. "
+              f"Status by scenario: {LBO_STATUS}. IRR falls as price rises on the grid in every scenario: {LBO_MONOTONIC}."),
+     "table": [["Scenario", "Debt / EBITDA", "Target IRR", "Exit EV / EBITDA", "Highest price", "Entry EV / EBITDA", "Sponsor equity ($m)", "Debt after year 5 ($m)", "MOIC", "IRR"]] +
+              [[k.title(), f"{d['leverage']:.1f}x", pc(d["hurdle"], 1), f"{d['exitMultiple']:.1f}x", f"${d['price']:.2f}" if d["price"] else d["status"], f"{d['entryEvToEbitda']:.1f}x", f"{d['sponsorEquity']:,.0f}", f"{d['debtYear5']:,.0f}", f"{d['moic']:.2f}x", pc(d["irr"], 2)] for k, d in L.items()],
      "cells": L["base"]["cells"], "sourceIds": ["nyfed-sofr-2025-08-29"] + comps.method["sourceIds"][:1]},
     {"id": "synergies", "group": "buyer", "label": "Strategic buyer", "sublabel": "Base value plus all cost synergies", "kind": "range",
      "low": Sy["bear"]["buyerValue"], "base": Sy["base"]["buyerValue"], "high": Sy["bull"]["buyerValue"], "status": "workbook",

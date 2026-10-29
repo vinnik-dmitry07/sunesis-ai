@@ -786,7 +786,7 @@
      "id": "financing-3",
      "purpose": "calculation",
      "text": "At 5.0 times FY2025 EBITDA of debt, SOFR on 29 Aug 2025 plus 3.5%, a 20% target return and an exit at the peer median multiple, what is the highest price per share that works?",
-     "answer": "$75.86, an entry multiple of 9.5 times EBITDA. Bear (4.5x debt, 25% target, 25th percentile exit) gives $65.89; Bull (5.5x, 17.5%, 75th percentile) $107.90.",
+     "answer": "$74.87, an entry multiple of 9.4 times EBITDA. Bear (4.5x debt, 25% target, 25th percentile exit) gives $65.10; Bull (5.5x, 17.5%, 75th percentile) $106.28.",
      "status": "answered",
      "evidence": [],
      "cells": [],

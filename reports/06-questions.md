@@ -167,7 +167,7 @@ Origins: PE Bench `voltaic-08-debt-schedule` (Build free cash flow and the debt 
 - *calculation*: What was FY2025 operating income over interest expense?  
   30 times: $103.8m over $3.44m.
 - *calculation*: At 5.0 times FY2025 EBITDA of debt, SOFR on 29 Aug 2025 plus 3.5%, a 20% target return and an exit at the peer median multiple, what is the highest price per share that works?  
-  $75.86, an entry multiple of 9.5 times EBITDA. Bear (4.5x debt, 25% target, 25th percentile exit) gives $65.89; Bull (5.5x, 17.5%, 75th percentile) $107.90.
+  $74.87, an entry multiple of 9.4 times EBITDA. Bear (4.5x debt, 25% target, 25th percentile exit) gives $65.10; Bull (5.5x, 17.5%, 75th percentile) $106.28.
 - *assumption*: Which operating case does the buyout model use?  
   The Base DCF case: its revenue, EBIT, tax rate and free cash flow before financing in years 1-5. EBITDA is put on a reported basis by removing the R&D adjustment and adding depreciation and amortization at the FY2025 share of sales.
 
