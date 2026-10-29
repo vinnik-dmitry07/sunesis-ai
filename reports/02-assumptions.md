@@ -30,7 +30,6 @@ Reported FY2025 EBIT margin is 16.74%. The workbook capitalizes R&D over three y
 | 2023 | 537.3 | 89.7 | 16.7% | 51.0% |
 | 2024 | 590.6 | 96.4 | 16.3% | 53.4% |
 | 2025 | 620.0 | 103.8 | 16.7% | 55.1% |
-| 2026 | 688.0 | 108.9 | 15.8% | 55.3% |
 
 Reported operating margin averaged 19.4% in FY2017-FY2020 and 16.6% in FY2022-FY2025. The company's 55/30/25 model targets adjusted EBITDA, not EBIT, so it is not used as a margin input.
 
@@ -78,7 +77,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 - Year-1 revenue at the midpoint of FY2026 guidance ($642.5m pro forma, about 3.6% above reported FY2025 because divested homecare sales leave the base), then 6% a year, in line with the 6.2% FY2017-FY2025 compound rate.
 - Year-1 margin at the guidance midpoint ($106.5m operating income) plus the workbook's R&D adjustment; target 18% by year 5, about a third of the way from the FY2022-FY2025 average back to the FY2017-FY2020 average (both after the R&D adjustment).
 - Cost of capital from a bottom-up beta (average of Damodaran's Chemical (Specialty) and Household Products unlevered betas, January 2025) relevered at WD-40's market debt-to-equity, the 29 Aug 2025 10-year Treasury yield and Damodaran's September 2025 implied ERP. Held flat because WD-40 is already a mature company.
-- New capital after year 10 earns 15%: above the cost of capital because the brand and distribution persist, well below the 26% the model earns through year 10. Terminal growth 2.5%.
+- New capital after year 10 earns 15%, above the cost of capital because the brand and distribution persist, and well below the 27% or so the Base case earns in years 1-10. Terminal growth 2.5%.
 
 | Cell | Original | Scenario |
 |---|---:|---:|
@@ -117,7 +116,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 | Input sheet!B48 | No | Yes |
 | Input sheet!B49 | 15.00% | 20.00% |
 
-Not changed in any scenario: Sales-to-capital stays at 2.0 in all scenarios (Input sheet!B31, B32). Terminal tax rate stays at 25% (Input sheet!B24). Expected proceeds from the Americas homecare sale are not added: no price was disclosed and the sale had not closed.
+Not changed in any scenario: Sales-to-capital stays at 2.0 in all scenarios (Input sheet!B31, B32). Terminal tax rate stays at 25% (Input sheet!B24). Expected proceeds from the Americas homecare sale are not added because no price was disclosed and the sale had not closed.
 
 ## Results
 

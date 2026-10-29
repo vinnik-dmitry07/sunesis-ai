@@ -83,13 +83,13 @@ def build(case_index, label):
     for t in range(2, 11):
         yr = cell("Year", t)
         sh.iloc[R["Operating margin"], t] = f.conditional(yr > conv, target, target - B(B(target - m1) / conv) * B(conv - yr))
-    sh.iloc[R["Operating margin"], 11] = cell("Operating margin", 10)
+    sh.iloc[R["Operating margin"], 11] = B(cell("Operating margin", 10))  # brackets anchor the copy, which cross_reference needs
     for t in range(1, 12):
         sh.iloc[R["EBIT"], t] = cell("Operating margin", t) * cell("Revenue", t)
     # tax
     sh.iloc[R["Tax rate"], 0] = inp("tax0")
     for t in range(1, 6):
-        sh.iloc[R["Tax rate"], t] = cell("Tax rate", t - 1)
+        sh.iloc[R["Tax rate"], t] = B(cell("Tax rate", t - 1))
     sh.iloc[R["Tax rate"], 11] = inp("taxT")
     for t in range(6, 11):
         sh.iloc[R["Tax rate"], t] = cell("Tax rate", t - 1) + B(cell("Tax rate", 11) - cell("Tax rate", 5)) / f.const(5)
@@ -141,20 +141,32 @@ def build(case_index, label):
     return sh
 
 
-sheets = [inputs] + [build(j, SRC["cases"][c]["label"]) for j, c in enumerate(CASES)]
-write_xlsx(sheets, OUT / "wd40_dcf.xlsx")
-cells = export_cells(sheets)
-(OUT / "dcf_cells.json").write_text(json.dumps(cells, indent=1))
+def build_all():
+    """Return [inputs sheet, DCF Original, DCF Bear, DCF Base, DCF Bull] and a {case: sheet} map."""
+    case_sheets = {c: build(j, SRC["cases"][c]["label"]) for j, c in enumerate(CASES)}
+    return [inputs] + list(case_sheets.values()), case_sheets
 
-rows_out = {}
-for j, c in enumerate(CASES):
-    sh = sheets[j + 1]
-    get = lambda r, t: sh.iloc[R[r], t].value  # noqa: E731
-    rows_out[c] = {
-        "rows": {k: [get(k, t) for t in range(12)] for k in ROWS[:15]},
-        "valuePerShare": get("Value per share", 0), "terminalValue": get("Terminal value", 0),
-        "pvTerminalValue": get("PV of terminal value", 0), "sumPV": get("Sum of PV of FCFF, years 1-10", 0),
-        "operatingAssets": get("Operating assets", 0), "terminalROIC": get("Terminal ROIC", 0), "sheet": sh.name,
-    }
-(OUT / "dcf_rows.json").write_text(json.dumps(rows_out, indent=1, default=lambda x: None))
-print({c: round(v["valuePerShare"], 6) for c, v in rows_out.items()})
+
+def main():
+    sheets, _ = build_all()
+    write_xlsx(sheets, OUT / "wd40_dcf.xlsx")
+    cells = export_cells(sheets)
+    (OUT / "dcf_cells.json").write_text(json.dumps(cells, indent=1))
+
+    rows_out = {}
+    for j, c in enumerate(CASES):
+        sh = sheets[j + 1]
+        get = lambda r, t: sh.iloc[R[r], t].value  # noqa: E731
+        rows_out[c] = {
+            "rows": {k: [get(k, t) for t in range(12)] for k in ROWS[:15]},
+            "valuePerShare": get("Value per share", 0), "terminalValue": get("Terminal value", 0),
+            "pvTerminalValue": get("PV of terminal value", 0), "sumPV": get("Sum of PV of FCFF, years 1-10", 0),
+            "operatingAssets": get("Operating assets", 0), "terminalROIC": get("Terminal ROIC", 0), "sheet": sh.name,
+        }
+    (OUT / "dcf_rows.json").write_text(json.dumps(rows_out, indent=1, default=lambda x: None))
+    print({c: round(v["valuePerShare"], 6) for c, v in rows_out.items()})
+
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,560 @@
+{
+ "cutoff": "2025-08-29",
+ "peers": {
+  "CHD": {
+   "name": "CHURCH & DWIGHT CO., INC.",
+   "why": "Branded household and personal-care products, asset-light, outsourced manufacturing in part.",
+   "filing": {
+    "accn": "0000950170-25-101235",
+    "form": "10-Q",
+    "filed": "2025-08-01"
+   },
+   "price": 93.16000366210938,
+   "priceDate": "2025-08-29",
+   "shares": 243608695,
+   "sharesDetail": {
+    "date": "2025-07-30",
+    "accn": "0000950170-25-101235",
+    "filed": "2025-08-01",
+    "classes": 1
+   },
+   "debt": 2205800000,
+   "debtDetail": {
+    "components": {
+     "LongTermDebt": [
+      2205800000,
+      "2025-06-30"
+     ]
+    },
+    "allTags": {
+     "LongTermDebtNoncurrent": [
+      2205800000,
+      "2025-06-30"
+     ],
+     "LongTermDebt": [
+      2205800000,
+      "2025-06-30"
+     ]
+    },
+    "accn": "0000950170-25-101235"
+   },
+   "cash": 923200000,
+   "cashDetail": {
+    "tag": "CashAndCashEquivalentsAtCarryingValue",
+    "date": "2025-06-30",
+    "accn": "0000950170-25-101235"
+   },
+   "revenue": 6066000000,
+   "revenueDetail": {
+    "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "method": "FY 2024-12-31 + 6m to 2025-06-30 - 6m to 2024-06-30",
+    "accn": "0000950170-25-101235",
+    "fyAccn": "0000950170-25-019801",
+    "priorAccn": "0000950170-25-101235"
+   },
+   "ebit": 722200000,
+   "ebitDetail": {
+    "tag": "OperatingIncomeLoss",
+    "method": "FY 2024-12-31 + 6m to 2025-06-30 - 6m to 2024-06-30",
+    "accn": "0000950170-25-101235",
+    "fyAccn": "0000950170-25-019801",
+    "priorAccn": "0000950170-25-101235"
+   },
+   "da": 239400000,
+   "daDetail": {
+    "tag": "DepreciationDepletionAndAmortization",
+    "method": "FY 2024-12-31 + 6m to 2025-06-30 - 6m to 2024-06-30",
+    "accn": "0000950170-25-101235",
+    "fyAccn": "0000950170-25-019801",
+    "priorAccn": "0000950170-25-101235"
+   },
+   "oneOffCharges": 0.0,
+   "oneOffDetail": {},
+   "netIncome": 525200000,
+   "netIncomeDetail": {
+    "tag": "NetIncomeLoss",
+    "method": "FY 2024-12-31 + 6m to 2025-06-30 - 6m to 2024-06-30",
+    "accn": "0000950170-25-101235",
+    "fyAccn": "0000950170-25-019801",
+    "priorAccn": "0000950170-25-101235"
+   },
+   "epsDiluted": 2.12,
+   "epsDetail": {
+    "tag": "EarningsPerShareDiluted",
+    "method": "FY 2024-12-31 + 6m to 2025-06-30 - 6m to 2024-06-30",
+    "accn": "0000950170-25-101235",
+    "fyAccn": "0000950170-25-019801",
+    "priorAccn": "0000950170-25-101235"
+   }
+  },
+  "CLX": {
+   "name": "The Clorox Company",
+   "why": "Branded household cleaning and maintenance chemicals sold through the same retail channels.",
+   "filing": {
+    "accn": "0000021076-25-000039",
+    "form": "10-K",
+    "filed": "2025-08-08"
+   },
+   "price": 118.19999694824219,
+   "priceDate": "2025-08-29",
+   "shares": 122309414,
+   "sharesDetail": {
+    "date": "2025-07-23",
+    "accn": "0000021076-25-000039",
+    "filed": "2025-08-08",
+    "classes": 1
+   },
+   "debt": 2488000000,
+   "debtDetail": {
+    "components": {
+     "LongTermDebt": [
+      2484000000,
+      "2025-06-30"
+     ],
+     "CommercialPaper": [
+      4000000,
+      "2025-06-30"
+     ]
+    },
+    "allTags": {
+     "LongTermDebtNoncurrent": [
+      2484000000,
+      "2025-06-30"
+     ],
+     "LongTermDebtCurrent": [
+      0,
+      "2025-06-30"
+     ],
+     "CommercialPaper": [
+      4000000,
+      "2025-06-30"
+     ],
+     "LongTermDebt": [
+      2484000000,
+      "2025-06-30"
+     ]
+    },
+    "accn": "0000021076-25-000039"
+   },
+   "cash": 167000000,
+   "cashDetail": {
+    "tag": "CashAndCashEquivalentsAtCarryingValue",
+    "date": "2025-06-30",
+    "accn": "0000021076-25-000039"
+   },
+   "revenue": 7104000000,
+   "revenueDetail": {
+    "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "method": "fiscal year",
+    "period": [
+     "2024-07-01",
+     "2025-06-30"
+    ],
+    "accn": "0000021076-25-000039"
+   },
+   "ebit": 1166000000,
+   "ebitDetail": {
+    "method": "pre-tax income + interest expense",
+    "pretax": {
+     "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+     "method": "fiscal year",
+     "period": [
+      "2024-07-01",
+      "2025-06-30"
+     ],
+     "accn": "0000021076-25-000039"
+    },
+    "interest": {
+     "tag": "InterestExpense",
+     "method": "fiscal year",
+     "period": [
+      "2024-07-01",
+      "2025-06-30"
+     ],
+     "accn": "0000021076-25-000039"
+    },
+    "accn": "0000021076-25-000039"
+   },
+   "da": 219000000,
+   "daDetail": {
+    "tag": "DepreciationDepletionAndAmortization",
+    "method": "fiscal year",
+    "period": [
+     "2024-07-01",
+     "2025-06-30"
+    ],
+    "accn": "0000021076-25-000039"
+   },
+   "oneOffCharges": 0.0,
+   "oneOffDetail": {},
+   "netIncome": 810000000,
+   "netIncomeDetail": {
+    "tag": "NetIncomeLoss",
+    "method": "fiscal year",
+    "period": [
+     "2024-07-01",
+     "2025-06-30"
+    ],
+    "accn": "0000021076-25-000039"
+   },
+   "epsDiluted": 6.52,
+   "epsDetail": {
+    "tag": "EarningsPerShareDiluted",
+    "method": "fiscal year",
+    "period": [
+     "2024-07-01",
+     "2025-06-30"
+    ],
+    "accn": "0000021076-25-000039"
+   }
+  },
+  "ENR": {
+   "name": "ENERGIZER HOLDINGS, INC.",
+   "why": "Owns the Armor All and STP auto-care chemical brands alongside its battery business.",
+   "filing": {
+    "accn": "0001632790-25-000066",
+    "form": "10-Q",
+    "filed": "2025-08-04"
+   },
+   "price": 27.559999465942383,
+   "priceDate": "2025-08-29",
+   "shares": 68268535,
+   "sharesDetail": {
+    "date": "2025-07-31",
+    "accn": "0001632790-25-000066",
+    "filed": "2025-08-04",
+    "classes": 1
+   },
+   "debt": 3218400000,
+   "debtDetail": {
+    "components": {
+     "LongTermDebtAndCapitalLeaseObligations": [
+      3218400000,
+      "2025-06-30"
+     ]
+    },
+    "allTags": {
+     "LongTermDebtNoncurrent": [
+      3218400000,
+      "2025-06-30"
+     ],
+     "LongTermDebtCurrent": [
+      8400000,
+      "2025-06-30"
+     ],
+     "LongTermDebtAndCapitalLeaseObligations": [
+      3218400000,
+      "2025-06-30"
+     ]
+    },
+    "accn": "0001632790-25-000066"
+   },
+   "cash": 171100000,
+   "cashDetail": {
+    "tag": "CashAndCashEquivalentsAtCarryingValue",
+    "date": "2025-06-30",
+    "accn": "0001632790-25-000066"
+   },
+   "revenue": 2925600000,
+   "revenueDetail": {
+    "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "method": "FY 2024-09-30 + 9m to 2025-06-30 - 9m to 2024-06-30",
+    "accn": "0001632790-25-000066",
+    "fyAccn": "0001632790-24-000102",
+    "priorAccn": "0001632790-25-000066"
+   },
+   "ebit": 442000000,
+   "ebitDetail": {
+    "method": "pre-tax income + interest expense",
+    "pretax": {
+     "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+     "method": "FY 2024-09-30 + 9m to 2025-06-30 - 9m to 2024-06-30",
+     "accn": "0001632790-25-000066",
+     "fyAccn": "0001632790-24-000102",
+     "priorAccn": "0001632790-25-000066"
+    },
+    "interest": {
+     "tag": "InterestExpense",
+     "method": "FY 2024-09-30 + 9m to 2025-06-30 - 9m to 2024-06-30",
+     "accn": "0001632790-25-000066",
+     "fyAccn": "0001632790-24-000102",
+     "priorAccn": "0001632790-25-000066"
+    },
+    "accn": "0001632790-25-000066"
+   },
+   "da": 125500000,
+   "daDetail": {
+    "tag": "DepreciationDepletionAndAmortization",
+    "method": "FY 2024-09-30 + 9m to 2025-06-30 - 9m to 2024-06-30",
+    "accn": "0001632790-25-000066",
+    "fyAccn": "0001632790-24-000102",
+    "priorAccn": "0001632790-25-000066"
+   },
+   "oneOffCharges": 0.0,
+   "oneOffDetail": {},
+   "netIncome": 251700000,
+   "netIncomeDetail": {
+    "tag": "NetIncomeLoss",
+    "method": "FY 2024-09-30 + 9m to 2025-06-30 - 9m to 2024-06-30",
+    "accn": "0001632790-25-000066",
+    "fyAccn": "0001632790-24-000102",
+    "priorAccn": "0001632790-25-000066"
+   },
+   "epsDiluted": null,
+   "epsDetail": {
+    "tag": null,
+    "method": "not found",
+    "accn": "0001632790-25-000066"
+   }
+  },
+  "RPM": {
+   "name": "RPM International Inc.",
+   "why": "Rust-Oleum and DAP consumer maintenance and repair brands within a specialty-coatings group.",
+   "filing": {
+    "accn": "0000950170-25-098313",
+    "form": "10-K",
+    "filed": "2025-07-24"
+   },
+   "price": 125.30999755859375,
+   "priceDate": "2025-08-29",
+   "shares": 128376265,
+   "sharesDetail": {
+    "date": "2025-07-21",
+    "accn": "0000950170-25-098313",
+    "filed": "2025-07-24",
+    "classes": 1
+   },
+   "debt": 2646613000,
+   "debtDetail": {
+    "components": {
+     "LongTermDebtAndCapitalLeaseObligations": [
+      2638922000,
+      "2025-05-31"
+     ],
+     "LongTermDebtAndCapitalLeaseObligationsCurrent": [
+      7691000,
+      "2025-05-31"
+     ]
+    },
+    "allTags": {
+     "LongTermDebtCurrent": [
+      7691000,
+      "2025-05-31"
+     ],
+     "LongTermDebtAndCapitalLeaseObligations": [
+      2638922000,
+      "2025-05-31"
+     ],
+     "LongTermDebtAndCapitalLeaseObligationsCurrent": [
+      7691000,
+      "2025-05-31"
+     ]
+    },
+    "accn": "0000950170-25-098313"
+   },
+   "cash": 302137000,
+   "cashDetail": {
+    "tag": "CashAndCashEquivalentsAtCarryingValue",
+    "date": "2025-05-31",
+    "accn": "0000950170-25-098313"
+   },
+   "revenue": 7372644000,
+   "revenueDetail": {
+    "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "method": "fiscal year",
+    "period": [
+     "2024-06-01",
+     "2025-05-31"
+    ],
+    "accn": "0000950170-25-098313"
+   },
+   "ebit": 889303000,
+   "ebitDetail": {
+    "method": "pre-tax income + interest expense",
+    "pretax": {
+     "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+     "method": "fiscal year",
+     "period": [
+      "2024-06-01",
+      "2025-05-31"
+     ],
+     "accn": "0000950170-25-098313"
+    },
+    "interest": {
+     "tag": "InterestExpense",
+     "method": "fiscal year",
+     "period": [
+      "2024-06-01",
+      "2025-05-31"
+     ],
+     "accn": "0000950170-25-098313"
+    },
+    "accn": "0000950170-25-098313"
+   },
+   "da": 193840000,
+   "daDetail": {
+    "tag": "DepreciationDepletionAndAmortization",
+    "method": "fiscal year",
+    "period": [
+     "2024-06-01",
+     "2025-05-31"
+    ],
+    "accn": "0000950170-25-098313"
+   },
+   "oneOffCharges": 36331000.0,
+   "oneOffDetail": {
+    "GoodwillImpairmentLoss": {
+     "value": 11352000,
+     "tag": "GoodwillImpairmentLoss",
+     "method": "fiscal year",
+     "period": [
+      "2024-06-01",
+      "2025-05-31"
+     ],
+     "accn": "0000950170-25-098313"
+    },
+    "RestructuringCharges": {
+     "value": 24979000,
+     "tag": "RestructuringCharges",
+     "method": "fiscal year",
+     "period": [
+      "2024-06-01",
+      "2025-05-31"
+     ],
+     "accn": "0000950170-25-098313"
+    }
+   },
+   "netIncome": 688688000,
+   "netIncomeDetail": {
+    "tag": "NetIncomeLoss",
+    "method": "fiscal year",
+    "period": [
+     "2024-06-01",
+     "2025-05-31"
+    ],
+    "accn": "0000950170-25-098313"
+   },
+   "epsDiluted": 5.35,
+   "epsDetail": {
+    "tag": "EarningsPerShareDiluted",
+    "method": "fiscal year",
+    "period": [
+     "2024-06-01",
+     "2025-05-31"
+    ],
+    "accn": "0000950170-25-098313"
+   }
+  },
+  "KWR": {
+   "name": "QUAKER CHEMICAL CORPORATION",
+   "why": "Industrial process fluids and lubricants, the specialty-chemical side of WD-40's industrial users.",
+   "filing": {
+    "accn": "0000081362-25-000120",
+    "form": "10-Q",
+    "filed": "2025-07-31"
+   },
+   "price": 145.07000732421875,
+   "priceDate": "2025-08-29",
+   "shares": 17394619,
+   "sharesDetail": {
+    "date": "2025-07-28",
+    "accn": "0000081362-25-000120",
+    "filed": "2025-07-31",
+    "classes": 1
+   },
+   "debt": 935820000,
+   "debtDetail": {
+    "components": {
+     "LongTermDebtNoncurrent": [
+      897953000,
+      "2025-06-30"
+     ],
+     "ShortTermBorrowings": [
+      37867000,
+      "2025-06-30"
+     ]
+    },
+    "allTags": {
+     "LongTermDebtNoncurrent": [
+      897953000,
+      "2025-06-30"
+     ],
+     "DebtCurrent": [
+      37867000,
+      "2025-06-30"
+     ],
+     "ShortTermBorrowings": [
+      37867000,
+      "2025-06-30"
+     ]
+    },
+    "accn": "0000081362-25-000120"
+   },
+   "cash": 201918000,
+   "cashDetail": {
+    "tag": "CashAndCashEquivalentsAtCarryingValue",
+    "date": "2025-06-30",
+    "accn": "0000081362-25-000120"
+   },
+   "revenue": 1832674000,
+   "revenueDetail": {
+    "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+    "method": "FY 2024-12-31 + 6m to 2025-06-30 - 6m to 2024-06-30",
+    "accn": "0000081362-25-000120",
+    "fyAccn": "0000081362-25-000014",
+    "priorAccn": "0000081362-25-000120"
+   },
+   "ebit": 55845000,
+   "ebitDetail": {
+    "tag": "OperatingIncomeLoss",
+    "method": "FY 2024-12-31 + 6m to 2025-06-30 - 6m to 2024-06-30",
+    "accn": "0000081362-25-000120",
+    "fyAccn": "0000081362-25-000014",
+    "priorAccn": "0000081362-25-000120"
+   },
+   "da": 61892000,
+   "daDetail": {
+    "tag": "DepreciationDepletionAndAmortization",
+    "method": "FY 2024-12-31 + 6m to 2025-06-30 - 6m to 2024-06-30",
+    "accn": "0000081362-25-000120",
+    "fyAccn": "0000081362-25-000014",
+    "priorAccn": "0000081362-25-000120"
+   },
+   "oneOffCharges": 116576000.0,
+   "oneOffDetail": {
+    "AssetImpairmentCharges": {
+     "value": 88840000,
+     "tag": "AssetImpairmentCharges",
+     "method": "FY 2024-12-31 + 6m to 2025-06-30 - 6m to 2024-06-30",
+     "accn": "0000081362-25-000120",
+     "fyAccn": "0000081362-25-000014",
+     "priorAccn": "0000081362-25-000120"
+    },
+    "RestructuringCharges": {
+     "value": 27736000,
+     "tag": "RestructuringCharges",
+     "method": "FY 2024-12-31 + 6m to 2025-06-30 - 6m to 2024-06-30",
+     "accn": "0000081362-25-000120",
+     "fyAccn": "0000081362-25-000014",
+     "priorAccn": "0000081362-25-000120"
+    }
+   },
+   "netIncome": -7126000,
+   "netIncomeDetail": {
+    "tag": "NetIncomeLoss",
+    "method": "FY 2024-12-31 + 6m to 2025-06-30 - 6m to 2024-06-30",
+    "accn": "0000081362-25-000120",
+    "fyAccn": "0000081362-25-000014",
+    "priorAccn": "0000081362-25-000120"
+   },
+   "epsDiluted": -0.4200000000000004,
+   "epsDetail": {
+    "tag": "EarningsPerShareDiluted",
+    "method": "FY 2024-12-31 + 6m to 2025-06-30 - 6m to 2024-06-30",
+    "accn": "0000081362-25-000120",
+    "fyAccn": "0000081362-25-000014",
+    "priorAccn": "0000081362-25-000120"
+   }
+  }
+ }
+}

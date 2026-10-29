@@ -138,7 +138,7 @@ def fy_series(*tags):
     out = {}
     for tag in tags:
         for fct in facts.get(tag, {}).get("units", {}).get("USD", []):
-            if fct.get("form") != "10-K" or "start" not in fct:
+            if fct.get("form") != "10-K" or "start" not in fct or fct["filed"] > "2025-10-27":  # FY2025 10-K date; later filings are outside the case
                 continue
             s, e = dt.date.fromisoformat(fct["start"]), dt.date.fromisoformat(fct["end"])
             if 360 < (e - s).days < 372 and e.month == 8:
@@ -201,7 +201,7 @@ why = {
         "Year-1 revenue at the midpoint of FY2026 guidance ($642.5m pro forma, about 3.6% above reported FY2025 because divested homecare sales leave the base), then 6% a year, in line with the 6.2% FY2017-FY2025 compound rate.",
         "Year-1 margin at the guidance midpoint ($106.5m operating income) plus the workbook's R&D adjustment; target 18% by year 5, about a third of the way from the FY2022-FY2025 average back to the FY2017-FY2020 average (both after the R&D adjustment).",
         "Cost of capital from a bottom-up beta (average of Damodaran's Chemical (Specialty) and Household Products unlevered betas, January 2025) relevered at WD-40's market debt-to-equity, the 29 Aug 2025 10-year Treasury yield and Damodaran's September 2025 implied ERP. Held flat because WD-40 is already a mature company.",
-        "New capital after year 10 earns 15%: above the cost of capital because the brand and distribution persist, well below the 26% the model earns through year 10. Terminal growth 2.5%.",
+        "New capital after year 10 earns 15%, above the cost of capital because the brand and distribution persist, and well below the 27% or so the Base case earns in years 1-10. Terminal growth 2.5%.",
     ],
     "bull": [
         "Year-1 revenue at the top of FY2026 guidance ($655m pro forma), then 7% a year, above the 6.6% FY2019-FY2025 compound rate.",
@@ -216,7 +216,7 @@ scenarios = {"schemaVersion": 1, "assumptionSetVersion": "2025-10-27-retrospecti
                            "note": "Retrospective FY2025 review: uses the FY2025 10-K (27 Oct 2025) and the FY2026 guidance (22 Oct 2025), which were published after the price date."},
              "notChanged": ["Sales-to-capital stays at 2.0 in all scenarios (Input sheet!B31, B32).",
                             "Terminal tax rate stays at 25% (Input sheet!B24).",
-                            "Expected proceeds from the Americas homecare sale are not added: no price was disclosed and the sale had not closed."],
+                            "Expected proceeds from the Americas homecare sale are not added because no price was disclosed and the sale had not closed."],
              "scenarios": {k: {"label": k.title(), "overrides": scen[k], "rationale": why[k]} for k in ("bear", "base", "bull")},
              "sources": SOURCES}
 (ROOT / "models" / "scenarios.json").write_text(json.dumps(scenarios, indent=1) + "\n")

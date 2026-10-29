@@ -1,0 +1,40 @@
+{
+ "asOf": "2025-08-29",
+ "basis": "Enterprise value over trailing-twelve-month EBITDA before synergies, as disclosed by the parties. Where the parties state a multiple on another basis, it is recorded but not used in the range.",
+ "deals": [
+  {"id": "energizer-gac", "announced": "2018-11-15", "closed": "2019-01-28", "acquirer": "Energizer Holdings", "target": "Spectrum Brands Global Auto Care (Armor All, STP, A/C Pro)", "buyerType": "strategic",
+   "ev": 1250, "ebitda": 117, "ebitdaBasis": "adjusted, twelve months to 30 Jun 2018", "revenue": 465, "synergies": 15, "statedMultiple": "about 10.5x on current adjusted EBITDA run-rate, including synergies and operational improvements",
+   "inRange": true, "comparability": "Branded auto-care chemicals sold through the same retail channels as WD-40.",
+   "sources": ["https://www.sec.gov/Archives/edgar/data/0001632790/000119312518327420/d647259dex992.htm", "https://www.sec.gov/Archives/edgar/data/0001632790/000119312518327420/d647259dex993.htm"]},
+  {"id": "quaker-houghton", "announced": "2017-04-05", "closed": "2019-08-01", "acquirer": "Quaker Chemical", "target": "Houghton International", "buyerType": "strategic",
+   "ev": 1420, "ebitda": 120, "ebitdaBasis": "adjusted, FY2016", "revenue": 767, "synergies": 45, "statedMultiple": "11.8x adjusted EBITDA before synergies, 8.6x after",
+   "inRange": true, "comparability": "Industrial process fluids and lubricants; business-to-business rather than branded consumer.",
+   "sources": ["https://www.sec.gov/Archives/edgar/data/81362/000114420417019052/v463538_ex99-1.htm", "https://www.sec.gov/Archives/edgar/data/0000081362/000114420417019273/v463680_defa14a.htm"]},
+  {"id": "chd-waterpik", "announced": "2017-07-17", "closed": "2017-08-08", "acquirer": "Church & Dwight", "target": "Water Pik, Inc.", "buyerType": "strategic",
+   "ev": 1000, "ebitda": 80, "ebitdaBasis": "trailing twelve months (end date not given in the release)", "revenue": 265, "synergies": 10, "statedMultiple": null,
+   "inRange": true, "comparability": "Weaker: branded oral-care and shower products, but an asset-light consumer brand bought by a strategic buyer.",
+   "sources": ["https://www.sec.gov/Archives/edgar/data/313927/000119312517228910/d426675dex991.htm"]},
+  {"id": "aramco-valvoline-gp", "announced": "2022-08-01", "closed": "2023-03-01", "acquirer": "Aramco", "target": "Valvoline Global Products (lubricants)", "buyerType": "strategic",
+   "ev": 2650, "ebitda": 317, "ebitdaBasis": "segment adjusted EBITDA, twelve months to 30 Jun 2022 (FY2021 327 + 9m FY2022 245 - 9m FY2021 255)", "revenue": 1760, "synergies": null, "statedMultiple": null,
+   "inRange": true, "comparability": "Branded lubricants; the seller kept the brand for its retail services and signed a supply agreement, which lowers comparability.",
+   "sources": ["https://www.sec.gov/Archives/edgar/data/1674910/000119312522207637/d311927dex991.htm", "https://www.sec.gov/Archives/edgar/data/1674910/000167491021000112/q4-2021earningsrelease.htm", "https://www.sec.gov/Archives/edgar/data/1674910/000167491022000072/q3-2022earningsrelease.htm"]},
+  {"id": "chd-therabreath", "announced": "2021-11-29", "closed": "2021-12-27", "acquirer": "Church & Dwight", "target": "TheraBreath", "buyerType": "strategic",
+   "ev": 580, "ebitda": 27, "ebitdaBasis": "trailing twelve months to Sep 2021; gross price, before an $85m tax shield", "revenue": 86, "synergies": 6, "statedMultiple": "13.7x, net of the tax shield, on 2022 run-rate EBITDA including synergies",
+   "inRange": true, "comparability": "Weaker: a fast-growing oral-care brand.",
+   "sources": ["https://s203.q4cdn.com/233583214/files/doc_events/2021/11/11-29-21-Therabreath-Announcement.pdf"]},
+  {"id": "newmountain-zep", "announced": "2015-04-08", "closed": "2015-06-26", "acquirer": "New Mountain Capital", "target": "Zep Inc.", "buyerType": "financial sponsor",
+   "ev": 692, "ebitda": 63, "ebitdaBasis": "management projection, FY ending Aug 2015 (forward, not trailing)", "revenue": 700, "synergies": null, "statedMultiple": null,
+   "inRange": false, "comparability": "Maintenance and cleaning chemicals bought by a private-equity firm; excluded from the range because the EBITDA is a forecast.",
+   "sources": ["https://www.sec.gov/Archives/edgar/data/0001408287/000110465915026467/a15-8802_1ex99d1.htm", "https://www.sec.gov/Archives/edgar/data/1408287/000104746915004989/a2224840zdefm14a.htm"]},
+  {"id": "spectrum-aag", "announced": "2015-04-28", "closed": "2015-05-21", "acquirer": "Spectrum Brands", "target": "Armored AutoGroup (Armor All, STP, A/C Pro)", "buyerType": "strategic",
+   "ev": 1400, "ebitda": 140, "ebitdaBasis": "adjusted, calendar 2015 forecast including synergies, stated as 'in excess of' $140m", "revenue": 440, "synergies": null, "statedMultiple": null,
+   "inRange": false, "comparability": "Branded auto-care chemicals; excluded from the range because the EBITDA is a forecast that includes synergies.",
+   "sources": ["https://www.sec.gov/Archives/edgar/data/1487730/000095014215000932/eh1500571_8k.htm", "https://www.sec.gov/Archives/edgar/data/1487730/000095014215001201/eh1500732_8k.htm"]}
+ ],
+ "excluded": [
+  {"target": "The Sun Products Corp. (Henkel, 2016)", "reason": "EBITDA not disclosed; the 18x often quoted is an analyst estimate."},
+  {"target": "Clorox global Auto Care (Avista, 2010)", "reason": "Only EBIT disclosed (about 8.7x EV/EBIT) and the deal is 15 years old."},
+  {"target": "Blumenthal Brands / GUNK, Liquid Wrench (B'laster, 2022)", "reason": "No price disclosed."},
+  {"target": "CRC Industries", "reason": "Owned by Berwind since 1981; no disclosed value."}
+ ]
+}

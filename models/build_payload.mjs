@@ -8,8 +8,19 @@ const read = p => JSON.parse(readFileSync(join(ROOT, p), 'utf8'));
 const S = read('models/scenarios.json');
 const E = read('models/out/scenarios_eval.json');
 const M = read('models/out/measure/stage1.json');
-const extra = existsSync(join(ROOT, 'models/out/methods.json')) ? read('models/out/methods.json') : {methods: [], sources: {}, books: {}};
-const questions = existsSync(join(ROOT, 'models/out/questions.json')) ? read('models/out/questions.json') : null;
+const MC = read('models/out/methods_comps.json'), MO = read('models/out/valuation_book/../methods_core.json');
+const extra = {methods: [...MC.methods.filter(m => m.id === 'comps'), ...MO.methods, ...MC.methods.filter(m => m.id !== 'comps')], sources: {...MC.sources, ...MO.sources}};
+const Q = read('models/questions/questions.json');
+const questions = {asOf: Q.asOf, note: Q.note, topics: Q.topics, coverage: Q.coverage};
+// model sheets for the Workbook tab: page cell schema, without Python-only fields except the value used for the in-browser check
+const cellsAll = read('models/out/valuation_book/valuation_cells.json');
+const books = {};
+for (const [id, c] of Object.entries(cellsAll)) {
+  const slim = {id, sheet: c.sheet, address: c.address, value: c.value, formula: c.formula, classification: c.classification, dependencies: c.dependencies, input: c.input};
+  if (c.label) slim.label = c.label;
+  if (c.formula && typeof c.pythonValue === 'number') slim.pythonValue = c.pythonValue;
+  (books[c.sheet] ??= {})[id] = slim;
+}
 
 // 52-week range to the price date, from the saved daily file
 const daily = readFileSync(join(ROOT, 'models/data/market/wdfc_daily_2024-08-01_2025-09-09.csv'), 'utf8').trim().split('\n').slice(1)
@@ -25,6 +36,7 @@ const sources = {
   'target-jefferies': {title: 'Jefferies raises WD-40 target to $280 from $250, Hold (The Fly via TipRanks)', url: 'https://www.tipranks.com/news/the-fly/wd-40-price-target-raised-to-280-from-250-at-jefferies', publishedAt: '2024-10-18'},
   ...Object.fromEntries(Object.entries(S.sources).map(([k, v]) => [k, v])),
   ...extra.sources,
+  ...Q.sources,
 };
 
 const sc = k => {
@@ -37,11 +49,11 @@ const methods = [
   {id: 'dcf', group: 'standalone', label: 'DCF, Bear to Bull', sublabel: 'FCFF Ginzu, saved scenarios', kind: 'range',
     low: E.results.bear.result.value, base: E.results.base.result.value, high: E.results.bull.result.value,
     scenarios: {bear: sc('bear'), base: sc('base'), bull: sc('bull')},
-    note: 'Each scenario is a complete set of Ginzu inputs: the original case plus the listed changes. They keep their values when you edit your review.',
+    note: 'Each scenario is a complete set of Ginzu inputs, made of the original case plus the listed changes. Scenarios keep their values when you edit your review.',
     sourceIds: ['ust-par-2025-08-29', 'damodaran-erp-2025-09', 'damodaran-betas-2025-01', 'wdfc-8k-2025-10-22', 'sec-xbrl'], status: 'verified-js'},
   {id: 'dcf-original', group: 'standalone', label: 'DCF, original case', sublabel: '70 proposals as researched', kind: 'point',
     base: E.results.original.result.value, scenarios: {original: sc('original')},
-    note: 'The case as researched: WACC 9% fading to 8%, flat margin, terminal ROIC equal to WACC. The case labels these as illustrative placeholders.', sourceIds: [], status: 'verified-js'},
+    note: 'In the case as researched, WACC fades from 9% to 8%, the margin stays flat and terminal ROIC equals WACC. The case labels these inputs as illustrative placeholders.', sourceIds: [], status: 'verified-js'},
   ...extra.methods,
 ];
 
@@ -66,7 +78,8 @@ const payload = {
       rationale: 'Workbook default. It has no effect while "Terminal excess-return override" is No. The Base scenario turns the override on and uses 15%.',
       period: 'Forward scenario assumption', agent: 'stage2', caveats: ['Added with the valuation range. Kept at the workbook value until you change it.']},
   ],
-  books: extra.books,
+  books,
+  checks: {eva: MO.eva},
   questions,
   sources,
 };

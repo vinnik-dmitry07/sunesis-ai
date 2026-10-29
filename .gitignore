@@ -1,5 +1,9 @@
 models/out/
 *.bak
 __pycache__/
-models/data/benchmarks/
 .claude/
+models/data/benchmarks/
+models/data/sec/*_companyfacts.json
+!models/data/sec/wdfc_companyfacts.json
+models/data/sec/company_tickers.json
+*.html.tmp
