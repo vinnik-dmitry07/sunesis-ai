@@ -1,8 +1,14 @@
 models/out/
 *.bak
 __pycache__/
+*.pyc
+.venv/
 .claude/
-models/data/benchmarks/
+.artifacts/
+dist/
+.openai/hosting.json
+models/data/benchmarks/*
+!models/data/benchmarks/manifest.json
 models/data/sec/*_companyfacts.json
 !models/data/sec/wdfc_companyfacts.json
 models/data/sec/company_tickers.json
