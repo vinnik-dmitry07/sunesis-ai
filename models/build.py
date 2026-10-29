@@ -67,6 +67,7 @@ run("Stage 1 measurement with the page engine", ["node", "models/measure.mjs"])
 run("Stage 2 dated assumptions", PY + ["models/stage2_assumptions.py"])
 run("Scenarios evaluated with the page engine", ["node", "models/scenarios.mjs"])
 run("Resolved Ginzu inputs per case", ["node", "models/export_ginzu_cases.mjs"])
+run("Unsupported Ginzu features are refused", ["node", "--test", "models/tests/scope.test.mjs"])
 run("Python DCF port", PY + ["models/dcf.py"])
 run("Row-by-row DCF comparison", PY + ["models/compare_dcf.py"])
 checks["dcfCompare"] = json.loads((OUT / "dcf" / "compare.json").read_text())["inputs"]
@@ -110,6 +111,16 @@ if cells.exists():
             finish(failed=True)
         checks["excel"] = {**{k: xr[k] for k in ("inputSha256", "recalculatedSha256", "cellsSha256", "checked", "failed", "worstRelative")},
                            "publishedPath": "models/excel/wd40_valuation.xlsx", "publishedSha256": published}
+        # Input changes made inside Excel, compared with a fresh Python build of the same change.
+        variants = [("wacc0:base=0.065", "Scenario inputs!D21=0.065", "Base WACC 6.5%"),
+                    ("growth25:bull=0.09", "Scenario inputs!E12=0.09", "Bull years 2-5 growth 9%"),
+                    ("growthT:bear=0.015", "Scenario inputs!C13=0.015", "Bear terminal growth 1.5%")]
+        checks["excelInputChanges"] = []
+        for spec, cell, label in variants:
+            run(f"Python DCF with {label}", PY + ["models/dcf.py", "--variant", spec])
+            run(f"Excel recalculation with {label}", PY + ["models/verify_excel.py", "models/out/dcf/wd40_dcf.xlsx", "models/out/dcf/variant/dcf_cells.json", cell])
+            vr = json.loads((OUT / "dcf" / "variant" / "dcf_cells.excel-check.json").read_text())
+            checks["excelInputChanges"].append({"change": label, "cell": cell, "checked": vr["checked"], "failed": vr["failed"], "worstRelative": vr["worstRelative"]})
     (OUT / "checks.json").write_text(json.dumps(checks, indent=1), encoding="utf-8")
     run("Page payload", ["node", "models/build_payload.mjs"])
     run("Payload embedded in index.html", PY + ["models/inject.py"])

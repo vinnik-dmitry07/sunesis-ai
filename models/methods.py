@@ -308,8 +308,55 @@ def syn_sheet(k):
 syn = {k: syn_sheet(k) for k in SYN}
 
 # ---------------------------------------------------------------- export
-sheets = SH + list(eva.values()) + list(ddm.values()) + list(lbo.values()) + list(syn.values()) + [comps.sh, comps.val] + precedents.sheets
+# Summary: one row per method, every number a cross-sheet formula to the sheet that computes it.
+SUM_ROWS = ["Reference price, Nasdaq close 29 Aug 2025", "DCF, original case (70 proposals as researched)", "DCF: Bear / Base / Bull",
+            "Dividend discount: Bear / Base / Bull", "Trading comparables: 25th percentile / median / 75th percentile",
+            "Precedent transactions: 25th percentile / median / 75th percentile", "Buyout fund, highest price at the target return (price solved in Python)",
+            "Strategic buyer, Base value plus all synergies: Bear / Base / Bull", "EVA minus DCF operating value, USD m (zero when consistent)"]
+summary = ps.Sheet.create_new_sheet(len(SUM_ROWS), 3, name="Summary", rows_labels=SUM_ROWS, columns_labels=["Low / Bear", "Base / median", "High / Bull"])
+SR = {k: i for i, k in enumerate(SUM_ROWS)}
+xr = lambda src, row, col: summary.fn.cross_reference(src.iloc[row, col], src)  # noqa: E731
+summary.iloc[SR["Reference price, Nasdaq close 29 Aug 2025"], 1] = 216.04
+summary.iloc[SR["DCF, original case (70 proposals as researched)"], 1] = xr(CASE_SHEETS["original"], R["Value per share"], 0)
+for j, k in enumerate(["bear", "base", "bull"]):
+    summary.iloc[SR["DCF: Bear / Base / Bull"], j] = xr(CASE_SHEETS[k], R["Value per share"], 0)
+    summary.iloc[SR["Dividend discount: Bear / Base / Bull"], j] = xr(ddm[k], D["Value per share"], 0)
+    summary.iloc[SR["Trading comparables: 25th percentile / median / 75th percentile"], j] = xr(comps.val, comps.V["Value per share"], j)
+    summary.iloc[SR["Precedent transactions: 25th percentile / median / 75th percentile"], j] = xr(precedents.val, precedents.V["Value per share"], j)
+    summary.iloc[SR["Buyout fund, highest price at the target return (price solved in Python)"], j] = xr(lbo[k], L_["Entry price per share"], 0)
+    summary.iloc[SR["Strategic buyer, Base value plus all synergies: Bear / Base / Bull"], j] = xr(syn[k], S_["Value per share to a buyer that keeps all synergies"], 0)
+    summary.iloc[SR["EVA minus DCF operating value, USD m (zero when consistent)"], j] = xr(eva[k], E["Difference (EVA minus DCF)"], 0)
+
+sheets = [summary] + SH + list(eva.values()) + list(ddm.values()) + list(lbo.values()) + list(syn.values()) + [comps.sh, comps.val] + precedents.sheets
 write_xlsx(sheets, OUT / "wd40_valuation.xlsx")
+
+# Sources and definitions: text only, added after the formula export (Excel recalculates the published copy).
+import openpyxl  # noqa: E402
+
+SC = json.loads((HERE / "scenarios.json").read_text(encoding="utf-8"))
+all_sources = {**SC["sources"], **comps.sources, **precedents.sources,
+               "nyfed-sofr-2025-08-29": {"title": "SOFR, New York Fed, 29 Aug 2025", "url": "https://markets.newyorkfed.org/api/rates/secured/sofr/search.json?startDate=2025-08-25&endDate=2025-09-02", "asOf": "2025-08-29"},
+               "price-close": {"title": "WDFC daily prices, Nasdaq (Yahoo Finance chart API)", "file": "models/data/market/wdfc_daily_2024-08-01_2025-09-09.csv", "asOf": "2025-08-29"}}
+wbx = openpyxl.load_workbook(OUT / "wd40_valuation.xlsx")
+ws = wbx.create_sheet("Sources")
+ws.append(["Id", "Source", "As of", "Published", "Link or file"])
+for sid, src in all_sources.items():
+    ws.append([sid, src.get("title"), src.get("asOf"), src.get("publishedAt"), src.get("url") or src.get("file")])
+ws.append([])
+ws.append(["Definitions"])
+for line in ["Money in USD millions unless a row says per share; per-share values in USD.",
+             "Reference price: $216.04, the Nasdaq unadjusted close on 29 Aug 2025, the last trading day of fiscal 2025.",
+             "Filings: up to the FY2025 10-K published 27 Oct 2025, so the case is a retrospective review, not a forecast made on the price date.",
+             "Per-share values divide by 13.633263m shares: common shares plus RSUs, target MSUs and vested DPUs (case proposal Input sheet!B21).",
+             "EBITDA: reported operating income plus depreciation and amortization; peers add back the one-off charges listed in Comps peers.",
+             "Model EBIT: after the Ginzu workbook's three-year R&D capitalization (+2.27 in FY2025).",
+             "Scenario inputs are the resolved Ginzu driver values of each case, copied as labelled constants; the DCF sheets reproduce the page engine row by row.",
+             "Comps and precedent quartiles are computed in Python and entered as constants; changing a peer or deal needs a rebuild."]:
+    ws.append([line])
+for col, width in zip("ABCDE", (28, 70, 12, 12, 60)):
+    ws.column_dimensions[col].width = width
+wbx.move_sheet("Sources", offset=-(len(wbx.sheetnames) - 2))
+wbx.save(OUT / "wd40_valuation.xlsx")
 cells = export_cells(sheets)
 (OUT / "valuation_cells.json").write_text(json.dumps(cells, indent=1))
 

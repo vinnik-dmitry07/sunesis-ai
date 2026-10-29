@@ -3,6 +3,7 @@
 import {readFileSync, writeFileSync} from 'node:fs';
 import {join} from 'node:path';
 import {loadPage, originalOverrides, stableHash, ROOT} from './lib/page.mjs';
+import {unsupportedFeatures} from './lib/scope.mjs';
 
 const P = await loadPage();
 const ORIGINAL = originalOverrides(P.data);
@@ -42,6 +43,11 @@ for (const [k, s] of Object.entries(S.scenarios)) cases[k] = {label: s.label, ov
 const out = {};
 for (const [k, c] of Object.entries(cases)) {
   e.reset(c.overrides);
+  const unsupported = unsupportedFeatures(e);
+  if (unsupported.length) {
+    console.error(`Case ${k} uses Ginzu features the Python port does not model: ${unsupported.join('; ')}. Export refused.`);
+    process.exit(1);
+  }
   const g = id => e.safe(id).value;
   const drivers = Object.fromEntries(Object.entries(DRIVERS).map(([name, [id, label, unit]]) => {
     let v = g(id);
