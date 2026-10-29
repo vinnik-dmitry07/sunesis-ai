@@ -1,6 +1,7 @@
 // Assembles BUNDLED_VALUATION from saved model outputs. No network, no clock.
 // Usage: node models/build_payload.mjs  ->  models/out/valuation.json
 import {readFileSync, writeFileSync, existsSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import {join} from 'node:path';
 import {ROOT} from './lib/page.mjs';
 
@@ -50,12 +51,30 @@ const methods = [
     low: E.results.bear.result.value, base: E.results.base.result.value, high: E.results.bull.result.value,
     scenarios: {bear: sc('bear'), base: sc('base'), bull: sc('bull')},
     note: 'Each scenario is a complete set of Ginzu inputs, made of the original case plus the listed changes. Scenarios keep their values when you edit your review.',
-    sourceIds: ['ust-par-2025-08-29', 'damodaran-erp-2025-09', 'damodaran-betas-2025-01', 'wdfc-8k-2025-10-22', 'sec-xbrl'], status: 'verified-js'},
+    sourceIds: ['ust-par-2025-08-29', 'damodaran-erp-2025-09', 'damodaran-betas-2025-01', 'wdfc-8k-2025-10-22', 'sec-xbrl'], status: 'engine'},
   {id: 'dcf-original', group: 'standalone', label: 'DCF, original case', sublabel: '70 proposals as researched', kind: 'point',
     base: E.results.original.result.value, scenarios: {original: sc('original')},
-    note: 'In the case as researched, WACC fades from 9% to 8%, the margin stays flat and terminal ROIC equals WACC. The case labels these inputs as illustrative placeholders.', sourceIds: [], status: 'verified-js'},
+    note: 'In the case as researched, WACC fades from 9% to 8%, the margin stays flat and terminal ROIC equals WACC. The case labels these inputs as illustrative placeholders.', sourceIds: [], status: 'engine'},
   ...extra.methods,
 ];
+
+// Statuses come from the checks of the exact files in this build, matched by sha256.
+const sha = path => createHash('sha256').update(readFileSync(join(ROOT, path))).digest('hex');
+const CK = existsSync(join(ROOT, 'models/out/checks.json')) ? read('models/out/checks.json') : {};
+const engineOk = !!CK.engine && CK.engine.failed === 0 && CK.engine.cellsSha256 === sha('models/out/valuation_book/valuation_cells.json');
+const excelOk = engineOk && !!CK.excel && CK.excel.failed === 0 && existsSync(join(ROOT, 'models/excel/wd40_valuation.xlsx'))
+  && CK.excel.publishedSha256 === sha('models/excel/wd40_valuation.xlsx') && CK.excel.cellsSha256 === CK.engine.cellsSha256;
+const STATUS = {
+  engine: 'Calculated by the page engine',
+  python: 'Calculated in Python from filings and closing prices',
+  workbook: excelOk ? 'Workbook formulas checked against Python in the page engine and in Excel' : engineOk ? 'Workbook formulas checked against Python in the page engine; Excel check not run for this build' : 'Workbook formulas not checked in this build',
+};
+for (const m of methods) m.statusText = STATUS[m.status] ?? m.status;
+const checksOut = {
+  readinessAtPayload: CK.mode === 'release' ? 'release build' : 'partial build',
+  engine: CK.engine ? {checked: CK.engine.checked, failed: CK.engine.failed, matchesThisBuild: engineOk} : null,
+  excel: CK.excel ? {checked: CK.excel.checked, failed: CK.excel.failed, matchesThisBuild: excelOk, workbook: CK.excel.publishedPath, sha256: CK.excel.publishedSha256} : null,
+};
 
 const payload = {
   schemaVersion: 1,
@@ -79,7 +98,7 @@ const payload = {
       period: 'Forward scenario assumption', agent: 'stage2', caveats: ['Added with the valuation range. Kept at the workbook value until you change it.']},
   ],
   books,
-  checks: {eva: MO.eva},
+  checks: {eva: MO.eva, ...checksOut},
   questions,
   sources,
 };

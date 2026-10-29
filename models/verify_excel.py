@@ -6,7 +6,9 @@ With --set, the listed inputs are changed in Excel before recalculation and the 
 for cells downstream of them (their expected values are in a separate cells file).
 Exit code 0 when all formula cells match within 1e-9 relative (or absolute near zero).
 """
+import hashlib
 import json
+import math
 import pathlib
 import sys
 import time
@@ -23,18 +25,25 @@ def read_values(wb, ids):
     return out
 
 
+def finite(x):
+    return isinstance(x, (int, float)) and not isinstance(x, bool) and math.isfinite(x)
+
+
 def compare(vals, cells):
+    """A missing or non-finite value on either side is a mismatch, never a match."""
     bad, worst = [], 0.0
     for cid, v in vals.items():
-        py = cells[cid]["pythonValue"]
+        py = cells[cid].get("pythonValue")
         if isinstance(py, bool):
             py = float(py)
-        if isinstance(py, (int, float)) and isinstance(v, (int, float)):
-            d = abs(v - py)
-            worst = max(worst, d / max(1.0, abs(py)))
-            if not (d <= 1e-9 or d <= 1e-9 * abs(py)):
-                bad.append((cid, cells[cid]["formula"], py, v))
-        elif str(py) != str(v):
+        if isinstance(v, bool):
+            v = float(v)
+        if not finite(py) or not finite(v):
+            bad.append((cid, cells[cid]["formula"], py, v))
+            continue
+        d = abs(v - py)
+        worst = max(worst, d / max(1.0, abs(py)))
+        if not (d <= 1e-9 or d <= 1e-9 * abs(py)):
             bad.append((cid, cells[cid]["formula"], py, v))
     return bad, worst
 
@@ -70,10 +79,13 @@ def main():
           f"{len(reread_diff)} cells changed after save and reopen")
     for b in bad[:20]:
         print("  MISMATCH", *b)
-    report = {"workbook": str(xlsx.name), "checked": len(formula_ids), "failed": len(bad), "worstRelative": worst,
+    sha = lambda path: hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()  # noqa: E731
+    report = {"workbook": str(xlsx.name), "inputSha256": sha(xlsx), "recalculatedSha256": sha(recalced),
+              "cellsSha256": sha(sys.argv[2]), "inputsChanged": [list(x) for x in sets],
+              "checked": len(formula_ids), "failed": len(bad), "worstRelative": worst,
               "changedAfterReopen": reread_diff, "mismatches": [list(map(str, b)) for b in bad]}
     pathlib.Path(sys.argv[2]).with_suffix(".excel-check.json").write_text(json.dumps(report, indent=1))
-    sys.exit(1 if bad or reread_diff else 0)
+    sys.exit(1 if bad or reread_diff or not formula_ids else 0)
 
 
 if __name__ == "__main__":

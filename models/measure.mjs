@@ -26,7 +26,7 @@ const snapshot = {
   overrides: sortObj(ORIGINAL),
   retainedFormulas: [...retained].sort(),
   provenance: {indexHtmlSha256: P.hashes.indexHtml, engineSha256: P.hashes.engine, workbookSha256: P.hashes.workbook,
-    caseCreatedAt: P.data.createdAt, gitCommitOfIndexHtml: commit},
+    caseCreatedAt: P.data.createdAt},
 };
 writeFileSync(join(ROOT, 'models/snapshots/original.json'), JSON.stringify(snapshot, null, 1) + '\n');
 writeFileSync(join(ROOT, 'models/snapshots/current.json'), JSON.stringify({...snapshot, name: 'current',

@@ -4,8 +4,11 @@ Tolerance fixed in advance: |a - b| <= 1e-9, or <= 1e-9 * |b|. Reports the first
 Also re-runs the earlier quick replica's reinvestment timing (same-year revenue change) to test whether it explains $88.06.
 Run:  python -I models/compare_dcf.py   ->  models/out/dcf/compare.json, reports/04-dcf-port.md
 """
+import hashlib
 import json
+import math
 import pathlib
+import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -18,36 +21,54 @@ COLS = ["base"] + [f"y{t}" for t in range(1, 11)] + ["terminal"]
 ABS, REL = 1e-9, 1e-9
 
 
+# Cells that are blank on both sides by construction: the base-year column has no flow rows.
+ALLOWED_BLANK = {(r, 0) for r in ("growth", "s2c", "reinvestment", "fcff", "wacc", "discount", "pv")}
+# Terminal column of these rows is computed in the valuation block, not in the row itself.
+TERMINAL_SKIP = {"investedCapital", "roic", "pv", "discount", "s2c"}
+
+
+def finite(x):
+    return isinstance(x, (int, float)) and not isinstance(x, bool) and math.isfinite(x)
+
+
 def close(a, b):
-    if a is None or b is None:
-        return a is None and b is None or (a in (None, 0) and b in (None, 0))
-    return abs(a - b) <= ABS or abs(a - b) <= REL * abs(b)
+    return finite(a) and finite(b) and (abs(a - b) <= ABS or abs(a - b) <= REL * abs(b))
 
 
-result = {}
-for case in PY:
+result, errors = {}, []
+if set(PY) != set(G):
+    errors.append(f"case sets differ: python {sorted(PY)} engine {sorted(G)}")
+for case in sorted(set(PY) & set(G)):
     first, worst, checked = None, 0.0, 0
     for py_row, g_row in PAIRS.items():
-        a_list, b_list = PY[case]["rows"][py_row], G[case]["rows"][g_row]
+        a_list, b_list = PY[case]["rows"].get(py_row), G[case]["rows"].get(g_row)
+        if a_list is None or b_list is None or len(a_list) != 12 or len(b_list) != 12:
+            errors.append(f"{case} {py_row}: row missing or not 12 columns")
+            continue
         for t, (a, b) in enumerate(zip(a_list, b_list)):
-            if g_row in ("investedCapital", "roic", "pv", "discount", "s2c") and t == 11:
-                continue  # terminal column is computed in the valuation block instead
+            if g_row in TERMINAL_SKIP and t == 11:
+                continue
             if a is None and b is None:
+                if (g_row, t) not in ALLOWED_BLANK:
+                    errors.append(f"{case} {py_row} {COLS[t]}: unexpected blank on both sides")
                 continue
             checked += 1
-            if isinstance(a, (int, float)) and isinstance(b, (int, float)):
+            if finite(a) and finite(b):
                 worst = max(worst, abs(a - b) / max(1.0, abs(b)))
             if not close(a, b) and first is None:
                 first = {"row": py_row, "column": COLS[t], "python": a, "engine": b}
     for k_py, k_g in [("terminalValue", "terminalValue"), ("pvTerminalValue", "pvTerminalValue"), ("sumPV", "sumPV"),
                       ("operatingAssets", "operatingAssets"), ("valuePerShare", "valuePerShare")]:
         checked += 1
-        a, b = PY[case][k_py], G[case]["bridge"][k_g]
-        worst = max(worst, abs(a - b) / max(1.0, abs(b)))
+        a, b = PY[case].get(k_py), G[case]["bridge"].get(k_g)
+        if finite(a) and finite(b):
+            worst = max(worst, abs(a - b) / max(1.0, abs(b)))
         if not close(a, b) and first is None:
             first = {"row": k_py, "column": "valuation", "python": a, "engine": b}
     result[case] = {"checked": checked, "firstDivergence": first, "worstRelative": worst,
                     "python": PY[case]["valuePerShare"], "engine": G[case]["bridge"]["valuePerShare"]}
+    if first:
+        errors.append(f"{case}: first divergence {first}")
 
 
 def replica(d, lead=True):
@@ -85,7 +106,8 @@ def replica(d, lead=True):
 
 
 timing = {case: {"leadTiming": replica(G[case]["drivers"], True), "sameYearTiming": replica(G[case]["drivers"], False)} for case in G}
-(HERE / "out" / "dcf" / "compare.json").write_text(json.dumps({"tolerance": {"absolute": ABS, "relative": REL}, "cases": result, "timing": timing}, indent=1))
+(HERE / "out" / "dcf" / "compare.json").write_text(json.dumps({"tolerance": {"absolute": ABS, "relative": REL}, "cases": result, "timing": timing, "errors": errors,
+    "inputs": {n: hashlib.sha256((HERE / "out" / n).read_bytes()).hexdigest() for n in ("ginzu_cases.json", "dcf/dcf_rows.json")}}, indent=1))
 
 L = ["# Stage 4b: DCF port and comparison", "",
      "`python -I models/dcf.py` rebuilds the Ginzu FCFF valuation on portable-spreadsheet, with an input sheet holding each case's resolved Ginzu driver values and one DCF sheet per case. `python -I models/compare_dcf.py` compares every row and year with the page engine. Tolerance, fixed before the run: absolute 1e-9, or relative 1e-9.", "",
@@ -103,4 +125,7 @@ L += ["", "With workbook timing the replica returns the engine's value. Same-yea
       "Net operating losses, the distress adjustment, employee option dilution and the trapped-cash haircut. Every case keeps these switched off (Input sheet B51, B61, B37 and B70 are No), and the engine values match without them.", ""]
 (ROOT / "reports" / "04-dcf-port.md").write_text("\n".join(L))
 print(json.dumps({k: (v["firstDivergence"], round(v["worstRelative"], 15)) for k, v in result.items()}))
+if errors:
+    print("DCF comparison FAILED: " + " | ".join(errors))
+    sys.exit(1)
 print({k: {kk: round(vv, 6) for kk, vv in v.items()} for k, v in timing.items()})

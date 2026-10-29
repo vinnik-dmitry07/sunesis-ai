@@ -4,10 +4,10 @@
 
 | Case | Values compared | First divergence | Worst relative difference | Python | Engine |
 |---|---:|---|---:|---:|---:|
-| original | 161 | none | 1.6e-16 | 88.150296 | 88.150296 |
-| bear | 161 | none | 0.0e+00 | 80.908313 | 80.908313 |
 | base | 161 | none | 0.0e+00 | 126.299209 | 126.299209 |
+| bear | 161 | none | 0.0e+00 | 80.908313 | 80.908313 |
 | bull | 161 | none | 2.0e-16 | 205.264765 | 205.264765 |
+| original | 161 | none | 1.6e-16 | 88.150296 | 88.150296 |
 
 ## Why the earlier replica gave $88.06
 

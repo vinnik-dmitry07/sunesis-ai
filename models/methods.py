@@ -306,14 +306,14 @@ pc = lambda x, d=1: f"{x * 100:.{d}f}%"  # noqa: E731
 L, Dd, Sy = res["lbo"], res["ddm"], res["synergies"]
 methods = [
     {"id": "ddm", "group": "standalone", "label": "Dividend discount", "sublabel": "dividends only, Bear to Bull", "kind": "range",
-     "low": Dd["bear"]["value"], "base": Dd["base"]["value"], "high": Dd["bull"]["value"], "status": "verified-js",
+     "low": Dd["bear"]["value"], "base": Dd["base"]["value"], "high": Dd["bull"]["value"], "status": "workbook",
      "note": ("Dividends per share grow with EPS for ten years from FY2025 non-GAAP EPS of $5.82 and a $3.76 annual dividend, then the payout rises to 1 - growth / return on equity. "
               "Cost of equity is the Stage 2 CAPM figure for each scenario. Buybacks are left out because FY2025 repurchases were $12.3m against $50.3m of dividends."),
      "table": [["Scenario", "EPS growth, years 1-10", "Cost of equity", "Terminal growth", "Terminal return on equity", "Terminal payout", "Value per share"]] +
               [[k.title(), pc(d["g"], 0), pc(d["costOfEquity"], 2), pc(d["gT"]), "cost of equity" if d["roe"] is None else pc(d["roe"], 0), pc(d["terminalPayout"], 0), f"${d['value']:.2f}"] for k, d in Dd.items()],
      "cells": [d["cell"] for d in Dd.values()], "sourceIds": ["wdfc-8k-2025-10-22", "sec-xbrl", "damodaran-erp-2025-09"]},
     {"id": "lbo", "group": "buyer", "label": "Buyout fund", "sublabel": "highest price that meets the target return", "kind": "range",
-     "low": L["bear"]["price"], "base": L["base"]["price"], "high": L["bull"]["price"], "status": "verified-js",
+     "low": L["bear"]["price"], "base": L["base"]["price"], "high": L["bull"]["price"], "status": "workbook",
      "note": (f"Sources and uses at the entry price, new debt at SOFR on 29 Aug 2025 ({pc(SOFR_0829, 2)}) plus 3.5%, existing debt refinanced, cash above $30m used, 2% transaction and 2.5% financing fees. "
               "The Base DCF operating case funds interest and repays debt for five years, then the business is sold at the peer EV/EBITDA quartile. "
               "With one equity payment in and one out, IRR = MOIC^(1/5) - 1. Each price is the highest at which the IRR meets the target; it is found on a $5 grid from $50 to $230 and refined to the cent. "
@@ -322,7 +322,7 @@ methods = [
               [[k.title(), f"{d['leverage']:.1f}x", pc(d["hurdle"], 1), f"{d['exitMultiple']:.1f}x", f"${d['price']:.2f}", f"{d['entryEvToEbitda']:.1f}x", f"{d['sponsorEquity']:,.0f}", f"{d['moic']:.2f}x", pc(d["irr"], 2)] for k, d in L.items()],
      "cells": L["base"]["cells"], "sourceIds": ["nyfed-sofr-2025-08-29"] + comps.method["sourceIds"][:1]},
     {"id": "synergies", "group": "buyer", "label": "Strategic buyer", "sublabel": "Base value plus all cost synergies", "kind": "range",
-     "low": Sy["bear"]["buyerValue"], "base": Sy["base"]["buyerValue"], "high": Sy["bull"]["buyerValue"], "status": "verified-js",
+     "low": Sy["bear"]["buyerValue"], "base": Sy["base"]["buyerValue"], "high": Sy["bull"]["buyerValue"], "status": "workbook",
      "note": ("Base standalone value plus the present value of after-tax cost synergies, phased in at half in year 1 and fully from year 2, less one-time costs equal to one year of run-rate synergies. "
               f"Run-rate synergies are {pc(SYN['bear'])}, {pc(SYN['base'])} and {pc(SYN['bull'])} of WD-40's revenue, the lowest, median and highest share announced in the precedent deals that disclosed them. "
               "The bar is the most a buyer could pay before handing all synergies to WD-40's shareholders. Base already includes WD-40's own margin improvement to 18%, which is not counted again."),

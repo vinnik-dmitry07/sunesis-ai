@@ -164,7 +164,7 @@ table.append(["Quartiles (25th / median / 75th)", "", "", "", " / ".join(f"{x:.1
 table.append(["WD-40 at $216.04", "Not in the peer set", f1(216.04 * 13.527614 + 86.995 - 58.13), f1(103.793 + wd_da), f"{(216.04 * 13.527614 + 86.995 - 58.13) / (103.793 + wd_da):.1f}x", f"{(216.04 * 13.527614 + 86.995 - 58.13) / 103.793:.1f}x", ""])
 method = {
     "id": "comps", "group": "multiples", "label": "Trading comparables", "sublabel": "EV / EBITDA, 25th to 75th percentile of 5 peers",
-    "kind": "range", "low": per_share[0], "base": per_share[1], "high": per_share[2], "status": "verified-js",
+    "kind": "range", "low": per_share[0], "base": per_share[1], "high": per_share[2], "status": "workbook",
     "note": (f"Five listed companies that share WD-40's channels or products, priced at the 29 Aug 2025 close, with trailing-twelve-month results from the latest filing made by that date. "
              f"One-off impairments, restructuring and a divestiture loss are added back to EBITDA where tagged; other company-defined adjustments are not. "
              f"The peer quartiles ({qa[0]:.1f}x / {qa[1]:.1f}x / {qa[2]:.1f}x EV/EBITDA) are applied to WD-40's FY2025 EBITDA of ${103.793 + wd_da:.1f}m. "
@@ -178,7 +178,7 @@ method = {
 }
 own_method = {
     "id": "own-history", "group": "market", "label": "WD-40's own EV / EBITDA", "sublabel": "fiscal year-ends 2021-2025, applied to FY2025",
-    "kind": "range", "status": "verified-js",
+    "kind": "range", "status": "python",
     "low": None, "base": None, "high": None,
     "note": "WD-40's trailing EV/EBITDA at each fiscal year-end from 2021 to 2025, applied to FY2025 EBITDA. It shows the multiples the market has paid for this company, as context for the methods above.",
     "table": [["Fiscal year-end", "Close", "EV ($m)", "EBITDA ($m)", "EV / EBITDA"]] + [[o["priceDate"], f"${o['price']:.2f}", f1(o["ev"]), f1(o["ebitda"]), f"{o['evToEbitda']:.1f}x"] for o in own],

@@ -55,7 +55,7 @@ for i, d in enumerate(deals):
                   f"{sh.iloc[i, C['EV / EBITDA']].value:.1f}x", "yes" if d["inRange"] else "no", d["comparability"]])
 method = {
     "id": "precedents", "group": "multiples", "label": "Precedent transactions", "sublabel": f"EV / LTM EBITDA, 25th to 75th percentile of {len(mult)} deals",
-    "kind": "range", "low": per_share[0], "base": per_share[1], "high": per_share[2], "status": "verified-js",
+    "kind": "range", "low": per_share[0], "base": per_share[1], "high": per_share[2], "status": "workbook",
     "note": (f"Control transactions for branded maintenance, auto-care, lubricant and asset-light consumer businesses, 2017-2022, with enterprise value and trailing EBITDA "
              f"before synergies disclosed by the parties. The multiples ({', '.join(f'{x:.1f}x' for x in mult)}) are computed from those figures; the parties' own stated multiples are listed where they exist. "
              f"Two forward-basis deals are shown but left out of the range. Quartiles {quart[0]:.1f}x / {quart[1]:.1f}x / {quart[2]:.1f}x applied to WD-40's FY2025 EBITDA of $112.0m. "

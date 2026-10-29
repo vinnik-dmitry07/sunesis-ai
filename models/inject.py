@@ -38,7 +38,10 @@ def main():
     else:
         raise SystemExit(f"marker count mismatch: start={s} end={e}")
     if "--check" in sys.argv:
-        print("up to date" if new == html else "payload differs")
+        if new != html:
+            print("payload differs from index.html")
+            sys.exit(1)
+        print("up to date")
         return
     if new == html:
         print("index.html unchanged")
