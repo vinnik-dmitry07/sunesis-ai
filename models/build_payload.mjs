@@ -88,8 +88,10 @@ const payload = {
       note: 'Latest published targets found for each firm on or before 29 Aug 2025. Other firms may have had targets that were not found.'},
   ],
   methods,
-  reverse: {from: 'base', price: S.timeBasis.price, baseValue: E.results.base.result.value, items: E.reverseFromBase.map(r => ({id: r.id, label: r.label, baseValue: r.baseValue, status: r.status, solution: r.solution ?? null, valueAtBounds: r.valueAtBounds ?? null, range: r.range}))},
+  reverse: {from: 'base', price: S.timeBasis.price, baseValue: E.results.base.result.value, grids: E.grids, items: E.reverseFromBase.map(r => ({id: r.id, label: r.label, baseValue: r.baseValue, status: r.status, solution: r.solution ?? null, valueAtBounds: r.valueAtBounds ?? null, range: r.range}))},
   originalCheck: {value: M.base.value, inputSetHash: M.inputSetHash},
+  sensitivities: {base: 'original case', value: M.base.value, groups: M.groups.map(g => ({title: g.title, probes: g.probes.map(p => ({label: p.label, changes: p.changes, value: p.result.value ?? null, delta: p.delta, terminalShare: p.result.terminalShare ?? null, status: p.result.status, reason: p.result.reason ?? null}))})),
+    joint: M.joint.map(j => ({id: j.id, label: j.label, value: j.result.value, terminalShare: j.result.terminalShare})), ladders: M.ladders},
   notChanged: S.notChanged,
   newProposals: [
     {id: 'v2-Input_sheet-B49', cell: 'Input sheet!B49', label: 'Terminal return on new capital (used only when the override is Yes)', value: 0.15,

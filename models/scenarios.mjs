@@ -51,7 +51,23 @@ const reverseFromBase = [
   solve('growth', 'Revenue growth in years 2-5', S.scenarios.base.overrides['Input sheet!B28'], base, g => ({'Input sheet!B28': g}), 0.0, 0.40),
   solve('roic', 'Terminal ROIC', S.scenarios.base.overrides['Input sheet!B49'], base, r => ({'Input sheet!B48': 'Yes', 'Input sheet!B49': r}), bw, 5),
 ];
-writeFileSync(join(ROOT, 'models/out/scenarios_eval.json'), JSON.stringify({timeBasis: S.timeBasis, results, reverseFromBase}, null, 1));
+// Two grids from saved Base, every other Base input fixed.
+const B = S.scenarios.base.overrides;
+const gridWaccRoic = (() => {
+  const waccs = [0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09];
+  const rows = [{label: 'Equal to WACC (no excess return)', over: {'Input sheet!B48': 'No'}}, ...[0.10, 0.15, 0.20, 0.25, 0.30].map(r => ({label: `${(r * 100).toFixed(0)}%`, over: {'Input sheet!B48': 'Yes', 'Input sheet!B49': r}}))];
+  return {id: 'wacc-roic', title: 'Flat WACC × return on new capital after year 10', columnLabel: 'WACC, all years', rowLabel: 'Return on new capital after year 10',
+    columns: waccs, fixed: 'Every other input as in saved Base: revenue path, margin path to 18%, tax rates, sales-to-capital 2.0, terminal growth 2.5%.',
+    rows: rows.map(r => ({label: r.label, values: waccs.map(w => { const x = evaluate({...base, 'Cost of capital worksheet!B12': w, 'Input sheet!B46': w, ...r.over}); return x.value ?? null; })}))};
+})();
+const gridGrowthMargin = (() => {
+  const growths = [0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09];
+  const margins = [0.16, 0.17, 0.18, 0.19, 0.20, 0.22, 0.24];
+  return {id: 'growth-margin', title: 'Years 2-5 growth × operating margin reached in year 5', columnLabel: 'Revenue growth, years 2-5', rowLabel: 'Operating margin in year 5',
+    columns: growths, fixed: `Every other input as in saved Base: year-1 revenue and margin from guidance, WACC ${(B['Cost of capital worksheet!B12'] * 100).toFixed(2)}% flat, return on new capital 15%, terminal growth 2.5%.`,
+    rows: margins.map(m => ({label: `${(m * 100).toFixed(0)}%`, values: growths.map(g => { const x = evaluate({...base, 'Input sheet!B28': g, 'Input sheet!B29': m}); return x.value ?? null; })}))};
+})();
+writeFileSync(join(ROOT, 'models/out/scenarios_eval.json'), JSON.stringify({timeBasis: S.timeBasis, results, reverseFromBase, grids: [gridWaccRoic, gridGrowthMargin]}, null, 1));
 
 // ---------- report ----------
 const n = (x, d = 2) => x == null ? '' : Number(x).toLocaleString('en-US', {minimumFractionDigits: d, maximumFractionDigits: d});
