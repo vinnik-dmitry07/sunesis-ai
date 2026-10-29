@@ -8,6 +8,151 @@
   "latestSourcePublication": "2025-10-27",
   "note": "Retrospective FY2025 review: uses the FY2025 10-K (27 Oct 2025) and the FY2026 guidance (22 Oct 2025), which were published after the price date."
  },
+ "regional": {
+  "bear": {
+   "rates": {
+    "americas": 0.02,
+    "eimea": 0.04,
+    "asiaPacific": 0.05
+   },
+   "year1Regions": {
+    "americas": 291.8242713875817,
+    "eimea": 242.0863996755503,
+    "asiaPacific": 96.08932893686806
+   },
+   "growth2to5": 0.032465449091496845,
+   "residualsByYear": [
+    0.0,
+    -0.12882506602591093,
+    -0.17738225404275454,
+    -0.13739009182347672,
+    1.1368683772161603e-13,
+    0.19538938982566378,
+    0.40020726001989715,
+    0.571837478582097,
+    0.6761081212573572,
+    0.6896302836823907
+   ],
+   "perimeterBound": {
+    "unassignedFY2025Revenue": 16.985000000000014,
+    "growth2to5IfAllFromAmericas": 0.0328059298747716,
+    "differencePp": 0.03404807832747547
+   },
+   "growth2to5WithPR1Rates": 0.029813668081486666,
+   "pr1Rates": {
+    "americas": 0.01,
+    "eimea": 0.04,
+    "asiaPacific": 0.06
+   }
+  },
+  "base": {
+   "rates": {
+    "americas": 0.04,
+    "eimea": 0.07,
+    "asiaPacific": 0.08
+   },
+   "year1Regions": {
+    "americas": 296.1860656456611,
+    "eimea": 247.93102477060933,
+    "asiaPacific": 98.3829095837296
+   },
+   "growth2to5": 0.05809682406949945,
+   "residualsByYear": [
+    0.0,
+    -0.25396233818582914,
+    -0.35810664990026453,
+    -0.2840529623058501,
+    1.1368683772161603e-13,
+    0.4236951858157454,
+    0.8842238414407575,
+    1.2820293550119004,
+    1.5311783144607034,
+    1.5694577723221528
+   ],
+   "perimeterBound": {
+    "unassignedFY2025Revenue": 16.985000000000014,
+    "growth2to5IfAllFromAmericas": 0.05858488009269891,
+    "differencePp": 0.048805602319945685
+   },
+   "growth2to5WithPR1Rates": 0.06154442103835711,
+   "pr1Rates": {
+    "americas": 0.04,
+    "eimea": 0.07,
+    "asiaPacific": 0.1
+   }
+  },
+  "bull": {
+   "rates": {
+    "americas": 0.06,
+    "eimea": 0.09,
+    "asiaPacific": 0.11
+   },
+   "year1Regions": {
+    "americas": 301.622708307147,
+    "eimea": 252.34835737569992,
+    "asiaPacific": 101.02893431715304
+   },
+   "growth2to5": 0.07977292490764176,
+   "residualsByYear": [
+    -1.1368683772161603e-13,
+    -0.32936837737668156,
+    -0.47465950901676024,
+    -0.3848038275108365,
+    -3.410605131648481e-13,
+    0.5996166167008141,
+    1.2732294397459327,
+    1.8714627266094794,
+    2.2567246612829877,
+    2.3244264011214
+   ],
+   "perimeterBound": {
+    "unassignedFY2025Revenue": 16.985000000000014,
+    "growth2to5IfAllFromAmericas": 0.08030460011581031,
+    "differencePp": 0.05316752081685472
+   },
+   "growth2to5WithPR1Rates": 0.08333782024889125,
+   "pr1Rates": {
+    "americas": 0.06,
+    "eimea": 0.09,
+    "asiaPacific": 0.13
+   }
+  }
+ },
+ "regionalHistory": {
+  "americas": {
+   "revenue": {
+    "FY2022": 240.233,
+    "FY2023": 266.772,
+    "FY2024": 281.883,
+    "FY2025": 290.599
+   },
+   "growthFY2025": 0.030920630190540033,
+   "cagr": 0.06550089025509997,
+   "cagrPeriod": "FY2022-FY2025"
+  },
+  "eimea": {
+   "revenue": {
+    "FY2022": 204.688,
+    "FY2023": 190.818,
+    "FY2024": 221.045,
+    "FY2025": 236.434
+   },
+   "growthFY2025": 0.06961930828564333,
+   "cagr": 0.049234387607704155,
+   "cagrPeriod": "FY2022-FY2025"
+  },
+  "asiaPacific": {
+   "revenue": {
+    "FY2022": 73.899,
+    "FY2023": 79.665,
+    "FY2024": 87.629,
+    "FY2025": 92.952
+   },
+   "growthFY2025": 0.06074473062570607,
+   "cagr": 0.07946042693887478,
+   "cagrPeriod": "FY2022-FY2025"
+  }
+ },
  "notChanged": [
   "Sales-to-capital stays at 2.0 in all scenarios (Input sheet!B31, B32).",
   "Terminal tax rate stays at 25% (Input sheet!B24).",
@@ -19,7 +164,7 @@
    "label": "Bear",
    "overrides": {
     "Input sheet!B26": 0.016153616619756894,
-    "Input sheet!B28": 0.04,
+    "Input sheet!B28": 0.032465449091496845,
     "Input sheet!B27": 0.1670899470899471,
     "Input sheet!B29": 0.1670899470899471,
     "Input sheet!B30": 5,
@@ -31,7 +176,7 @@
     "Input sheet!B48": "No"
    },
    "rationale": [
-    "Year-1 revenue at the low end of FY2026 guidance ($630m pro forma), then 4% a year, below the 6.2% FY2017-FY2025 compound rate.",
+    "Year-1 revenue at the low end of FY2026 guidance ($630m on the pro forma base). Years 2-5 grow 3.25% a year, the compound rate of a regional build: Americas 2%, EIMEA 4%, Asia-Pacific 5% (FY2025 segment growth was 3.1%, 7.0% and 6.1%).",
     "Year-1 margin from the low end of guidance ($103m operating income on $630m of sales) plus the workbook's R&D adjustment, held flat; reported operating margin averaged 16.6% in FY2022-FY2025.",
     "Cost of capital from the Household Products unlevered beta and the higher Damodaran ERP variant; it drifts to the market's cost of capital by year 10.",
     "No excess returns on new capital after year 10 (terminal ROIC equals terminal WACC). Terminal growth 2.0%."
@@ -41,7 +186,7 @@
    "label": "Base",
    "overrides": {
     "Input sheet!B26": 0.03631539472729184,
-    "Input sheet!B28": 0.06,
+    "Input sheet!B28": 0.05809682406949945,
     "Input sheet!B27": 0.16928664072632943,
     "Input sheet!B29": 0.18,
     "Input sheet!B30": 5,
@@ -54,7 +199,7 @@
     "Input sheet!B49": 0.15
    },
    "rationale": [
-    "Year-1 revenue at the midpoint of FY2026 guidance ($642.5m on the pro forma base, which leaves out the homecare brands held for sale), then 6% a year, in line with the 6.2% FY2017-FY2025 compound rate.",
+    "Year-1 revenue at the midpoint of FY2026 guidance ($642.5m on the pro forma base, which leaves out the homecare brands held for sale). Years 2-5 grow 5.81% a year, the compound rate of a regional build: Americas 4%, EIMEA 7%, Asia-Pacific 8% (FY2025 segment growth was 3.1%, 7.0% and 6.1%).",
     "Year-1 margin from the guidance midpoint ($106.5m operating income on $642.5m of sales) plus the workbook's R&D adjustment. The 18% target by year 5 is an analyst assumption; reported operating margin averaged 16.6% in FY2022-FY2025 and 19.4% in FY2017-FY2020.",
     "Cost of capital from a bottom-up beta (average of Damodaran's Chemical (Specialty) and Household Products unlevered betas, January 2025) relevered at WD-40's market debt-to-equity, the 29 Aug 2025 10-year Treasury yield and Damodaran's September 2025 implied ERP. Held flat because WD-40 is already a mature company.",
     "New capital after year 10 earns 15%, above the cost of capital because the brand and distribution persist, and well below the 27% or so the Base case earns in years 1-10. Terminal growth 2.5%."
@@ -64,7 +209,7 @@
    "label": "Bull",
    "overrides": {
     "Input sheet!B26": 0.05647717283482656,
-    "Input sheet!B28": 0.07,
+    "Input sheet!B28": 0.07977292490764176,
     "Input sheet!B27": 0.1713994910941476,
     "Input sheet!B29": 0.2,
     "Input sheet!B30": 5,
@@ -77,7 +222,7 @@
     "Input sheet!B49": 0.2
    },
    "rationale": [
-    "Year-1 revenue at the top of FY2026 guidance ($655m pro forma), then 7% a year, above the 6.6% FY2019-FY2025 compound rate.",
+    "Year-1 revenue at the top of FY2026 guidance ($655m on the pro forma base). Years 2-5 grow 7.98% a year, the compound rate of a regional build: Americas 6%, EIMEA 9%, Asia-Pacific 11% (FY2025 segment growth was 3.1%, 7.0% and 6.1%).",
     "Year-1 margin from the top of guidance ($110m operating income on $655m of sales) plus the workbook's R&D adjustment. The 20% target by year 5 is an analyst assumption near the 19.4% reported FY2017-FY2020 average.",
     "Cost of capital from the Blume-adjusted 5-year weekly regression beta and the lower Damodaran ERP variant.",
     "New capital after year 10 earns 20%. Terminal growth 3.0%, below the 4.23% risk-free rate."

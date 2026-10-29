@@ -177,10 +177,20 @@ C = {"growth1": "Input sheet!B26", "margin1": "Input sheet!B27", "growth25": "In
 r4 = lambda x: x  # inputs kept at full precision so guidance can be checked exactly
 scen = {}
 spec = {
-    "bear": {"growth25": 0.04, "marginTarget": year1_margin["bear"], "tax0": 0.235, "gT": 0.020, "roic": None, "waccT": market_terminal_bear, "nonOp": 0.0},
-    "base": {"growth25": 0.06, "marginTarget": 0.18, "tax0": 0.230, "gT": 0.025, "roic": 0.15, "waccT": None, "nonOp": 0.0},
-    "bull": {"growth25": 0.07, "marginTarget": 0.20, "tax0": 0.225, "gT": 0.030, "roic": 0.20, "waccT": None, "nonOp": 0.0},
+    "bear": {"growth25": None, "marginTarget": year1_margin["bear"], "tax0": 0.235, "gT": 0.020, "roic": None, "waccT": market_terminal_bear, "nonOp": 0.0},
+    "base": {"growth25": None, "marginTarget": 0.18, "tax0": 0.230, "gT": 0.025, "roic": 0.15, "waccT": None, "nonOp": 0.0},
+    "bull": {"growth25": None, "marginTarget": 0.20, "tax0": 0.225, "gT": 0.030, "roic": 0.20, "waccT": None, "nonOp": 0.0},
 }
+import sys  # noqa: E402
+sys.path.insert(0, str(ROOT / "models"))
+import segments  # noqa: E402
+
+regional = {k: segments.scenario(guid_sales[k], segments.REGIONAL_GROWTH[k], spec[k]["gT"]) for k in spec}
+regional_pr1 = {k: segments.scenario(guid_sales[k], segments.PR1_GROWTH[k], spec[k]["gT"])["growth2to5"] for k in spec}
+region_hist = segments.regional_history()
+for k in spec:
+    assert regional[k]["checks"]["year1MatchesGuidance"] and regional[k]["checks"]["year5Preserved"], k
+    spec[k]["growth25"] = regional[k]["growth2to5"]
 for k, s in spec.items():
     w0 = wacc_cases[k]["wacc"]
     o = {C["growth1"]: r4(year1_growth[k]), C["growth25"]: s["growth25"], C["margin1"]: r4(year1_margin[k]),
@@ -195,19 +205,19 @@ for k, s in spec.items():
 
 why = {
     "bear": [
-        "Year-1 revenue at the low end of FY2026 guidance ($630m pro forma), then 4% a year, below the 6.2% FY2017-FY2025 compound rate.",
+        f"Year-1 revenue at the low end of FY2026 guidance ($630m on the pro forma base). Years 2-5 grow {regional['bear']['growth2to5']:.2%} a year, the compound rate of a regional build: Americas {segments.REGIONAL_GROWTH['bear']['americas']:.0%}, EIMEA {segments.REGIONAL_GROWTH['bear']['eimea']:.0%}, Asia-Pacific {segments.REGIONAL_GROWTH['bear']['asiaPacific']:.0%} (FY2025 segment growth was {region_hist['americas']['growthFY2025']:.1%}, {region_hist['eimea']['growthFY2025']:.1%} and {region_hist['asiaPacific']['growthFY2025']:.1%}).",
         f"Year-1 margin from the low end of guidance ($103m operating income on $630m of sales) plus the workbook's R&D adjustment, held flat; reported operating margin averaged {sum(margin_post) / len(margin_post):.1%} in FY2022-FY2025.",
         "Cost of capital from the Household Products unlevered beta and the higher Damodaran ERP variant; it drifts to the market's cost of capital by year 10.",
         "No excess returns on new capital after year 10 (terminal ROIC equals terminal WACC). Terminal growth 2.0%.",
     ],
     "base": [
-        "Year-1 revenue at the midpoint of FY2026 guidance ($642.5m on the pro forma base, which leaves out the homecare brands held for sale), then 6% a year, in line with the 6.2% FY2017-FY2025 compound rate.",
+        f"Year-1 revenue at the midpoint of FY2026 guidance ($642.5m on the pro forma base, which leaves out the homecare brands held for sale). Years 2-5 grow {regional['base']['growth2to5']:.2%} a year, the compound rate of a regional build: Americas {segments.REGIONAL_GROWTH['base']['americas']:.0%}, EIMEA {segments.REGIONAL_GROWTH['base']['eimea']:.0%}, Asia-Pacific {segments.REGIONAL_GROWTH['base']['asiaPacific']:.0%} (FY2025 segment growth was {region_hist['americas']['growthFY2025']:.1%}, {region_hist['eimea']['growthFY2025']:.1%} and {region_hist['asiaPacific']['growthFY2025']:.1%}).",
         f"Year-1 margin from the guidance midpoint ($106.5m operating income on $642.5m of sales) plus the workbook's R&D adjustment. The 18% target by year 5 is an analyst assumption; reported operating margin averaged {sum(margin_post) / len(margin_post):.1%} in FY2022-FY2025 and {sum(margin_pre) / len(margin_pre):.1%} in FY2017-FY2020.",
         "Cost of capital from a bottom-up beta (average of Damodaran's Chemical (Specialty) and Household Products unlevered betas, January 2025) relevered at WD-40's market debt-to-equity, the 29 Aug 2025 10-year Treasury yield and Damodaran's September 2025 implied ERP. Held flat because WD-40 is already a mature company.",
         "New capital after year 10 earns 15%, above the cost of capital because the brand and distribution persist, and well below the 27% or so the Base case earns in years 1-10. Terminal growth 2.5%.",
     ],
     "bull": [
-        "Year-1 revenue at the top of FY2026 guidance ($655m pro forma), then 7% a year, above the 6.6% FY2019-FY2025 compound rate.",
+        f"Year-1 revenue at the top of FY2026 guidance ($655m on the pro forma base). Years 2-5 grow {regional['bull']['growth2to5']:.2%} a year, the compound rate of a regional build: Americas {segments.REGIONAL_GROWTH['bull']['americas']:.0%}, EIMEA {segments.REGIONAL_GROWTH['bull']['eimea']:.0%}, Asia-Pacific {segments.REGIONAL_GROWTH['bull']['asiaPacific']:.0%} (FY2025 segment growth was {region_hist['americas']['growthFY2025']:.1%}, {region_hist['eimea']['growthFY2025']:.1%} and {region_hist['asiaPacific']['growthFY2025']:.1%}).",
         f"Year-1 margin from the top of guidance ($110m operating income on $655m of sales) plus the workbook's R&D adjustment. The 20% target by year 5 is an analyst assumption near the {sum(margin_pre) / len(margin_pre):.1%} reported FY2017-FY2020 average.",
         "Cost of capital from the Blume-adjusted 5-year weekly regression beta and the lower Damodaran ERP variant.",
         "New capital after year 10 earns 20%. Terminal growth 3.0%, below the 4.23% risk-free rate.",
@@ -217,6 +227,10 @@ scenarios = {"schemaVersion": 1, "assumptionSetVersion": "2025-10-27-retrospecti
              "timeBasis": {"priceDate": PRICE_DATE.isoformat(), "price": PRICE, "fiscalYearEnd": "2025-08-31",
                            "latestSourcePublication": "2025-10-27",
                            "note": "Retrospective FY2025 review: uses the FY2025 10-K (27 Oct 2025) and the FY2026 guidance (22 Oct 2025), which were published after the price date."},
+             "regional": {k: {"rates": segments.REGIONAL_GROWTH[k], "year1Regions": regional[k]["year1Regions"], "growth2to5": regional[k]["growth2to5"],
+                          "residualsByYear": regional[k]["residuals"], "perimeterBound": regional[k]["perimeterBound"],
+                          "growth2to5WithPR1Rates": regional_pr1[k], "pr1Rates": segments.PR1_GROWTH[k]} for k in spec},
+             "regionalHistory": region_hist,
              "notChanged": ["Sales-to-capital stays at 2.0 in all scenarios (Input sheet!B31, B32).",
                             "Terminal tax rate stays at 25% (Input sheet!B24).",
                             "The FY2025 R&D capitalization adjustment ($2.27m) is added to guided operating income in every scenario; using the same amount in FY2026 is an assumption.",

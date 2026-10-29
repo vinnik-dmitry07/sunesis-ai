@@ -133,7 +133,7 @@ Origins: FinLFQA `validation-2` (How do changes in depreciation and amortization
 - *fact*: What share of FY2025 net sales came from outside the United States, and did any customer reach 10%?  
   About 66% came from outside the US. No customer reached 10% of consolidated net sales.
 - *calculation*: Does restating the DCF as invested capital plus economic profit give the same operating value?  
-  Yes. original $1,230.6m against $1,230.6m; bear $1,156.0m against $1,156.0m; base $1,750.7m against $1,750.7m; bull $2,823.8m against $2,823.8m. The two are the same calculation arranged differently, so this checks consistency, not value.
+  Yes. original $1,230.6m against $1,230.6m; bear $1,127.6m against $1,127.6m; base $1,737.6m against $1,737.6m; bull $2,950.2m against $2,950.2m. The two are the same calculation arranged differently, so this checks consistency, not value.
 - *assumption*: What return on new capital after year 10 do the scenarios assume?  
   Bear: equal to the cost of capital (no excess return). Base: 15%. Bull: 20%. In years 1-10 the model earns 25% to 32% on capital across the four cases.
 
@@ -167,7 +167,7 @@ Origins: PE Bench `voltaic-08-debt-schedule` (Build free cash flow and the debt 
 - *calculation*: What was FY2025 operating income over interest expense?  
   30 times: $103.8m over $3.44m.
 - *calculation*: At 5.0 times FY2025 EBITDA of debt, SOFR on 29 Aug 2025 plus 3.5%, a 20% target return and an exit at the peer median multiple, what is the highest price per share that works?  
-  $76.15, an entry multiple of 9.5 times EBITDA. Bear (4.5x debt, 25% target, 25th percentile exit) gives $66.13; Bull (5.5x, 17.5%, 75th percentile) $108.41.
+  $75.86, an entry multiple of 9.5 times EBITDA. Bear (4.5x debt, 25% target, 25th percentile exit) gives $65.89; Bull (5.5x, 17.5%, 75th percentile) $107.90.
 - *assumption*: Which operating case does the buyout model use?  
   The Base DCF case: its revenue, EBIT, tax rate and free cash flow before financing in years 1-5. EBITDA is put on a reported basis by removing the R&D adjustment and adding depreciation and amortization at the FY2025 share of sales.
 
@@ -184,7 +184,7 @@ Origins: PE Bench `voltaic-02-comparables` (Build a trading comparables analysis
 - *calculation*: What EV to EBITDA did WD-40 trade at on 29 Aug 2025, and at its previous four fiscal year-ends?  
   FY2021 34.6x, FY2022 28.0x, FY2023 30.5x, FY2024 34.1x, FY2025 26.4x.
 - *calculation*: Starting from Base, what single change reaches $216.04?  
-  A WACC of 5.42% in every year, or a 30.9% operating margin by year 5, or 19.0% revenue growth in years 2-5. No terminal return on capital reaches it alone: at 500% the value is $142.40.
+  A WACC of 5.40% in every year, or a 31.1% operating margin by year 5, or 19.0% revenue growth in years 2-5. No terminal return on capital reaches it alone: at 500% the value is $141.26.
 - *fact*: What price targets had analysts published by 29 Aug 2025?  
   DA Davidson $300 (Buy, 11 Jul 2025) and Jefferies $280 (Hold, 18 Oct 2024). Other firms' targets were not found.
 - *fact*: Can the company-defined adjusted EBITDA of $114.4m be reconciled to EBIT plus depreciation and amortization of $112.0m?  

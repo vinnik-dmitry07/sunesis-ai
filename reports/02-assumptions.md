@@ -37,6 +37,26 @@ Reported operating margin averaged 19.4% in FY2017-FY2020 and 16.6% in FY2022-FY
 
 Revenue compounded at 6.3% a year over FY2017-FY2025 and 6.2% over FY2021-FY2025. FY2026 guidance is 5-9% growth from a pro forma FY2025 base that excludes the Americas homecare and cleaning brands held for sale, at FY2025 average exchange rates. The release adds that guidance would be about $12.5m of sales and $3.6m of operating income higher if the sale did not happen. The guided $630-655m therefore sits only 1.6% to 5.6% above reported FY2025 revenue, and that is the year-1 growth each scenario uses. The sale had not closed, and no price was disclosed, so no proceeds are added.
 
+## Regional build for years 2-5
+
+Year-1 revenue is the guided total, split across the three segments in proportion to FY2025 segment revenue times one plus the regional rate. That split is an analyst allocation; the company gives no regional guidance. Regional rates apply in years 2-5 and fade to terminal growth in years 6-10. The Ginzu takes one rate for years 2-5, so the build is compressed to the rate that keeps year-1 and year-5 revenue.
+
+| Segment | FY2022 | FY2023 | FY2024 | FY2025 | FY2025 growth | FY2022-FY2025 CAGR | Bear | Base | Bull |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Americas | 240.2 | 266.8 | 281.9 | 290.6 | 3.1% | 6.6% | 2% | 4% | 6% |
+| EIMEA | 204.7 | 190.8 | 221.0 | 236.4 | 7.0% | 4.9% | 4% | 7% | 9% |
+| Asia-Pacific | 73.9 | 79.7 | 87.6 | 93.0 | 6.1% | 7.9% | 5% | 8% | 11% |
+
+FY2022 and FY2023 come from the FY2023 results release, which reported EMEA and Asia-Pacific before India moved into EIMEA, so those two years are not fully comparable with FY2024-FY2025.
+
+| Scenario | Years 2-5 rate | Same with PR #1 regional rates | Largest revenue residual, years 2-10 ($m) | Rate if the $17.0m gap is all Americas |
+|---|---:|---:|---:|---:|
+| bear | 3.25% | 2.98% | 0.69 | 3.28% |
+| base | 5.81% | 6.15% | 1.57 | 5.86% |
+| bull | 7.98% | 8.33% | 2.32 | 8.03% |
+
+The guidance base (currency-adjusted pro forma FY2025 net sales of about $603m) is $17.0m below reported revenue. The release describes that base as excluding the homecare brands held for sale and the divested 1001 brands and as adjusted for currency, and it does not split the difference by segment or by cause. Reported segment revenue is therefore the base; the last column bounds the effect.
+
 ## Cost of capital
 
 Regression betas against the S&P 500 are too noisy to use: 2-year weekly 0.13 (R² 0.006), 5-year weekly 0.49 (R² 0.073), 3-year monthly 0.62 (R² 0.105), 5-year monthly 0.10 (R² 0.003). The scenarios use industry betas instead, relevered at WD-40's market debt-to-equity of 3.0% and a 25% marginal tax rate. Pre-tax cost of debt is Damodaran's January 2025 sector figure of 5.78%; debt is 2.9% of capital, so this choice moves WACC by less than 0.1 pp.
@@ -53,7 +73,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 
 ### Bear
 
-- Year-1 revenue at the low end of FY2026 guidance ($630m pro forma), then 4% a year, below the 6.2% FY2017-FY2025 compound rate.
+- Year-1 revenue at the low end of FY2026 guidance ($630m on the pro forma base). Years 2-5 grow 3.25% a year, the compound rate of a regional build: Americas 2%, EIMEA 4%, Asia-Pacific 5% (FY2025 segment growth was 3.1%, 7.0% and 6.1%).
 - Year-1 margin from the low end of guidance ($103m operating income on $630m of sales) plus the workbook's R&D adjustment, held flat; reported operating margin averaged 16.6% in FY2022-FY2025.
 - Cost of capital from the Household Products unlevered beta and the higher Damodaran ERP variant; it drifts to the market's cost of capital by year 10.
 - No excess returns on new capital after year 10 (terminal ROIC equals terminal WACC). Terminal growth 2.0%.
@@ -61,7 +81,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 | Cell | Original | Scenario |
 |---|---:|---:|
 | Input sheet!B26 | 5.00% | 1.62% |
-| Input sheet!B28 | 5.00% | 4.00% |
+| Input sheet!B28 | 5.00% | 3.25% |
 | Input sheet!B27 | 17.11% | 16.71% |
 | Input sheet!B29 | 17.11% | 16.71% |
 | Input sheet!B30 | 5.00 | 5.00 |
@@ -74,7 +94,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 
 ### Base
 
-- Year-1 revenue at the midpoint of FY2026 guidance ($642.5m on the pro forma base, which leaves out the homecare brands held for sale), then 6% a year, in line with the 6.2% FY2017-FY2025 compound rate.
+- Year-1 revenue at the midpoint of FY2026 guidance ($642.5m on the pro forma base, which leaves out the homecare brands held for sale). Years 2-5 grow 5.81% a year, the compound rate of a regional build: Americas 4%, EIMEA 7%, Asia-Pacific 8% (FY2025 segment growth was 3.1%, 7.0% and 6.1%).
 - Year-1 margin from the guidance midpoint ($106.5m operating income on $642.5m of sales) plus the workbook's R&D adjustment. The 18% target by year 5 is an analyst assumption; reported operating margin averaged 16.6% in FY2022-FY2025 and 19.4% in FY2017-FY2020.
 - Cost of capital from a bottom-up beta (average of Damodaran's Chemical (Specialty) and Household Products unlevered betas, January 2025) relevered at WD-40's market debt-to-equity, the 29 Aug 2025 10-year Treasury yield and Damodaran's September 2025 implied ERP. Held flat because WD-40 is already a mature company.
 - New capital after year 10 earns 15%, above the cost of capital because the brand and distribution persist, and well below the 27% or so the Base case earns in years 1-10. Terminal growth 2.5%.
@@ -82,7 +102,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 | Cell | Original | Scenario |
 |---|---:|---:|
 | Input sheet!B26 | 5.00% | 3.63% |
-| Input sheet!B28 | 5.00% | 6.00% |
+| Input sheet!B28 | 5.00% | 5.81% |
 | Input sheet!B27 | 17.11% | 16.93% |
 | Input sheet!B29 | 17.11% | 18.00% |
 | Input sheet!B30 | 5.00 | 5.00 |
@@ -96,7 +116,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 
 ### Bull
 
-- Year-1 revenue at the top of FY2026 guidance ($655m pro forma), then 7% a year, above the 6.6% FY2019-FY2025 compound rate.
+- Year-1 revenue at the top of FY2026 guidance ($655m on the pro forma base). Years 2-5 grow 7.98% a year, the compound rate of a regional build: Americas 6%, EIMEA 9%, Asia-Pacific 11% (FY2025 segment growth was 3.1%, 7.0% and 6.1%).
 - Year-1 margin from the top of guidance ($110m operating income on $655m of sales) plus the workbook's R&D adjustment. The 20% target by year 5 is an analyst assumption near the 19.4% reported FY2017-FY2020 average.
 - Cost of capital from the Blume-adjusted 5-year weekly regression beta and the lower Damodaran ERP variant.
 - New capital after year 10 earns 20%. Terminal growth 3.0%, below the 4.23% risk-free rate.
@@ -104,7 +124,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 | Cell | Original | Scenario |
 |---|---:|---:|
 | Input sheet!B26 | 5.00% | 5.65% |
-| Input sheet!B28 | 5.00% | 7.00% |
+| Input sheet!B28 | 5.00% | 7.98% |
 | Input sheet!B27 | 17.11% | 17.14% |
 | Input sheet!B29 | 17.11% | 20.00% |
 | Input sheet!B30 | 5.00 | 5.00 |
@@ -123,19 +143,19 @@ Not changed in any scenario: Sales-to-capital stays at 2.0 in all scenarios (Inp
 | Case | Value / share | Operating assets | PV terminal / operating assets | Year-10 ROIC | Terminal ROIC | Status |
 |---|---:|---:|---:|---:|---:|---|
 | Original case | $88.15 | 1,230.6 | 54.5% | 26.3% | 8.0% | valid |
-| Bear | $82.67 | 1,156.0 | 52.6% | 25.2% | 8.3% | valid |
-| Base | $126.30 | 1,750.7 | 64.6% | 27.4% | 15.0% | valid |
-| Bull | $205.01 | 2,823.8 | 73.8% | 30.8% | 20.0% | valid |
+| Bear | $80.60 | 1,127.6 | 51.6% | 25.2% | 8.3% | valid |
+| Base | $125.34 | 1,737.6 | 64.4% | 27.4% | 15.0% | valid |
+| Bull | $214.28 | 2,950.2 | 74.6% | 30.8% | 20.0% | valid |
 
-Reference price $216.04. Base sits $89.74 below it.
+Reference price $216.04. Base sits $90.70 below it.
 
 ## What Base would need to reach the price, one driver at a time
 
 | Driver | Search range | Needed | Base value |
 |---|---|---|---|
-| Flat WACC | 2.5% to 12.0% | 5.42% | 7.40% |
-| Target operating margin by year 5 | 10.0% to 80.0% | 30.87% | 18.0% |
-| Revenue growth in years 2-5 | 0.0% to 40.0% | 19.03% | 6.0% |
-| Terminal ROIC | 7.4% to 500.0% | no solution in range (value $109.26 to $142.40) | 15.0% |
+| Flat WACC | 2.5% to 12.0% | 5.40% | 7.40% |
+| Target operating margin by year 5 | 10.0% to 80.0% | 31.14% | 18.0% |
+| Revenue growth in years 2-5 | 0.0% to 40.0% | 19.03% | 5.8% |
+| Terminal ROIC | 7.4% to 500.0% | no solution in range (value $108.48 to $141.26) | 15.0% |
 
 Each line moves one driver with every other Base input fixed. A solved value says what the price requires under those conditions; it is not a forecast.
