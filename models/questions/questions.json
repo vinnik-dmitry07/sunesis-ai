@@ -2070,7 +2070,7 @@
    "publishedAt": "2025-10-27"
   },
   "model-build": {
-   "title": "Scenario and method workbook built from the scenario inputs (models/build.py)",
+   "title": "Scenario and method workbook (wd40_valuation.xlsx)",
    "url": "models/excel/wd40_valuation.xlsx"
   },
   "wdfc26-10k": {

@@ -251,7 +251,7 @@ scenarios = {"schemaVersion": 1, "assumptionSetVersion": "2025-10-27-retrospecti
                             "Expected proceeds from the Americas homecare sale are not added because no price was disclosed and the sale had not closed."],
              "scenarios": {k: {"label": k.title(), "overrides": scen[k], "rationale": why[k]} for k in ("bear", "base", "bull")},
              "sources": SOURCES}
-(ROOT / "models" / "scenarios.json").write_text(json.dumps(scenarios, indent=1) + "\n")
+(ROOT / "models" / "scenarios.json").write_bytes((json.dumps(scenarios, indent=1) + "\n").encode("utf-8"))
 
 detail = {"riskFree": rf, "erp": erp, "industryUnleveredBetas": ind, "bottomUpUnlevered": bottom_up_unlevered,
           "regressionBetas": regressions, "betaSensitivity": beta_sensitivity, "erpRiskFree": erp_rf, "marketCap": market_cap, "debtToEquity": d_e, "debtWeight": w_d,

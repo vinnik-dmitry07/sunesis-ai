@@ -123,7 +123,7 @@ for case, tm in timing.items():
 L += ["", "With workbook timing the replica returns the engine's value. Same-year timing lowers the original case to about $88.06, the figure the earlier replica produced, so the timing explains the gap. Rounding does not.", "",
       "## Not ported", "",
       "Net operating losses, the distress adjustment, employee option dilution and the trapped-cash haircut. Every case keeps these switched off (Input sheet B51, B61, B37 and B70 are No), and the engine values match without them.", ""]
-(ROOT / "reports" / "04-dcf-port.md").write_text("\n".join(L))
+(ROOT / "reports" / "04-dcf-port.md").write_bytes("\n".join(L).encode("utf-8"))
 print(json.dumps({k: (v["firstDivergence"], round(v["worstRelative"], 15)) for k, v in result.items()}))
 if errors:
     print("DCF comparison FAILED: " + " | ".join(errors))

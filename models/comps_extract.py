@@ -160,7 +160,7 @@ for t, why in PEERS.items():
               "revenue": rev, "revenueDetail": rev_d, "ebit": ebit, "ebitDetail": ebit_d, "da": da, "daDetail": da_d,
               "oneOffCharges": one_off, "oneOffDetail": one_off_d, "netIncome": ni, "netIncomeDetail": ni_d, "epsDiluted": eps, "epsDetail": eps_d}
 (DATA / "comps").mkdir(exist_ok=True)
-(DATA / "comps" / "peer_facts_2025-08-29.json").write_text(json.dumps({"cutoff": CUT, "peers": out}, indent=1))
+(DATA / "comps" / "peer_facts_2025-08-29.json").write_bytes(json.dumps({"cutoff": CUT, "peers": out}, indent=1).encode("utf-8"))
 for t, p in out.items():
     m = lambda x: None if x is None else round(x / 1e6, 1)  # noqa: E731
     print(t, p["filing"]["form"], p["filing"]["filed"], "px", round(p["price"], 2), "sh(m)", round(p["shares"] / 1e6, 2), "debt", m(p["debt"]), "cash", m(p["cash"]),

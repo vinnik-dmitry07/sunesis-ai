@@ -122,7 +122,7 @@ GUIDE = next(g for g in RES["guidance"] if g["id"] == "fy26-original")
 S10K, S8K, SX, MB, JULY_SRC, GUIDE_SRC = "wdfc25-10k", "wdfc-8k-2025-10-22", "sec-xbrl", "model-build", "wd40-fy26-guidance-july-revision", "wd40-fy25-guidance-original"
 SOURCES = {
     S10K: {"title": "WD-40 Company FY2025 Form 10-K", "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm", "publishedAt": "2025-10-27"},
-    MB: {"title": "Scenario and method workbook built from the scenario inputs (models/build.py)", "url": "models/excel/wd40_valuation.xlsx"},
+    MB: {"title": "Scenario and method workbook (wd40_valuation.xlsx)", "url": "models/excel/wd40_valuation.xlsx"},
 }
 if FY26:
     SOURCES["wdfc26-10k"] = {"title": "WD-40 Company FY2026 Form 10-K (later information, outside the case)", "publishedAt": FY26["filed"],
