@@ -116,7 +116,7 @@ Origins: FinLFQA `validation-179` (How does the gross profit margin of CSL compa
 - *fact*: What were Damodaran's January 2025 unlevered betas for Chemical (Specialty) and Household Products?  
   0.79 and 0.83, corrected for cash.
 - *assumption*: Which WACC do the scenarios use, and what did the original case use?  
-  Bear 7.70% drifting to 8.32%, Base 7.40%, Bull 6.58%. The original case used 9% fading to 8%, labelled as an illustrative placeholder.
+  Bear 8.66% drifting to 9.45%, Base 7.40%, Bull 6.58%. The original case used 9% fading to 8%, labelled as an illustrative placeholder.
 
 ## Return on capital
 
@@ -133,7 +133,7 @@ Origins: FinLFQA `validation-2` (How do changes in depreciation and amortization
 - *fact*: What share of FY2025 net sales came from outside the United States, and did any customer reach 10%?  
   About 66% came from outside the US. No customer reached 10% of consolidated net sales.
 - *calculation*: Does restating the DCF as invested capital plus economic profit give the same operating value?  
-  Yes. original $1,230.6m against $1,230.6m; bear $1,127.6m against $1,127.6m; base $1,737.6m against $1,737.6m; bull $2,950.2m against $2,950.2m. The two are the same calculation arranged differently, so this checks consistency, not value.
+  Yes. original $1,230.6m against $1,230.6m; bear $988.2m against $988.2m; base $1,737.6m against $1,737.6m; bull $2,950.2m against $2,950.2m. The two are the same calculation arranged differently, so this checks consistency, not value.
 - *assumption*: What return on new capital after year 10 do the scenarios assume?  
   Bear: equal to the cost of capital (no excess return). Base: 15%. Bull: 20%. In years 1-10 the model earns 25% to 32% on capital across the four cases.
 
@@ -152,7 +152,7 @@ Origins: FinanceBench `financebench_id_01244` (Has CVS Health paid dividends to 
 - *fact*: How did FY2025 share repurchases compare with dividends?  
   $12.3m of repurchases against $50.3m of dividends.
 - *calculation*: What does a dividend discount model give with the scenarios' cost of equity?  
-  Bear $84.16 (cost of equity 7.80%, terminal payout 74%); Base $121.42 (cost of equity 7.49%, terminal payout 83%); Bull $198.76 (cost of equity 6.65%, terminal payout 85%).
+  Bear $72.68 (cost of equity 8.79%, terminal payout 77%); Base $121.42 (cost of equity 7.49%, terminal payout 83%); Bull $198.76 (cost of equity 6.65%, terminal payout 85%).
 
 ## Financing a buyout
 

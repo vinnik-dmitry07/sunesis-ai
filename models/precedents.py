@@ -49,16 +49,16 @@ per_share = [val.iloc[V["Value per share"], j].value for j in range(3)]
 sheets = [sh, val]
 
 sources = {f"deal-{d['id']}": {"title": f"{d['acquirer']} / {d['target']}, announced {d['announced']}", "url": d["sources"][0], "publishedAt": d["announced"]} for d in deals}
-table = [["Deal", "Announced", "Buyer", "EV ($m)", "EBITDA ($m), basis", "EV / EBITDA", "In range", "Why it is here"]]
+table = [["Deal", "Announced", "Buyer", "EV ($m)", "EV basis", "EBITDA ($m), basis", "EV / EBITDA", "In range", "Why it is here"]]
 for i, d in enumerate(deals):
-    table.append([f"{d['acquirer']} / {d['target']}", d["announced"], d["buyerType"], f"{d['ev']:,}", f"{d['ebitda']}: {d['ebitdaBasis']}",
+    table.append([f"{d['acquirer']} / {d['target']}", d["announced"], d["buyerType"], f"{d['ev']:,}", d["evBasis"], f"{d['ebitda']}: {d['ebitdaBasis']}",
                   f"{sh.iloc[i, C['EV / EBITDA']].value:.1f}x", "yes" if d["inRange"] else "no", d["comparability"]])
 method = {
     "id": "precedents", "group": "multiples", "label": "Precedent transactions", "sublabel": f"EV / LTM EBITDA, 25th to 75th percentile of {len(mult)} deals",
     "kind": "range", "low": per_share[0], "base": per_share[1], "high": per_share[2], "status": "workbook",
     "note": (f"Control transactions for branded maintenance, auto-care, lubricant and asset-light consumer businesses, 2017-2022, with enterprise value and trailing EBITDA "
              f"before synergies disclosed by the parties. The multiples ({', '.join(f'{x:.1f}x' for x in mult)}) are computed from those figures; the parties' own stated multiples are listed where they exist. "
-             f"Two forward-basis deals are shown but left out of the range. Quartiles {quart[0]:.1f}x / {quart[1]:.1f}x / {quart[2]:.1f}x applied to WD-40's FY2025 EBITDA of $112.0m. "
+             f"Deals whose EBITDA is a forecast, or whose price has no disclosed bridge to enterprise value, are shown but left out of the range. Quartiles {quart[0]:.1f}x / {quart[1]:.1f}x / {quart[2]:.1f}x applied to WD-40's FY2025 EBITDA of $112.0m. "
              f"Every deal sits far below the 26.4x WD-40 traded at, even with a control premium."),
     "table": table, "excluded": D["excluded"], "quartiles": quart, "synergyPctOfRevenue": syn_pct,
     "cells": ["Precedent valuation!B9", "Precedent valuation!C9", "Precedent valuation!D9"], "sourceIds": list(sources),

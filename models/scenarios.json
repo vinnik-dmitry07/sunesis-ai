@@ -169,8 +169,8 @@
     "Input sheet!B29": 0.1670899470899471,
     "Input sheet!B30": 5,
     "Input sheet!B23": 0.235,
-    "Cost of capital worksheet!B12": 0.0770208296529704,
-    "Input sheet!B46": 0.08321337634641188,
+    "Cost of capital worksheet!B12": 0.08657925101389155,
+    "Input sheet!B46": 0.09447805760386323,
     "Input sheet!B68": 0.02,
     "Input sheet!B19": 0.0,
     "Input sheet!B48": "No"
@@ -178,7 +178,7 @@
    "rationale": [
     "Year-1 revenue at the low end of FY2026 guidance ($630m on the pro forma base). Years 2-5 grow 3.25% a year, the compound rate of a regional build: Americas 2%, EIMEA 4%, Asia-Pacific 5% (FY2025 segment growth was 3.1%, 7.0% and 6.1%).",
     "Year-1 margin from the low end of guidance ($103m operating income on $630m of sales) plus the workbook's R&D adjustment, held flat; reported operating margin averaged 16.6% in FY2022-FY2025.",
-    "Cost of capital from the Household Products unlevered beta and the higher Damodaran ERP variant; it drifts to the market's cost of capital by year 10.",
+    "Cost of capital from the Household Products unlevered beta and Damodaran's smoothed ERP (5.37%, the ten-year average implied premium, measured against the T-bond rate). It drifts to the market's cost of capital, 9.45%, by year 10.",
     "No excess returns on new capital after year 10 (terminal ROIC equals terminal WACC). Terminal growth 2.0%."
    ]
   },
@@ -224,7 +224,7 @@
    "rationale": [
     "Year-1 revenue at the top of FY2026 guidance ($655m on the pro forma base). Years 2-5 grow 7.98% a year, the compound rate of a regional build: Americas 6%, EIMEA 9%, Asia-Pacific 11% (FY2025 segment growth was 3.1%, 7.0% and 6.1%).",
     "Year-1 margin from the top of guidance ($110m operating income on $655m of sales) plus the workbook's R&D adjustment. The 20% target by year 5 is an analyst assumption near the 19.4% reported FY2017-FY2020 average.",
-    "Cost of capital from the Blume-adjusted 5-year weekly regression beta and the lower Damodaran ERP variant.",
+    "Cost of capital from the Blume-adjusted 5-year weekly regression beta and Damodaran's sustainable-payout ERP (3.68%, measured against the T-bond rate).",
     "New capital after year 10 earns 20%. Terminal growth 3.0%, below the 4.23% risk-free rate."
    ]
   }

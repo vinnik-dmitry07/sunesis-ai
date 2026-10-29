@@ -10,6 +10,7 @@ import csv
 import datetime as dt
 import json
 import pathlib
+import re
 import statistics
 import sys
 
@@ -95,6 +96,17 @@ def quart(xs):
 
 
 qa, qb = quart(ev_ebitda), quart(ev_ebit)
+# Sensitivity: Quaker Houghton's EBITDA includes one estimated quarter of amortization; the range without it.
+ev_ebitda_ex_kwr = sorted(sh.iloc[i, C["EV / adjusted EBITDA"]].value for i, t in enumerate(TICKERS) if t != "KWR")
+qa_ex_kwr = quart(ev_ebitda_ex_kwr)
+
+
+def ltm_end(t):
+    d = F[t]["revenueDetail"]
+    if d.get("period"):
+        return d["period"][1]
+    return re.search(r"to (\d{4}-\d{2}-\d{2})", d["method"]).group(1)
+
 
 # WD-40 FY2025 metrics, from the case and SEC XBRL (FY ended 2025-08-31)
 W = json.loads((DATA / "sec" / "wdfc_companyfacts.json").read_text())["facts"]["us-gaap"]
@@ -116,6 +128,8 @@ for j in range(3):
     val.iloc[V["Implied equity value"], j] = rc("Implied enterprise value") - rc("Debt") + rc("Cash")
     val.iloc[V["Value per share"], j] = rc("Implied equity value") / rc("Shares, DCF denominator (m)")
 per_share = [val.iloc[V["Value per share"], j].value for j in range(3)]
+ebitda_wd = 103.793 + wd_da
+per_share_ex_kwr = [(ebitda_wd * m_ - 86.995 + 58.13) / 13.633263 for m_ in qa_ex_kwr]
 
 # WD-40's own trailing EV/EBITDA at fiscal year-ends (market context, not a valuation method)
 def wd_fy(tag, year):
@@ -156,10 +170,10 @@ sources = {f"sec-{t.lower()}": {"title": f"{F[t]['name'].title()} {F[t]['filing'
                                 "url": f"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={t}&type=10-&dateb=20250829", "asOf": CUT} for t in TICKERS}
 sources["yahoo-peers"] = {"title": "Peer closing prices on 29 Aug 2025 (Yahoo Finance chart API)", "file": "models/data/market/", "asOf": CUT}
 f1 = lambda x: f"{x:,.1f}"  # noqa: E731
-table = [["Company", "Why it is here", "EV ($m)", "Adj. EBITDA ($m)", "EV / EBITDA", "EV / EBIT", "One-offs added ($m)"]]
+table = [["Company", "Why it is here", "LTM to", "Filed", "EV ($m)", "Adj. EBITDA ($m)", "EV / EBITDA", "EV / EBIT", "One-offs added ($m)"]]
 for i, t in enumerate(TICKERS):
     g = lambda col: sh.iloc[i, C[col]].value  # noqa: E731
-    table.append([F[t]["name"].title(), F[t]["why"], f1(g("Enterprise value")), f1(g("Adjusted EBITDA")), f"{g('EV / adjusted EBITDA'):.1f}x", f"{g('EV / adjusted EBIT'):.1f}x", f1(g("One-off charges added back"))])
+    table.append([F[t]["name"].title(), F[t]["why"], ltm_end(t), F[t]["filing"]["filed"], f1(g("Enterprise value")), f1(g("Adjusted EBITDA")), f"{g('EV / adjusted EBITDA'):.1f}x", f"{g('EV / adjusted EBIT'):.1f}x", f1(g("One-off charges added back"))])
 table.append(["Quartiles (25th / median / 75th)", "", "", "", " / ".join(f"{x:.1f}x" for x in qa), " / ".join(f"{x:.1f}x" for x in qb), ""])
 table.append(["WD-40 at $216.04", "Not in the peer set", f1(216.04 * 13.527614 + 86.995 - 58.13), f1(103.793 + wd_da), f"{(216.04 * 13.527614 + 86.995 - 58.13) / (103.793 + wd_da):.1f}x", f"{(216.04 * 13.527614 + 86.995 - 58.13) / 103.793:.1f}x", ""])
 method = {
@@ -168,11 +182,12 @@ method = {
     "note": (f"Five listed companies that share WD-40's channels or products, priced at the 29 Aug 2025 close, with trailing-twelve-month results from the latest filing made by that date. "
              f"One-off impairments, restructuring and a divestiture loss are added back to EBITDA where tagged; other company-defined adjustments are not. "
              f"The peer quartiles ({qa[0]:.1f}x / {qa[1]:.1f}x / {qa[2]:.1f}x EV/EBITDA) are applied to WD-40's FY2025 EBITDA of ${103.793 + wd_da:.1f}m. "
-             f"WD-40 itself traded at {(216.04 * 13.527614 + 86.995 - 58.13) / (103.793 + wd_da):.1f}x, above every peer."),
+             f"WD-40 itself traded at {(216.04 * 13.527614 + 86.995 - 58.13) / (103.793 + wd_da):.1f}x, above every peer. "
+             f"Quaker Houghton's EBITDA includes one quarter of amortization estimated from the adjacent quarters; without that peer the range is ${per_share_ex_kwr[0]:.2f} to ${per_share_ex_kwr[2]:.2f} (median ${per_share_ex_kwr[1]:.2f})."),
     "table": table,
     "adjustments": {t: [{"item": a[0], "usdMillions": (a[1] or 0) / 1e6, "source": a[2]} for a in ADJ[t]] + ([{"item": "Intangible amortization (not in D&A tag)", "usdMillions": EXTRA_DA[t][0] / 1e6, "source": EXTRA_DA[t][1]}] if t in EXTRA_DA else []) for t in TICKERS},
     "notAdjusted": {t: v for t, v in NOT_ADJUSTED.items() if v},
-    "quartiles": {"evToEbitda": qa, "evToEbit": qb}, "ownHistory": own,
+    "quartiles": {"evToEbitda": qa, "evToEbit": qb, "evToEbitdaExQuakerHoughton": qa_ex_kwr}, "perShareExQuakerHoughton": per_share_ex_kwr, "ownHistory": own,
     "cells": ["Comps valuation!B11", "Comps valuation!C11", "Comps valuation!D11"],
     "sourceIds": list(src_ids.values()) + ["yahoo-peers"],
 }

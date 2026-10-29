@@ -61,11 +61,23 @@ The guidance base (currency-adjusted pro forma FY2025 net sales of about $603m) 
 
 Regression betas against the S&P 500 are too noisy to use: 2-year weekly 0.13 (R² 0.006), 5-year weekly 0.49 (R² 0.073), 3-year monthly 0.62 (R² 0.105), 5-year monthly 0.10 (R² 0.003). The scenarios use industry betas instead, relevered at WD-40's market debt-to-equity of 3.0% and a 25% marginal tax rate. Pre-tax cost of debt is Damodaran's January 2025 sector figure of 5.78%; debt is 2.9% of capital, so this choice moves WACC by less than 0.1 pp.
 
-| Scenario | Beta | ERP | Cost of equity | WACC years 1-5 | WACC year 10 and after |
-|---|---:|---:|---:|---:|---:|
-| bear | 0.849 | 4.21% | 7.80% | 7.70% | 8.32% |
-| base | 0.828 | 3.94% | 7.49% | 7.40% | 7.40% |
-| bull | 0.657 | 3.68% | 6.65% | 6.58% | 6.58% |
+| Scenario | Beta | ERP (variant) | Risk-free rate it is measured against | Cost of equity | WACC years 1-5 | WACC year 10 and after |
+|---|---:|---|---:|---:|---:|---:|
+| bear | 0.849 | 5.37% (smoothed) | 4.23% | 8.79% | 8.66% | 9.45% |
+| base | 0.828 | 3.94% (t12m) | 4.23% | 7.49% | 7.40% | 7.40% |
+| bull | 0.657 | 3.68% (sustainablePayout) | 4.23% | 6.65% | 6.58% | 6.58% |
+
+Damodaran publishes several premiums for the same month; each is measured against a stated risk-free rate. The T12m, sustainable-payout and smoothed premiums use the T-bond rate (4.23%); the adjusted-risk-free premium uses 3.96%. Each scenario pairs a premium with its own rate.
+
+**Beta sensitivity (Base, flat WACC in all years, every other Base input unchanged)**
+
+| Beta source | Beta | WACC | Base value / share |
+|---|---:|---:|---:|
+| Chemical (Specialty), relevered | 0.808 | 7.32% | $127.46 |
+| Household Products, relevered | 0.849 | 7.48% | $123.28 |
+| Blume-adjusted 5-year weekly regression | 0.657 | 6.75% | $145.51 |
+| Raw 3-year monthly regression | 0.619 | 6.60% | $150.86 |
+| Raw 5-year weekly regression | 0.488 | 6.10% | $172.64 |
 
 The original case uses 9% fading to 8%, labelled in the case as an illustrative placeholder.
 
@@ -75,7 +87,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 
 - Year-1 revenue at the low end of FY2026 guidance ($630m on the pro forma base). Years 2-5 grow 3.25% a year, the compound rate of a regional build: Americas 2%, EIMEA 4%, Asia-Pacific 5% (FY2025 segment growth was 3.1%, 7.0% and 6.1%).
 - Year-1 margin from the low end of guidance ($103m operating income on $630m of sales) plus the workbook's R&D adjustment, held flat; reported operating margin averaged 16.6% in FY2022-FY2025.
-- Cost of capital from the Household Products unlevered beta and the higher Damodaran ERP variant; it drifts to the market's cost of capital by year 10.
+- Cost of capital from the Household Products unlevered beta and Damodaran's smoothed ERP (5.37%, the ten-year average implied premium, measured against the T-bond rate). It drifts to the market's cost of capital, 9.45%, by year 10.
 - No excess returns on new capital after year 10 (terminal ROIC equals terminal WACC). Terminal growth 2.0%.
 
 | Cell | Original | Scenario |
@@ -86,8 +98,8 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 | Input sheet!B29 | 17.11% | 16.71% |
 | Input sheet!B30 | 5.00 | 5.00 |
 | Input sheet!B23 | 22.20% | 23.50% |
-| Cost of capital worksheet!B12 | 9.00% | 7.70% |
-| Input sheet!B46 | 8.00% | 8.32% |
+| Cost of capital worksheet!B12 | 9.00% | 8.66% |
+| Input sheet!B46 | 8.00% | 9.45% |
 | Input sheet!B68 | 2.50% | 2.00% |
 | Input sheet!B19 | 0.00% | 0.00% |
 | Input sheet!B48 | No | No |
@@ -118,7 +130,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 
 - Year-1 revenue at the top of FY2026 guidance ($655m on the pro forma base). Years 2-5 grow 7.98% a year, the compound rate of a regional build: Americas 6%, EIMEA 9%, Asia-Pacific 11% (FY2025 segment growth was 3.1%, 7.0% and 6.1%).
 - Year-1 margin from the top of guidance ($110m operating income on $655m of sales) plus the workbook's R&D adjustment. The 20% target by year 5 is an analyst assumption near the 19.4% reported FY2017-FY2020 average.
-- Cost of capital from the Blume-adjusted 5-year weekly regression beta and the lower Damodaran ERP variant.
+- Cost of capital from the Blume-adjusted 5-year weekly regression beta and Damodaran's sustainable-payout ERP (3.68%, measured against the T-bond rate).
 - New capital after year 10 earns 20%. Terminal growth 3.0%, below the 4.23% risk-free rate.
 
 | Cell | Original | Scenario |
@@ -143,7 +155,7 @@ Not changed in any scenario: Sales-to-capital stays at 2.0 in all scenarios (Inp
 | Case | Value / share | Operating assets | PV terminal / operating assets | Year-10 ROIC | Terminal ROIC | Status |
 |---|---:|---:|---:|---:|---:|---|
 | Original case | $88.15 | 1,230.6 | 54.5% | 26.3% | 8.0% | valid |
-| Bear | $80.60 | 1,127.6 | 51.6% | 25.2% | 8.3% | valid |
+| Bear | $70.37 | 988.2 | 47.3% | 25.2% | 9.4% | valid |
 | Base | $125.34 | 1,737.6 | 64.4% | 27.4% | 15.0% | valid |
 | Bull | $214.28 | 2,950.2 | 74.6% | 30.8% | 20.0% | valid |
 

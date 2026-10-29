@@ -55,6 +55,12 @@ for r in ws.iter_rows(min_row=2, values_only=True):
 assert erp_row
 erp = {"t12m": erp_row["ERP (T12m)"], "sustainablePayout": erp_row["ERP (T12 m with sustainable payout)"],
        "adjustedRiskfree": erp_row["ERP (T12m) with adj riskfree rate"], "smoothed": erp_row["ERP (Smoothed)"]}
+# Damodaran computes each variant against a stated risk-free rate. The T12m, sustainable-payout and smoothed premiums
+# use the T-bond rate; the adjusted-risk-free premium uses the T-bond rate less a default spread. Pair each premium
+# with its own rate, or the implied market return is wrong.
+erp_rf = {"t12m": erp_row["T.Bond Rate"], "sustainablePayout": erp_row["T.Bond Rate"], "smoothed": erp_row["T.Bond Rate"],
+          "adjustedRiskfree": erp_row["$ Riskfree Rate"]}
+assert abs(erp_row["T.Bond Rate"] - rf) < 1e-9, "Damodaran's T-bond rate must equal the Treasury yield used here"
 
 # ---------------------------------------------------------------- 3. betas
 import xlrd  # noqa: E402
@@ -114,21 +120,29 @@ def relever(bu):
     return bu * (1 + (1 - MARGINAL_TAX) * d_e)
 
 
-def wacc(beta_l, erp_value, kd_pre):
-    ke = rf + beta_l * erp_value
-    return {"leveredBeta": beta_l, "erp": erp_value, "costOfEquity": ke, "preTaxCostOfDebt": kd_pre,
+def wacc(beta_l, erp_key, kd_pre):
+    erp_value, rf_used = erp[erp_key], erp_rf[erp_key]
+    ke = rf_used + beta_l * erp_value
+    return {"leveredBeta": beta_l, "erp": erp_value, "erpVariant": erp_key, "riskFreeUsed": rf_used, "costOfEquity": ke, "preTaxCostOfDebt": kd_pre,
             "afterTaxCostOfDebt": kd_pre * (1 - MARGINAL_TAX), "debtWeight": w_d,
             "wacc": ke * (1 - w_d) + kd_pre * (1 - MARGINAL_TAX) * w_d}
 
 
 bottom_up_unlevered = (ind["Chemical (Specialty)"] + ind["Household Products"]) / 2
 wacc_cases = {
-    "bear": wacc(relever(ind["Household Products"]), erp["adjustedRiskfree"], sector_cost_of_debt),
-    "base": wacc(relever(bottom_up_unlevered), erp["t12m"], sector_cost_of_debt),
-    "bull": wacc(regressions[1]["blumeAdjusted"], erp["sustainablePayout"], sector_cost_of_debt),
+    "bear": wacc(relever(ind["Household Products"]), "smoothed", sector_cost_of_debt),
+    "base": wacc(relever(bottom_up_unlevered), "t12m", sector_cost_of_debt),
+    "bull": wacc(regressions[1]["blumeAdjusted"], "sustainablePayout", sector_cost_of_debt),
 }
 # Bear terminal: cost of capital drifts to the market's (beta 1) as WD-40 matures; Damodaran's default for stable growth.
-market_terminal_bear = wacc(1.0, erp["adjustedRiskfree"], sector_cost_of_debt)["wacc"]
+market_terminal_bear = wacc(1.0, "smoothed", sector_cost_of_debt)["wacc"]
+# Beta sensitivity for Base: the same ERP and debt terms with each alternative beta.
+beta_sensitivity = [{"label": label, "beta": b, "wacc": wacc(b, "t12m", sector_cost_of_debt)["wacc"]} for label, b in [
+    ("Chemical (Specialty), relevered", relever(ind["Chemical (Specialty)"])),
+    ("Household Products, relevered", relever(ind["Household Products"])),
+    ("Blume-adjusted 5-year weekly regression", regressions[1]["blumeAdjusted"]),
+    ("Raw 3-year monthly regression", regressions[2]["beta"]),
+    ("Raw 5-year weekly regression", regressions[1]["beta"])]]
 
 # ---------------------------------------------------------------- 4. history from XBRL
 facts = json.load(open(DATA / "sec" / "wdfc_companyfacts.json"))["facts"]["us-gaap"]
@@ -207,7 +221,7 @@ why = {
     "bear": [
         f"Year-1 revenue at the low end of FY2026 guidance ($630m on the pro forma base). Years 2-5 grow {regional['bear']['growth2to5']:.2%} a year, the compound rate of a regional build: Americas {segments.REGIONAL_GROWTH['bear']['americas']:.0%}, EIMEA {segments.REGIONAL_GROWTH['bear']['eimea']:.0%}, Asia-Pacific {segments.REGIONAL_GROWTH['bear']['asiaPacific']:.0%} (FY2025 segment growth was {region_hist['americas']['growthFY2025']:.1%}, {region_hist['eimea']['growthFY2025']:.1%} and {region_hist['asiaPacific']['growthFY2025']:.1%}).",
         f"Year-1 margin from the low end of guidance ($103m operating income on $630m of sales) plus the workbook's R&D adjustment, held flat; reported operating margin averaged {sum(margin_post) / len(margin_post):.1%} in FY2022-FY2025.",
-        "Cost of capital from the Household Products unlevered beta and the higher Damodaran ERP variant; it drifts to the market's cost of capital by year 10.",
+        f"Cost of capital from the Household Products unlevered beta and Damodaran's smoothed ERP ({erp['smoothed']:.2%}, the ten-year average implied premium, measured against the T-bond rate). It drifts to the market's cost of capital, {market_terminal_bear:.2%}, by year 10.",
         "No excess returns on new capital after year 10 (terminal ROIC equals terminal WACC). Terminal growth 2.0%.",
     ],
     "base": [
@@ -219,7 +233,7 @@ why = {
     "bull": [
         f"Year-1 revenue at the top of FY2026 guidance ($655m on the pro forma base). Years 2-5 grow {regional['bull']['growth2to5']:.2%} a year, the compound rate of a regional build: Americas {segments.REGIONAL_GROWTH['bull']['americas']:.0%}, EIMEA {segments.REGIONAL_GROWTH['bull']['eimea']:.0%}, Asia-Pacific {segments.REGIONAL_GROWTH['bull']['asiaPacific']:.0%} (FY2025 segment growth was {region_hist['americas']['growthFY2025']:.1%}, {region_hist['eimea']['growthFY2025']:.1%} and {region_hist['asiaPacific']['growthFY2025']:.1%}).",
         f"Year-1 margin from the top of guidance ($110m operating income on $655m of sales) plus the workbook's R&D adjustment. The 20% target by year 5 is an analyst assumption near the {sum(margin_pre) / len(margin_pre):.1%} reported FY2017-FY2020 average.",
-        "Cost of capital from the Blume-adjusted 5-year weekly regression beta and the lower Damodaran ERP variant.",
+        f"Cost of capital from the Blume-adjusted 5-year weekly regression beta and Damodaran's sustainable-payout ERP ({erp['sustainablePayout']:.2%}, measured against the T-bond rate).",
         "New capital after year 10 earns 20%. Terminal growth 3.0%, below the 4.23% risk-free rate.",
     ],
 }
@@ -240,7 +254,7 @@ scenarios = {"schemaVersion": 1, "assumptionSetVersion": "2025-10-27-retrospecti
 (ROOT / "models" / "scenarios.json").write_text(json.dumps(scenarios, indent=1) + "\n")
 
 detail = {"riskFree": rf, "erp": erp, "industryUnleveredBetas": ind, "bottomUpUnlevered": bottom_up_unlevered,
-          "regressionBetas": regressions, "marketCap": market_cap, "debtToEquity": d_e, "debtWeight": w_d,
+          "regressionBetas": regressions, "betaSensitivity": beta_sensitivity, "erpRiskFree": erp_rf, "marketCap": market_cap, "debtToEquity": d_e, "debtWeight": w_d,
           "sectorCostOfDebt": sector_cost_of_debt, "waccCases": wacc_cases, "marketTerminalBear": market_terminal_bear,
           "history": history, "growthHistory": growth_history,
           "marginFY2017_2020": sum(margin_pre) / len(margin_pre), "marginFY2022_2025": sum(margin_post) / len(margin_post),

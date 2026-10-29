@@ -5,7 +5,7 @@
 | Case | Values compared | First divergence | Worst relative difference | Python | Engine |
 |---|---:|---|---:|---:|---:|
 | base | 161 | none | 2.3e-16 | 125.335170 | 125.335170 |
-| bear | 161 | none | 1.8e-16 | 80.595475 | 80.595475 |
+| bear | 161 | none | 2.8e-16 | 70.365330 | 70.365330 |
 | bull | 161 | none | 0.0e+00 | 214.280701 | 214.280701 |
 | original | 161 | none | 1.6e-16 | 88.150296 | 88.150296 |
 
@@ -16,7 +16,7 @@ The quick replica written during planning funded each year's growth with that ye
 | Case | Workbook timing (t to t+1) | Same-year timing (t-1 to t) |
 |---|---:|---:|
 | original | $88.1503 | $88.0636 |
-| bear | $80.5955 | $80.8742 |
+| bear | $70.3653 | $70.6476 |
 | base | $125.3352 | $125.6068 |
 | bull | $214.2807 | $214.5524 |
 
