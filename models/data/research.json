@@ -226,7 +226,18 @@
       "sourceIds": [
         "wd40-fy26-guidance-july-revision"
       ],
-      "interpretation": "Explains the 6–9% range in the draft plan; it is a later forecast on a changed business perimeter, not the original FY2026 forecast."
+      "interpretation": "Explains the 6–9% range in the draft plan; it is a later forecast on a changed business perimeter, not the original FY2026 forecast.",
+      "reportedNetSalesLow": 675.0,
+      "reportedNetSalesHigh": 690.0,
+      "grossMarginLow": 0.545,
+      "grossMarginHigh": 0.555,
+      "grossMarginRevisionBp": {
+        "reclassifiedBrands": 40,
+        "costIncreases": 60
+      },
+      "operatingIncomeLow": 107.0,
+      "operatingIncomeHigh": 113.0,
+      "taxRateApprox": 0.225
     }
   ],
   "longTermFinancialModel": {

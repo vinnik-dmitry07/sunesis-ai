@@ -79,7 +79,8 @@ if peers:
 else:
     skip("Peer facts and methods workbook", "peer SEC facts missing; run bash models/data/fetch.sh")
 
-bench = (M / "data" / "benchmarks" / "financebench" / "financebench_open_source.jsonl").exists()
+lock = json.loads((M / "data" / "benchmarks" / "manifest.json").read_text(encoding="utf-8"))["sources"]
+bench = all((M / "data" / "benchmarks" / s["filename"]).exists() for s in lock)
 if bench:
     run("Benchmark records merged", PY + ["models/questions/extract.py"])
     run("WD-40 questions and answers", PY + ["models/questions/build_questions.py"])

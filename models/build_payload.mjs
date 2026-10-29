@@ -76,6 +76,22 @@ const checksOut = {
   excel: CK.excel ? {checked: CK.excel.checked, failed: CK.excel.failed, matchesThisBuild: excelOk, workbook: CK.excel.publishedPath, sha256: CK.excel.publishedSha256} : null,
 };
 
+// Every question link must resolve in the merged namespaces: sources, cells of the original workbook, method ids.
+const html = readFileSync(join(ROOT, 'index.html'), 'utf8');
+const bookStart = html.indexOf('const BUNDLED_BOOK=') + 'const BUNDLED_BOOK='.length;
+const bookCells = new Set(Object.keys(JSON.parse(html.slice(bookStart, html.indexOf(';const BUNDLED_CASE=', bookStart))).cells));
+const methodIds = new Set(methods.map(m => m.id));
+const broken = [];
+for (const t of Q.topics) for (const l of t.leaves) {
+  for (const id of [...l.evidence, ...(l.laterInformation?.sourceIds ?? [])]) if (!sources[id]) broken.push(`${l.id}: source ${id}`);
+  for (const c of l.cells) if (!bookCells.has(c)) broken.push(`${l.id}: cell ${c}`);
+  for (const m of l.methods) if (!methodIds.has(m)) broken.push(`${l.id}: method ${m}`);
+}
+if (broken.length) {
+  console.error(`question links that do not resolve:\n  ${broken.join('\n  ')}`);
+  process.exit(1);
+}
+
 const payload = {
   schemaVersion: 1,
   timeBasis: {...S.timeBasis, assumptionSetVersion: S.assumptionSetVersion, priceType: 'Nasdaq unadjusted close'},

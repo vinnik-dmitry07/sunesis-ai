@@ -1,0 +1,511 @@
+{
+ "note": "Question ids of the two merged implementations, frozen at their pinned commits. build_questions.py requires a disposition for each.",
+ "branches": [
+  {
+   "branch": "main",
+   "commit": "70b6ba82999fcaa3c2a29e82b7d1121f006e5c68",
+   "file": "models/questions/wd40_questions.json",
+   "questions": [
+    {
+     "id": "revenue-base",
+     "parentId": "revenue",
+     "category": "fact",
+     "question": "What FY2025 revenue anchors the WD-40 model?",
+     "origin": "pe-bench:voltaic-01-historicals"
+    },
+    {
+     "id": "revenue-growth",
+     "parentId": "revenue",
+     "category": "fact",
+     "question": "What was reported FY2025 revenue growth, and is the forecast the same claim?",
+     "origin": "financebench:financebench_id_01198"
+    },
+    {
+     "id": "revenue-resolution",
+     "parentId": "revenue",
+     "category": "forecast",
+     "question": "Will WD-40 FY2026 reported net sales exceed the FY2025 reported base by at least 5%?",
+     "origin": "pe-bench:voltaic-07-operating-model"
+    },
+    {
+     "id": "margin-reported",
+     "parentId": "margins",
+     "category": "fact",
+     "question": "What is WD-40 FY2025 reported operating margin?",
+     "origin": "financebench:financebench_id_01226"
+    },
+    {
+     "id": "margin-rd-bridge",
+     "parentId": "margins",
+     "category": "assumption",
+     "question": "Why does the original model use a 17.1068% operating margin rather than the reported margin?",
+     "origin": "pe-bench:voltaic-04-ebitda-bridge"
+    },
+    {
+     "id": "margin-target",
+     "parentId": "margins",
+     "category": "assumption",
+     "question": "What evidence would justify a 20% adjusted EBIT margin instead of the original flat margin?",
+     "origin": "pe-bench:voltaic-07-operating-model"
+    },
+    {
+     "id": "capital-capex",
+     "parentId": "capital",
+     "category": "fact",
+     "question": "What was WD-40 FY2025 capital expenditure, and what percentage of revenue was it?",
+     "origin": "financebench:financebench_id_03029"
+    },
+    {
+     "id": "capital-turnover",
+     "parentId": "capital",
+     "category": "assumption",
+     "question": "Is the model’s 2.0× sales-to-capital ratio observed or assumed?",
+     "origin": "financebench:financebench_id_00499"
+    },
+    {
+     "id": "capital-rd",
+     "parentId": "capital",
+     "category": "fact",
+     "question": "Which R&D amounts support the model’s capitalization schedule?",
+     "origin": "pe-bench:voltaic-01-historicals"
+    },
+    {
+     "id": "cash-fcff",
+     "parentId": "cash",
+     "category": "assumption",
+     "question": "What modeled free cash flow is generated in the first forecast year?",
+     "origin": "financebench:financebench_id_04854"
+    },
+    {
+     "id": "cash-conversion",
+     "parentId": "cash",
+     "category": "fact",
+     "question": "Did historical free-cash-flow conversion improve from FY2024 to FY2025?",
+     "origin": "financebench:financebench_id_00591"
+    },
+    {
+     "id": "cash-working-capital",
+     "parentId": "cash",
+     "category": "assumption",
+     "question": "Does the forecast explicitly model WD-40’s working-capital funding need?",
+     "origin": "pe-bench:voltaic-05-nwc-peg"
+    },
+    {
+     "id": "tax-normalization",
+     "parentId": "tax",
+     "category": "fact",
+     "question": "How is the model’s normalized starting tax rate calculated?",
+     "origin": "financebench:financebench_id_01351"
+    },
+    {
+     "id": "tax-terminal",
+     "parentId": "tax",
+     "category": "assumption",
+     "question": "Is the 25% terminal tax rate a company fact?",
+     "origin": "finlfqa:82"
+    },
+    {
+     "id": "tax-nol",
+     "parentId": "tax",
+     "category": "assumption",
+     "question": "Why are disclosed state NOLs excluded from the simplified consolidated tax shield?",
+     "origin": "finlfqa:97"
+    },
+    {
+     "id": "discount-start",
+     "parentId": "discount",
+     "category": "assumption",
+     "question": "Which historical CAPM evidence supports the original 9% starting WACC?",
+     "origin": "pe-bench:voltaic-07-operating-model"
+    },
+    {
+     "id": "discount-terminal",
+     "parentId": "discount",
+     "category": "assumption",
+     "question": "Why is terminal WACC 8%, and which template tables are bypassed?",
+     "origin": "pe-bench:voltaic-07-operating-model"
+    },
+    {
+     "id": "discount-sensitivity",
+     "parentId": "discount",
+     "category": "assumption",
+     "question": "How does shifting the WACC path change modeled value per share?",
+     "origin": "pe-bench:voltaic-11-returns-waterfall"
+    },
+    {
+     "id": "terminal-reinvestment",
+     "parentId": "terminal",
+     "category": "assumption",
+     "question": "What terminal reinvestment does 2.5% growth require when ROIC equals 8% WACC?",
+     "origin": "financebench:financebench_id_00499"
+    },
+    {
+     "id": "terminal-excess-returns",
+     "parentId": "terminal",
+     "category": "assumption",
+     "question": "What supports terminal ROIC of 20% or 25% in an alternative scenario?",
+     "origin": "pe-bench:voltaic-07-operating-model"
+    },
+    {
+     "id": "terminal-value-share",
+     "parentId": "terminal",
+     "category": "assumption",
+     "question": "How much of modeled operating value comes from the terminal value?",
+     "origin": "pe-bench:voltaic-07-operating-model"
+    },
+    {
+     "id": "financing-net-debt",
+     "parentId": "financing",
+     "category": "fact",
+     "question": "Which debt and cash amounts enter the enterprise-to-equity bridge?",
+     "origin": "pe-bench:voltaic-09-sources-uses"
+    },
+    {
+     "id": "financing-leases",
+     "parentId": "financing",
+     "category": "assumption",
+     "question": "Why are operating-lease liabilities excluded from this case’s debt?",
+     "origin": "pe-bench:voltaic-05-nwc-peg"
+    },
+    {
+     "id": "financing-affordability",
+     "parentId": "financing",
+     "category": "assumption",
+     "question": "What entry price can a buyer pay while meeting a 20% annualized equity return?",
+     "origin": "pe-bench:voltaic-11-returns-waterfall"
+    },
+    {
+     "id": "payouts-dilution",
+     "parentId": "payouts",
+     "category": "fact",
+     "question": "What share count is used for DCF value per share, and is it the market-cap share count?",
+     "origin": "pe-bench:voltaic-09-sources-uses"
+    },
+    {
+     "id": "payouts-dividends",
+     "parentId": "payouts",
+     "category": "fact",
+     "question": "Were FY2025 dividends covered by recurring earnings and free cash flow?",
+     "origin": "financebench:financebench_id_06272"
+    },
+    {
+     "id": "payouts-ddm",
+     "parentId": "payouts",
+     "category": "assumption",
+     "question": "Which dividend-growth and cost-of-equity assumptions support the DDM range?",
+     "origin": "finlfqa:41"
+    },
+    {
+     "id": "risks-disposal",
+     "parentId": "risks",
+     "category": "assumption",
+     "question": "How would removing the homecare assets change the revenue and operating-income base?",
+     "origin": "fincausal:0209.00019"
+    },
+    {
+     "id": "risks-product-concentration",
+     "parentId": "risks",
+     "category": "fact",
+     "question": "Which WD-40 product and geographic exposures could invalidate the growth scenario?",
+     "origin": "financebench:financebench_id_00517"
+    },
+    {
+     "id": "risks-falsification",
+     "parentId": "risks",
+     "category": "forecast",
+     "question": "Which published operating result would falsify the higher-margin scenario?",
+     "origin": "pe-bench:voltaic-07-operating-model"
+    }
+   ]
+  },
+  {
+   "branch": "valuation-range",
+   "commit": "aa9dce51d74b3530ea1241aebba3d1c898634b73",
+   "file": "models/questions/questions.json",
+   "questions": [
+    {
+     "id": "growth-1",
+     "parentId": "growth",
+     "category": "fact",
+     "question": "What were net sales in FY2021 and FY2025, and the compound annual growth rate between them?"
+    },
+    {
+     "id": "growth-2",
+     "parentId": "growth",
+     "category": "fact",
+     "question": "How much of the FY2025 change in net sales came from volume, price and currency?"
+    },
+    {
+     "id": "growth-3",
+     "parentId": "growth",
+     "category": "fact",
+     "question": "What growth did management guide for FY2026, from what base and at what exchange rates?"
+    },
+    {
+     "id": "growth-4",
+     "parentId": "growth",
+     "category": "assumption",
+     "question": "Which growth rates do the scenarios use after year 1, and how do they compare with the FY2021-FY2025 rate?"
+    },
+    {
+     "id": "growth-5",
+     "parentId": "growth",
+     "category": "forecast",
+     "question": "Will FY2026 net sales on the guidance basis (pro forma, FY2025 exchange rates) reach the $642.5m midpoint?"
+    },
+    {
+     "id": "margin-1",
+     "parentId": "margin",
+     "category": "fact",
+     "question": "What was the gross margin in each fiscal year from 2021 to 2025?"
+    },
+    {
+     "id": "margin-2",
+     "parentId": "margin",
+     "category": "fact",
+     "question": "What explained the change in gross margin from FY2024 to FY2025?"
+    },
+    {
+     "id": "margin-3",
+     "parentId": "margin",
+     "category": "fact",
+     "question": "What was the operating margin in each fiscal year from 2021 to 2025?"
+    },
+    {
+     "id": "margin-4",
+     "parentId": "margin",
+     "category": "fact",
+     "question": "How far was FY2025 cost of doing business from the company's own target?"
+    },
+    {
+     "id": "margin-5",
+     "parentId": "margin",
+     "category": "assumption",
+     "question": "Which margin paths do the scenarios use, and on what basis?"
+    },
+    {
+     "id": "capital-1",
+     "parentId": "capital",
+     "category": "fact",
+     "question": "What were capital expenditures as a share of net sales in each year from FY2021 to FY2025?"
+    },
+    {
+     "id": "capital-2",
+     "parentId": "capital",
+     "category": "calculation",
+     "question": "How many times did inventory turn in FY2025 (cost of products sold over average inventory)?"
+    },
+    {
+     "id": "capital-3",
+     "parentId": "capital",
+     "category": "calculation",
+     "question": "What were receivables plus inventory minus payables at the end of FY2025, as a share of FY2025 net sales?"
+    },
+    {
+     "id": "capital-4",
+     "parentId": "capital",
+     "category": "calculation",
+     "question": "How much revenue did each dollar of added invested capital bring between FY2021 and FY2025?"
+    },
+    {
+     "id": "capital-5",
+     "parentId": "capital",
+     "category": "assumption",
+     "question": "Which sales-to-capital ratio does the model use, and does the history above support it?"
+    },
+    {
+     "id": "cash-1",
+     "parentId": "cash",
+     "category": "fact",
+     "question": "What were operating cash flow and capital expenditures in each year from FY2021 to FY2025?"
+    },
+    {
+     "id": "cash-2",
+     "parentId": "cash",
+     "category": "calculation",
+     "question": "What was free cash flow (operating cash flow minus capex) as a share of net income in FY2023, FY2024 and FY2025?"
+    },
+    {
+     "id": "cash-3",
+     "parentId": "cash",
+     "category": "fact",
+     "question": "Among operating, investing and financing activities, which brought in the most cash in FY2025?"
+    },
+    {
+     "id": "tax-1",
+     "parentId": "tax",
+     "category": "calculation",
+     "question": "How much did the effective tax rate change between FY2024 and FY2025?"
+    },
+    {
+     "id": "tax-2",
+     "parentId": "tax",
+     "category": "fact",
+     "question": "What one-time item explains the FY2025 rate?"
+    },
+    {
+     "id": "tax-3",
+     "parentId": "tax",
+     "category": "assumption",
+     "question": "Which starting tax rate do the scenarios use?"
+    },
+    {
+     "id": "coc-1",
+     "parentId": "cost-of-capital",
+     "category": "fact",
+     "question": "What was the 10-year Treasury yield on 29 Aug 2025, and Damodaran's implied equity risk premium at the start of September 2025?"
+    },
+    {
+     "id": "coc-2",
+     "parentId": "cost-of-capital",
+     "category": "calculation",
+     "question": "What betas do regressions of WD-40 on the S&P 500 give, and how much of the variation do they explain?"
+    },
+    {
+     "id": "coc-3",
+     "parentId": "cost-of-capital",
+     "category": "fact",
+     "question": "What were Damodaran's January 2025 unlevered betas for Chemical (Specialty) and Household Products?"
+    },
+    {
+     "id": "coc-4",
+     "parentId": "cost-of-capital",
+     "category": "assumption",
+     "question": "Which WACC do the scenarios use, and what did the original case use?"
+    },
+    {
+     "id": "returns-1",
+     "parentId": "returns",
+     "category": "calculation",
+     "question": "What was FY2025 return on invested capital in the workbook (after-tax operating income over invested capital)?"
+    },
+    {
+     "id": "returns-2",
+     "parentId": "returns",
+     "category": "fact",
+     "question": "What share of FY2025 net sales came from WD-40 Multi-Use Product?"
+    },
+    {
+     "id": "returns-3",
+     "parentId": "returns",
+     "category": "fact",
+     "question": "What share of FY2025 net sales came from outside the United States, and did any customer reach 10%?"
+    },
+    {
+     "id": "returns-4",
+     "parentId": "returns",
+     "category": "calculation",
+     "question": "Does restating the DCF as invested capital plus economic profit give the same operating value?"
+    },
+    {
+     "id": "returns-5",
+     "parentId": "returns",
+     "category": "assumption",
+     "question": "What return on new capital after year 10 do the scenarios assume?"
+    },
+    {
+     "id": "payouts-1",
+     "parentId": "payouts",
+     "category": "fact",
+     "question": "What dividend per share did WD-40 pay in each year from FY2021 to FY2025?"
+    },
+    {
+     "id": "payouts-2",
+     "parentId": "payouts",
+     "category": "calculation",
+     "question": "What share of FY2025 earnings per share went to dividends?"
+    },
+    {
+     "id": "payouts-3",
+     "parentId": "payouts",
+     "category": "fact",
+     "question": "How did FY2025 share repurchases compare with dividends?"
+    },
+    {
+     "id": "payouts-4",
+     "parentId": "payouts",
+     "category": "calculation",
+     "question": "What does a dividend discount model give with the scenarios' cost of equity?"
+    },
+    {
+     "id": "financing-1",
+     "parentId": "financing",
+     "category": "fact",
+     "question": "How did borrowings change between the end of FY2024 and FY2025?"
+    },
+    {
+     "id": "financing-2",
+     "parentId": "financing",
+     "category": "calculation",
+     "question": "What was FY2025 operating income over interest expense?"
+    },
+    {
+     "id": "financing-3",
+     "parentId": "financing",
+     "category": "calculation",
+     "question": "At 5.0 times FY2025 EBITDA of debt, SOFR on 29 Aug 2025 plus 3.5%, a 20% target return and an exit at the peer median multiple, what is the highest price per share that works?"
+    },
+    {
+     "id": "financing-4",
+     "parentId": "financing",
+     "category": "assumption",
+     "question": "Which operating case does the buyout model use?"
+    },
+    {
+     "id": "market-1",
+     "parentId": "market",
+     "category": "calculation",
+     "question": "What EV to EBITDA did five listed peers trade at on 29 Aug 2025, after adding back tagged one-off charges?"
+    },
+    {
+     "id": "market-2",
+     "parentId": "market",
+     "category": "calculation",
+     "question": "What EV to EBITDA did WD-40 trade at on 29 Aug 2025, and at its previous four fiscal year-ends?"
+    },
+    {
+     "id": "market-3",
+     "parentId": "market",
+     "category": "calculation",
+     "question": "Starting from Base, what single change reaches $216.04?"
+    },
+    {
+     "id": "market-4",
+     "parentId": "market",
+     "category": "fact",
+     "question": "What price targets had analysts published by 29 Aug 2025?"
+    },
+    {
+     "id": "market-5",
+     "parentId": "market",
+     "category": "fact",
+     "question": "Can the company-defined adjusted EBITDA of $114.4m be reconciled to EBIT plus depreciation and amortization of $112.0m?"
+    },
+    {
+     "id": "risks-1",
+     "parentId": "risks",
+     "category": "fact",
+     "question": "Which inputs does WD-40 name as its main costs, and how does the price of oil reach them?"
+    },
+    {
+     "id": "risks-2",
+     "parentId": "risks",
+     "category": "fact",
+     "question": "How did currency translation affect FY2025 net sales by segment?"
+    },
+    {
+     "id": "risks-3",
+     "parentId": "risks",
+     "category": "fact",
+     "question": "Are restructuring costs shown separately in the FY2025 income statement?"
+    },
+    {
+     "id": "risks-4",
+     "parentId": "risks",
+     "category": "forecast",
+     "question": "Will the FY2026 gross margin stay within the guided 55.5-56.5% range?"
+    }
+   ]
+  }
+ ]
+}

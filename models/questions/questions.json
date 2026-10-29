@@ -8,30 +8,79 @@
    "parent": "Is WD-40's revenue growth in line with the growth the scenarios assume?",
    "origins": [
     {
+     "key": "FinanceBench:financebench_id_00956",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_00956",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Are JnJ's FY2022 financials that of a high growth company?"
     },
     {
+     "key": "FinanceBench:financebench_id_01198",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_01198",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "What drove revenue change as of the FY22 for AMD?"
+    },
+    {
+     "key": "PE Bench:voltaic-01-historicals",
+     "source": "PE Bench",
+     "sourceId": "voltaic-01-historicals",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "",
+     "originalText": "Project Voltaic is a data centre platform we're looking at buying; the data room is attached. Build me a clean historicals workbook in Excel: income statement, balance sheet, cash flow statement and the operating KPIs (capacity, leased MW, "
+    },
+    {
+     "key": "PE Bench:voltaic-07-operating-model",
+     "source": "PE Bench",
+     "sourceId": "voltaic-07-operating-model",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "The operating-model task asks for a revenue build with stated drivers and a test against later results.",
+     "originalText": "Build me an operating model for Ironvale off the data room: drivers to EBITDA and EBIT, historicals through FY25 and a forecast to FY30. Include one toggle that switches the forecast between management's case and your buy-side case. Leave t"
+    },
+    {
+     "key": "FinCausal:0209.00019",
+     "source": "FinCausal",
+     "sourceId": "0209.00019",
+     "dataset": "fincausal",
+     "revision": "33a933f1bebd3317ab67edcf447c1a333fe879f5",
+     "datasetSha256": "3c587ca5afe0bd8532bc3cbe22fab40426f59d4a1c3efe37bcf14fee39dd0575",
+     "datasetUrl": "https://github.com/yseop/YseopLab/tree/develop/FNP_2020_FinCausal",
+     "licenseKnown": false,
+     "note": "A cause-effect pair about disposals changing reported income; the WD-40 question asks how a planned sale changes the revenue base.",
+     "text": "Its operating income was $1.8 billion, while net income decreased a little to $1.2 billion due to disposals.",
+     "cause": "disposals.",
+     "effect": "Its operating income was $1.8 billion, while net income decreased a little to $1.2 billion"
     }
    ],
-   "adaptation": "FinanceBench asks whether a company's financials are those of a high-growth company and what drove revenue change. The WD-40 version asks the same about the years the scenarios extrapolate from, then tests the scenario inputs against them.",
+   "adaptation": "FinanceBench asks whether a company's financials are those of a high-growth company and what drove revenue change; PE Bench asks for historicals and an operating model. The WD-40 version asks the same about the years the scenarios extrapolate from, then tests the scenario inputs against them.",
    "leaves": [
     {
      "id": "growth-1",
      "purpose": "fact",
-     "text": "What were net sales in FY2021 and FY2025, and the compound annual growth rate between them?",
-     "answer": "$488.1m in FY2021 and $620.0m in FY2025: 6.2% a year.",
+     "text": "What were net sales in FY2021, FY2024 and FY2025, and the compound annual growth rate from FY2021 to FY2025?",
+     "answer": "$488.1m in FY2021, $590.6m in FY2024 and $620.0m in FY2025: 6.2% a year from FY2021. FY2025 and FY2024 are the model's starting revenue.",
      "status": "answered",
      "evidence": [
-      "sec-xbrl"
+      "sec-xbrl",
+      "wdfc25-is"
      ],
      "cells": [
       "Input sheet!B11",
@@ -39,27 +88,43 @@
      ],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-01-historicals",
+      "FinanceBench:financebench_id_00956"
+     ],
+     "covers": [
+      "valuation-range:growth-1",
+      "main:revenue-base"
+     ]
     },
     {
      "id": "growth-2",
      "purpose": "fact",
-     "text": "How much of the FY2025 change in net sales came from volume, price and currency?",
-     "answer": "Volume added about $25.2m, price about $5.6m and currency translation took off $1.4m, on a $29.4m increase.",
+     "text": "How much did net sales grow in FY2025, and how much of the change came from volume, price and currency?",
+     "answer": "4.98%, or $29.4m. Volume added about $25.2m, price about $5.6m and currency translation took off $1.4m.",
      "status": "answered",
      "evidence": [
+      "sec-xbrl",
       "wdfc25-10k"
      ],
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_01198"
+     ],
+     "covers": [
+      "valuation-range:growth-2",
+      "main:revenue-growth"
+     ]
     },
     {
      "id": "growth-3",
      "purpose": "fact",
      "text": "What growth did management guide for FY2026, from what base and at what exchange rates?",
-     "answer": "5-9% from FY2025 pro forma results, which exclude the Americas homecare and cleaning brands held for sale, at FY2025 average exchange rates: $630-655m.",
+     "answer": "5%-9% from FY2025 pro forma results, which exclude the Americas homecare and cleaning brands held for sale, at FY2025 average exchange rates: $630-655m.",
      "status": "answered",
      "evidence": [
       "wdfc-8k-2025-10-22"
@@ -67,15 +132,24 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-07-operating-model"
+     ],
+     "covers": [
+      "valuation-range:growth-3"
+     ]
     },
     {
-     "id": "growth-4",
-     "purpose": "assumption",
-     "text": "Which growth rates do the scenarios use after year 1, and how do they compare with the FY2021-FY2025 rate?",
-     "answer": "Bear 4%, Base 6%, Bull 7% a year in years 2-5, against 6.2% actual. Year 1 is set at the guidance range on the reported base: 1.6%, 3.6%, 5.6%.",
+     "id": "growth-perimeter",
+     "purpose": "calculation",
+     "text": "How much FY2025 revenue does the guidance base leave out, and does the release say what the excluded brands sell?",
+     "answer": "The guidance starts from currency-adjusted pro forma FY2025 net sales of about $603m, against $620.0m reported, so about $17.0m sits outside the base. The release does not split that amount, so it only bounds the excluded brands' FY2025 sales from above. The release's $12.5m is a different figure: how much higher FY2026 net sales guidance would be if the sale did not happen. The scenarios grow reported revenue and assume no sale proceeds. Taking the whole $17.0m out of the Americas would change Base growth in years 2-5 by 0.05 points.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "wd40-fy25-guidance-original",
+      "model-build"
+     ],
      "cells": [
       "Input sheet!B26",
       "Input sheet!B28"
@@ -84,7 +158,45 @@
       "dcf"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": {
+      "text": "In July 2026 the company moved the brands from held for sale back to held for use and put their contribution at about $12m of net sales and $2.9m of operating income.",
+      "sourceIds": [
+       "wd40-fy26-guidance-july-revision"
+      ]
+     },
+     "origins": [
+      "FinCausal:0209.00019"
+     ],
+     "covers": [
+      "main:risks-disposal"
+     ]
+    },
+    {
+     "id": "growth-4",
+     "purpose": "assumption",
+     "text": "Which growth rates do the scenarios use, and how do they compare with the FY2021-FY2025 rate?",
+     "answer": "Year 1 is set at the guidance range on the reported base: Bear 1.62%, Base 3.63%, Bull 5.65%. Years 2-5 come from a regional build (Americas/EIMEA/Asia-Pacific: Bear 2/4/5%, Base 4/7/8%, Bull 6/9/11%; analyst assumptions), compressed to one rate: Bear 3.25%, Base 5.81%, Bull 7.98% a year, against 6.2% in FY2021-FY2025.",
+     "status": "answered",
+     "evidence": [
+      "model-build",
+      "wdfc-8k-2025-10-22"
+     ],
+     "cells": [
+      "Input sheet!B26",
+      "Input sheet!B28"
+     ],
+     "methods": [
+      "dcf"
+     ],
+     "resolution": null,
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-07-operating-model",
+      "FinanceBench:financebench_id_00956"
+     ],
+     "covers": [
+      "valuation-range:growth-4"
+     ]
     },
     {
      "id": "growth-5",
@@ -92,20 +204,62 @@
      "text": "Will FY2026 net sales on the guidance basis (pro forma, FY2025 exchange rates) reach the $642.5m midpoint?",
      "answer": "Open at the case date.",
      "status": "open at case date",
-     "evidence": [],
+     "evidence": [
+      "wdfc-8k-2025-10-22"
+     ],
      "cells": [],
      "methods": [],
      "resolution": {
       "object": "FY2026 net sales, pro forma and constant currency",
       "period": "FY ending 31 Aug 2026",
       "threshold": "$642.5m",
-      "rule": "Compare the constant-currency pro forma net sales in the FY2026 results release with $642.5m.",
+      "rule": "Compare FY2026 net sales on the original guidance basis (without the brands then held for sale, at FY2025 exchange rates) with the midpoint.",
       "linkedAssumption": "Input sheet!B26 (Base 3.63%)"
      },
      "laterInformation": {
-      "text": "The FY2026 10-K reports net sales of $688.0m. That figure is on the reported basis: it includes the Americas homecare brands the company decided to keep and currency translation, so it does not resolve the question on the guidance basis.",
-      "sourceId": "wdfc26-10k"
-     }
+      "text": "The FY2026 10-K reports net sales of $688.0m. That is reported revenue: it includes the Americas homecare and cleaning brands, which the company moved back from held for sale to held for use in July 2026, and currency translation. It is not on the guidance basis, so it does not resolve the question; the constant-currency figure on the original perimeter was not collected.",
+      "sourceIds": [
+       "wdfc26-10k",
+       "wd40-fy26-guidance-july-revision"
+      ]
+     },
+     "origins": [
+      "PE Bench:voltaic-07-operating-model"
+     ],
+     "covers": [
+      "valuation-range:growth-5"
+     ]
+    },
+    {
+     "id": "growth-6",
+     "purpose": "forecast",
+     "text": "Will FY2026 reported net sales exceed FY2025 reported net sales by at least 5%?",
+     "answer": "Open at the case date. The case recorded no probability for it.",
+     "status": "open at case date",
+     "evidence": [
+      "sec-xbrl"
+     ],
+     "cells": [],
+     "methods": [],
+     "resolution": {
+      "object": "FY2026 reported net sales",
+      "period": "FY ending 31 Aug 2026",
+      "threshold": "$651.0m (5% above $620.0m)",
+      "rule": "Compare reported net sales in the FY2026 10-K with FY2025 reported net sales.",
+      "linkedAssumption": "Input sheet!B26 (the original case's 5% year-1 growth)"
+     },
+     "laterInformation": {
+      "text": "The FY2026 10-K reports net sales of $688.0m, 11.0% above FY2025. Both years are reported figures that include the homecare brands and currency translation. With no probability recorded at the case date, this is an outcome, not a forecasting record.",
+      "sourceIds": [
+       "wdfc26-10k"
+      ]
+     },
+     "origins": [
+      "PE Bench:voltaic-07-operating-model"
+     ],
+     "covers": [
+      "main:revenue-resolution"
+     ]
     }
    ]
   },
@@ -115,34 +269,73 @@
    "parent": "Does WD-40's margin history support the Base path from 16.9% to 18%?",
    "origins": [
     {
+     "key": "FinanceBench:financebench_id_00684",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_00684",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Does AMCOR have an improving gross margin profile as of FY2023? If gross margin is not a useful metric for a company like this, then state that and explain why."
     },
     {
+     "key": "FinanceBench:financebench_id_01226",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_01226",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "What drove operating margin change as of FY2022 for 3M? If operating margin is not a useful metric for a company like this, then please state that and explain why."
     },
     {
+     "key": "FinanceBench:financebench_id_00685",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_00685",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Are Best Buy's gross margins historically consistent (not fluctuating more than roughly 2% each year)? If gross margins are not a relevant metric for a company like this, then please state that and explain why."
+    },
+    {
+     "key": "PE Bench:voltaic-04-ebitda-bridge",
+     "source": "PE Bench",
+     "sourceId": "voltaic-04-ebitda-bridge",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "The EBITDA-bridge task asks for each adjustment between reported and adjusted earnings; here the one adjustment is the R&D capitalization.",
+     "originalText": "Bridge Project Voltaic's FY25 reported result to adjusted EBITDA for pricing from a buyer's perspective, using the data room. Put it in a workbook we can send to the seller's advisers."
+    },
+    {
+     "key": "PE Bench:voltaic-07-operating-model",
+     "source": "PE Bench",
+     "sourceId": "voltaic-07-operating-model",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "",
+     "originalText": "Build me an operating model for Ironvale off the data room: drivers to EBITDA and EBIT, historicals through FY25 and a forecast to FY30. Include one toggle that switches the forecast between management's case and your buy-side case. Leave t"
     }
    ],
-   "adaptation": "FinanceBench asks whether margins are improving and what drove the change. Here the facts are the filed margins and the drivers named in the FY2025 10-K, and the last question checks the Base path against them.",
+   "adaptation": "FinanceBench asks whether margins are improving and what drove the change; PE Bench asks for the bridge from reported to adjusted earnings. Here the facts are the filed margins, the drivers named in the FY2025 10-K and the workbook's one adjustment, and the last question checks the scenario paths against them.",
    "leaves": [
     {
      "id": "margin-1",
      "purpose": "fact",
      "text": "What was the gross margin in each fiscal year from 2021 to 2025?",
-     "answer": "FY2021 54.0%, FY2022 49.1%, FY2023 51.0%, FY2024 53.4%, FY2025 55.1%. It moved by more than 2 points in FY2022 and FY2023.",
+     "answer": "FY2021 54.0%, FY2022 49.1%, FY2023 51.0%, FY2024 53.4%, FY2025 55.1%.",
      "status": "answered",
      "evidence": [
       "sec-xbrl"
@@ -150,13 +343,20 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_00685",
+      "FinanceBench:financebench_id_00684"
+     ],
+     "covers": [
+      "valuation-range:margin-1"
+     ]
     },
     {
      "id": "margin-2",
      "purpose": "fact",
      "text": "What explained the change in gross margin from FY2024 to FY2025?",
-     "answer": "Lower specialty chemical costs (+80 bp), lower aerosol can costs (+60 bp) and higher average selling prices (+50 bp), less higher warehousing, distribution and freight costs (-50 bp); 30 bp of the 170 bp rise is not attributed in the filing.",
+     "answer": "The filing names lower specialty chemical costs (+80 bp), lower aerosol can costs (+60 bp) and higher average selling prices (+50 bp), less higher warehousing, distribution and freight costs (-50 bp). Gross margin rose 168 bp; the named drivers add up to 140 bp, leaving about 28 bp that the filing does not attribute.",
      "status": "answered",
      "evidence": [
       "wdfc25-10k"
@@ -164,23 +364,67 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_00684"
+     ],
+     "covers": [
+      "valuation-range:margin-2"
+     ]
     },
     {
      "id": "margin-3",
      "purpose": "fact",
-     "text": "What was the operating margin in each fiscal year from 2021 to 2025?",
-     "answer": "FY2021 18.2%, FY2022 16.8%, FY2023 16.7%, FY2024 16.3%, FY2025 16.7%.",
+     "text": "What was the reported operating margin in each fiscal year from 2021 to 2025?",
+     "answer": "FY2021 18.2%, FY2022 16.8%, FY2023 16.7%, FY2024 16.3%, FY2025 16.7%. FY2025 is $103.793m over $619.985m, before the workbook's R&D adjustment.",
      "status": "answered",
      "evidence": [
-      "sec-xbrl"
+      "sec-xbrl",
+      "wdfc25-is"
      ],
      "cells": [
-      "Valuation output!B4"
+      "Input sheet!B11",
+      "Input sheet!B12"
      ],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_01226"
+     ],
+     "covers": [
+      "valuation-range:margin-3",
+      "main:margin-reported"
+     ]
+    },
+    {
+     "id": "margin-rd",
+     "purpose": "calculation",
+     "text": "How does the workbook's R&D capitalization change FY2025 operating income?",
+     "answer": "It adds back FY2025 R&D of $8.7m and subtracts a third of each of the three prior years' R&D ($8.0m, $6.2m and $5.1m), $6.43m in total. Operating income rises by $2.27m to $106.06m, a 17.11% margin against 16.74% reported. The three-year life is an analyst assumption; the company expenses R&D.",
+     "status": "answered",
+     "evidence": [
+      "wdfc25-rd",
+      "wdfc23-rd"
+     ],
+     "cells": [
+      "R& D converter!F6",
+      "R& D converter!F7",
+      "R& D converter!B11",
+      "R& D converter!B12",
+      "R& D converter!B13",
+      "Valuation output!B5"
+     ],
+     "methods": [],
+     "resolution": null,
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-04-ebitda-bridge"
+     ],
+     "covers": [
+      "main:margin-rd-bridge",
+      "main:capital-rd"
+     ]
     },
     {
      "id": "margin-4",
@@ -194,24 +438,43 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-07-operating-model"
+     ],
+     "covers": [
+      "valuation-range:margin-4"
+     ]
     },
     {
      "id": "margin-5",
      "purpose": "assumption",
      "text": "Which margin paths do the scenarios use, and on what basis?",
-     "answer": "Year-1 margins come from operating-income guidance plus the workbook's R&D adjustment: 16.7%, 16.9%, 17.1%. Targets by year 5: Bear stays flat, Base 18%, Bull 20%. FY2017-FY2020 averaged 19.4% reported.",
+     "answer": "Year-1 margins come from operating-income guidance plus the workbook's R&D adjustment: Bear 16.7%, Base 16.9%, Bull 17.1%. By year 5: Bear stays at its year-1 margin, Base 18%, Bull 20%. FY2017-FY2020 averaged 19.4% reported. The company's long-term model targets adjusted EBITDA of 25%, not an operating margin, so no filing gives the 18% or 20% directly: both are analyst assumptions.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "model-build",
+      "wdfc-8k-2025-10-22",
+      "wdfc25-10k"
+     ],
      "cells": [
       "Input sheet!B27",
-      "Input sheet!B29"
+      "Input sheet!B29",
+      "Input sheet!B30"
      ],
      "methods": [
       "dcf"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-07-operating-model",
+      "FinanceBench:financebench_id_01226"
+     ],
+     "covers": [
+      "valuation-range:margin-5",
+      "main:margin-target"
+     ]
     }
    ]
   },
@@ -221,42 +484,78 @@
    "parent": "Does WD-40 need as much capital to grow as the sales-to-capital ratio of 2.0 implies?",
    "origins": [
     {
+     "key": "FinanceBench:financebench_id_00499",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_00499",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Is 3M a capital-intensive business based on FY2022 data?"
     },
     {
+     "key": "FinanceBench:financebench_id_00540",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_00540",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Roughly how many times has AES Corporation sold its inventory in FY2022? Calculate inventory turnover ratio for the FY2022; if conventional inventory management is not meaningful for the company then state that and explain why."
     },
     {
+     "key": "FinanceBench:financebench_id_03029",
+     "source": "FinanceBench",
+     "sourceId": "financebench_id_03029",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
+     "originalText": "What is the FY2018 capital expenditure amount (in USD millions) for 3M? Give a response to the question by relying on the details shown in the cash flow statement."
+    },
+    {
+     "key": "PE Bench:voltaic-05-nwc-peg",
      "source": "PE Bench",
-     "license": "See GetCompoundAI/pe-bench repository",
-     "note": "Working-capital peg task, used for the working-capital questions.",
      "sourceId": "voltaic-05-nwc-peg",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "Working-capital peg task, used for the working-capital questions.",
      "originalText": "We're putting together a first-round bid for Project Voltaic. Work out the net working capital we'd assume, how we got there, and what we'd treat as debt-like. Put it in Excel."
     }
    ],
-   "adaptation": "FinanceBench asks whether a company is capital-intensive and how fast it turns inventory; PE Bench asks for a working-capital peg. Here those facts test the single reinvestment input of the DCF.",
+   "adaptation": "FinanceBench asks whether a company is capital-intensive, what it spends on capex and how fast it turns inventory; PE Bench asks for a working-capital peg. Here those facts test the single reinvestment input of the DCF.",
    "leaves": [
     {
      "id": "capital-1",
      "purpose": "fact",
      "text": "What were capital expenditures as a share of net sales in each year from FY2021 to FY2025?",
-     "answer": "FY2021 3.1%, FY2022 1.6%, FY2023 1.3%, FY2024 0.7%, FY2025 0.7%. FY2025 capex was $4.5m against depreciation and amortization of $8.2m.",
+     "answer": "FY2021 3.1%, FY2022 1.6%, FY2023 1.3%, FY2024 0.7%, FY2025 0.7%. FY2025 capex (purchases of property, plant and equipment in the cash-flow statement) was $4.5m against depreciation and amortization of $8.2m.",
      "status": "answered",
      "evidence": [
-      "sec-xbrl"
+      "sec-xbrl",
+      "wdfc25-cf"
      ],
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_03029",
+      "FinanceBench:financebench_id_00499"
+     ],
+     "covers": [
+      "valuation-range:capital-1",
+      "main:capital-capex"
+     ]
     },
     {
      "id": "capital-2",
@@ -270,7 +569,13 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_00540"
+     ],
+     "covers": [
+      "valuation-range:capital-2"
+     ]
     },
     {
      "id": "capital-3",
@@ -284,7 +589,13 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-05-nwc-peg"
+     ],
+     "covers": [
+      "valuation-range:capital-3"
+     ]
     },
     {
      "id": "capital-4",
@@ -300,15 +611,24 @@
      ],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_00499"
+     ],
+     "covers": [
+      "valuation-range:capital-4"
+     ]
     },
     {
      "id": "capital-5",
      "purpose": "assumption",
-     "text": "Which sales-to-capital ratio does the model use, and does the history above support it?",
-     "answer": "2.0 in years 1-10 in every case. The FY2021-FY2025 book measure is close to 2, so the ratio is not changed in the scenarios.",
+     "text": "Which sales-to-capital ratio does the model use, and is it observed or assumed?",
+     "answer": "2.0 in years 1-10 in every case, an assumption. The FY2021-FY2025 book measure above is 1.97, so the scenarios keep 2.0. The one ratio covers capital spending and working capital together: the model has no separate receivables, inventory and payables schedule.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "model-build",
+      "sec-xbrl"
+     ],
      "cells": [
       "Input sheet!B31",
       "Input sheet!B32"
@@ -317,7 +637,16 @@
       "dcf"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_00499",
+      "PE Bench:voltaic-05-nwc-peg"
+     ],
+     "covers": [
+      "valuation-range:capital-5",
+      "main:capital-turnover",
+      "main:cash-working-capital"
+     ]
     }
    ]
   },
@@ -327,27 +656,61 @@
    "parent": "How much of WD-40's profit turns into cash?",
    "origins": [
     {
+     "key": "FinanceBench:financebench_id_01279",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_01279",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Among operations, investing, and financing activities, which brought in the most (or lost the least) cash flow for AMD in FY22?"
     },
     {
+     "key": "FinanceBench:financebench_id_00591",
+     "source": "FinanceBench",
+     "sourceId": "financebench_id_00591",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
+     "originalText": "Does Adobe have an improving Free cashflow conversion as of FY2022?"
+    },
+    {
+     "key": "FinanceBench:financebench_id_04854",
+     "source": "FinanceBench",
+     "sourceId": "financebench_id_04854",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
+     "originalText": "According to the information provided in the statement of cash flows, what is the FY2020 free cash flow (FCF) for General Mills? FCF here is defined as: (cash from operations - capex). Answer in USD millions."
+    },
+    {
+     "key": "FinLFQA:validation-34",
      "source": "FinLFQA",
-     "license": "MIT (Hugging Face card, Dragongon/FinLFQA)",
-     "note": "FinLFQA questions compare free-cash-flow measures between dates with cited evidence; the same form is used here.",
-     "sourceId": "validation-14",
-     "originalText": "How does the net cash flow from operating activities differ between CWT and WEC for the first three months of 2024?"
+     "sourceId": "validation-34",
+     "dataset": "finlfqa",
+     "revision": "22900e97366d0b977b6f37863486bc9828e5bdc0",
+     "datasetSha256": "83dbadda0cadc202c47d3ae9622e014d5851dabc9c77837d81be1b0a729a62c5",
+     "datasetUrl": "https://huggingface.co/datasets/Dragongon/FinLFQA",
+     "licenseKnown": false,
+     "note": "FinLFQA compares free cash flow between companies with cited evidence and asks what it implies for shareholder returns; the same form is used here.",
+     "originalText": "How do EOG's and NOG's free cash flow figures differ, and what does this imply for potential shareholder returns?"
     }
    ],
-   "adaptation": "FinanceBench asks which cash-flow category brought in the most cash; FinLFQA asks for free-cash-flow comparisons with evidence. Both are answered here from the filed cash-flow statements.",
+   "adaptation": "FinanceBench asks which cash-flow category brought in the most cash and whether free-cash-flow conversion improved; FinLFQA compares free cash flow with evidence. Both are answered here from the filed cash-flow statements, and the last question sets the model's first-year cash flow beside them.",
    "leaves": [
     {
      "id": "cash-1",
      "purpose": "fact",
      "text": "What were operating cash flow and capital expenditures in each year from FY2021 to FY2025?",
-     "answer": "FY2021 $84.7m and $15.1m; FY2022 $2.6m and $8.3m; FY2023 $98.4m and $6.9m; FY2024 $92.0m and $4.2m; FY2025 $87.9m and $4.5m. FY2022 operating cash flow was low because inventory rose by $52.7m.",
+     "answer": "FY2021 $84.7m and $15.1m; FY2022 $2.6m and $8.3m; FY2023 $98.4m and $6.9m; FY2024 $92.0m and $4.2m; FY2025 $87.9m and $4.5m. FY2022 operating cash flow was low because inventory rose by $53.3m.",
      "status": "answered",
      "evidence": [
       "sec-xbrl"
@@ -355,21 +718,36 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_04854"
+     ],
+     "covers": [
+      "valuation-range:cash-1"
+     ]
     },
     {
      "id": "cash-2",
      "purpose": "calculation",
      "text": "What was free cash flow (operating cash flow minus capex) as a share of net income in FY2023, FY2024 and FY2025?",
-     "answer": "FY2023 139%, FY2024 126%, FY2025 92%. FY2025 net income includes an $11.9m one-time tax benefit.",
+     "answer": "FY2023 139%, FY2024 126%, FY2025 92%. FY2025 net income includes an $11.9m one-time tax benefit; without it FY2025 is 105%.",
      "status": "answered",
      "evidence": [
-      "sec-xbrl"
+      "sec-xbrl",
+      "wdfc25-tax"
      ],
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_00591",
+      "FinLFQA:validation-34"
+     ],
+     "covers": [
+      "valuation-range:cash-2",
+      "main:cash-conversion"
+     ]
     },
     {
      "id": "cash-3",
@@ -383,24 +761,87 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_01279"
+     ],
+     "covers": [
+      "valuation-range:cash-3"
+     ]
+    },
+    {
+     "id": "cash-4",
+     "purpose": "calculation",
+     "text": "What free cash flow does Base produce in year 1, and how does it compare with FY2025 operating cash flow minus capex?",
+     "answer": "$65.1m: after-tax operating income of $83.8m less reinvestment of $18.7m. FY2025 operating cash flow minus capex was $83.4m. The model figure is a forecast before interest; the FY2025 figure is reported and after interest.",
+     "status": "answered",
+     "evidence": [
+      "model-build",
+      "sec-xbrl"
+     ],
+     "cells": [
+      "Valuation output!C7",
+      "Valuation output!C8",
+      "Valuation output!C9"
+     ],
+     "methods": [
+      "dcf"
+     ],
+     "resolution": null,
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_04854",
+      "FinLFQA:validation-34"
+     ],
+     "covers": [
+      "main:cash-fcff"
+     ]
     }
    ]
   },
   {
    "id": "tax",
    "title": "Taxes",
-   "parent": "Which tax rate should the forecast start from?",
+   "parent": "Which tax rate should the forecast start from, and which tax effects recur?",
    "origins": [
     {
+     "key": "FinanceBench:financebench_id_01351",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_01351",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "How much has the effective tax rate of American Express changed between FY2021 and FY2022?"
+    },
+    {
+     "key": "FinLFQA:validation-82",
+     "source": "FinLFQA",
+     "sourceId": "validation-82",
+     "dataset": "finlfqa",
+     "revision": "22900e97366d0b977b6f37863486bc9828e5bdc0",
+     "datasetSha256": "83dbadda0cadc202c47d3ae9622e014d5851dabc9c77837d81be1b0a729a62c5",
+     "datasetUrl": "https://huggingface.co/datasets/Dragongon/FinLFQA",
+     "licenseKnown": false,
+     "note": "FinLFQA asks how an adjusted, non-GAAP effective tax rate differs from the reported one; here the adjustment is one reserve release.",
+     "originalText": "How does the adjusted effective tax rate due to non-GAAP measures differ between MDT and SYK?"
+    },
+    {
+     "key": "FinLFQA:validation-97",
+     "source": "FinLFQA",
+     "sourceId": "validation-97",
+     "dataset": "finlfqa",
+     "revision": "22900e97366d0b977b6f37863486bc9828e5bdc0",
+     "datasetSha256": "83dbadda0cadc202c47d3ae9622e014d5851dabc9c77837d81be1b0a729a62c5",
+     "datasetUrl": "https://huggingface.co/datasets/Dragongon/FinLFQA",
+     "licenseKnown": false,
+     "note": "FinLFQA asks how tax-related adjustments affect effective rates; here the adjustment left out is the state NOLs.",
+     "originalText": "How do the tax-related adjustments for MDT and ISRG affect their effective tax rates, and what are the implications for financial strategy?"
     }
    ],
-   "adaptation": "FinanceBench asks how much the effective tax rate changed between two years. The WD-40 version adds the cause of the change and the rate the model starts from.",
+   "adaptation": "FinanceBench asks how much the effective tax rate changed between two years; FinLFQA asks how tax adjustments change effective rates. The WD-40 version adds the cause of the change, the rate the model starts from, and the tax item it leaves out.",
    "leaves": [
     {
      "id": "tax-1",
@@ -414,31 +855,49 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_01351"
+     ],
+     "covers": [
+      "valuation-range:tax-1"
+     ]
     },
     {
      "id": "tax-2",
      "purpose": "fact",
-     "text": "What one-time item explains the FY2025 rate?",
-     "answer": "An $11.9m release of a reserve for an uncertain tax position. Without it the FY2025 rate is 22.2%.",
+     "text": "What one-time item explains the FY2025 rate, and how does the workbook remove it?",
+     "answer": "An $11.929m release of a reserve for an uncertain tax position. The workbook's starting rate adds it back: ($10.632m + $11.929m) / $101.626m = 22.20%.",
      "status": "answered",
      "evidence": [
-      "wdfc25-10k"
+      "wdfc25-10k",
+      "wdfc25-tax"
      ],
      "cells": [
       "Input sheet!B23"
      ],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinLFQA:validation-82",
+      "FinanceBench:financebench_id_01351"
+     ],
+     "covers": [
+      "valuation-range:tax-2",
+      "main:tax-normalization"
+     ]
     },
     {
      "id": "tax-3",
      "purpose": "assumption",
-     "text": "Which starting tax rate do the scenarios use?",
-     "answer": "Bear 23.5%, Base 23.0%, Bull 22.5%, from the FY2026 guidance range of 22.5-23.5%; the original case uses the normalized 22.2%. All fade to 25% by year 10.",
+     "text": "Which starting and long-run tax rates do the scenarios use?",
+     "answer": "Bear 23.5%, Base 23.0%, Bull 22.5% to start, from the FY2026 guidance range of 22.5%-23.5%; the original case uses the normalized 22.2%. All move to 25% by year 10, an analyst assumption for the long-run marginal rate, not a company figure.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "model-build",
+      "wdfc-8k-2025-10-22"
+     ],
      "cells": [
       "Input sheet!B23",
       "Input sheet!B24"
@@ -447,7 +906,37 @@
       "dcf"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinLFQA:validation-82"
+     ],
+     "covers": [
+      "valuation-range:tax-3",
+      "main:tax-terminal"
+     ]
+    },
+    {
+     "id": "tax-4",
+     "purpose": "assumption",
+     "text": "Why does the model leave WD-40's state net operating losses out?",
+     "answer": "The 10-K reports $7.8m of state NOLs with a $0.5m deferred tax asset. The workbook's NOL input would shelter all consolidated operating income at one rate, which overstates a state-only loss, so it stays off. The Python port refuses any case with that input on.",
+     "status": "answered",
+     "evidence": [
+      "wdfc25-nol"
+     ],
+     "cells": [
+      "Input sheet!B61",
+      "Input sheet!B62"
+     ],
+     "methods": [],
+     "resolution": null,
+     "laterInformation": null,
+     "origins": [
+      "FinLFQA:validation-97"
+     ],
+     "covers": [
+      "main:tax-nol"
+     ]
     }
    ]
   },
@@ -457,27 +946,49 @@
    "parent": "What discount rate do market data support for WD-40 at 29 Aug 2025?",
    "origins": [
     {
-     "source": "FinLFQA",
-     "license": "MIT (Hugging Face card, Dragongon/FinLFQA)",
-     "note": "",
-     "sourceId": "validation-179",
-     "originalText": "How does the gross profit margin of CSL compare to SHW for the first quarter of 2024?"
+     "key": "PE Bench:voltaic-02-comparables",
+     "source": "PE Bench",
+     "sourceId": "voltaic-02-comparables",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "Rubric requires a declared pricing date; every market input here is dated.",
+     "originalText": "Build a trading comparables analysis and a precedent transactions analysis for Project Voltaic from the data room, using public filings and market data for the peer companies and the deals, with the peers priced as of 30 June 2026. Put both"
     },
     {
+     "key": "PE Bench:voltaic-07-operating-model",
      "source": "PE Bench",
-     "license": "See GetCompoundAI/pe-bench repository",
-     "note": "Rubric requires a declared pricing date; every market input here is dated.",
-     "sourceId": "voltaic-02-comparables",
-     "originalText": "Build a trading comparables analysis and a precedent transactions analysis for Project Voltaic from the data room, using public filings and market data for the peer companies and the deals, with the peers priced as of 30 June 2026. Put both"
+     "sourceId": "voltaic-07-operating-model",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "",
+     "originalText": "Build me an operating model for Ironvale off the data room: drivers to EBITDA and EBIT, historicals through FY25 and a forecast to FY30. Include one toggle that switches the forecast between management's case and your buy-side case. Leave t"
+    },
+    {
+     "key": "PE Bench:voltaic-11-returns-waterfall",
+     "source": "PE Bench",
+     "sourceId": "voltaic-11-returns-waterfall",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "The returns task is adapted into a required-return sensitivity; its transaction terms are not carried over.",
+     "originalText": "Build the exit, the distribution waterfall and the returns for Project Voltaic in the attached model, on the terms in returns_terms.md, for both cases the model carries. How much of the return depends on the development pipeline rather than"
     }
    ],
-   "adaptation": "FinLFQA's WACC questions ask for the inputs behind a cost of capital with evidence; PE Bench requires a declared pricing date. Each input here carries its date and source.",
+   "adaptation": "PE Bench requires a declared pricing date and asks what return a price implies. Each input here carries its date and source, and the last question shows how much the value depends on the rate. FinLFQA's validation questions include none on the cost of capital.",
    "leaves": [
     {
      "id": "coc-1",
      "purpose": "fact",
-     "text": "What was the 10-year Treasury yield on 29 Aug 2025, and Damodaran's implied equity risk premium at the start of September 2025?",
-     "answer": "4.23% and 3.94%.",
+     "text": "What was the 10-year Treasury yield on 29 Aug 2025, and Damodaran's implied equity risk premiums at the start of September 2025?",
+     "answer": "4.23%. Premiums: 3.94% (trailing 12-month cash yield), 5.37% (smoothed), 3.68% (sustainable payout). Each scenario pairs one premium with the same 4.23% rate: Bear smoothed, Base trailing 12-month cash yield, Bull sustainable payout.",
      "status": "answered",
      "evidence": [
       "ust-par-2025-08-29",
@@ -486,7 +997,13 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-02-comparables"
+     ],
+     "covers": [
+      "valuation-range:coc-1"
+     ]
     },
     {
      "id": "coc-2",
@@ -500,7 +1017,13 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-02-comparables"
+     ],
+     "covers": [
+      "valuation-range:coc-2"
+     ]
     },
     {
      "id": "coc-3",
@@ -514,24 +1037,69 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-02-comparables"
+     ],
+     "covers": [
+      "valuation-range:coc-3"
+     ]
     },
     {
      "id": "coc-4",
      "purpose": "assumption",
      "text": "Which WACC do the scenarios use, and what did the original case use?",
-     "answer": "Bear 8.66% drifting to 9.45%, Base 7.40%, Bull 6.58%. The original case used 9% fading to 8%, labelled as an illustrative placeholder.",
+     "answer": "Bear 8.66% moving to 9.45%, Base 7.40% and Bull 6.58% in every year. The original case used 9% moving to 8%: the starting rate is an illustrative placeholder with no CAPM behind it, and the terminal rate is typed into the workbook's override instead of coming from its risk-free rate plus mature-market premium.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "model-build",
+      "ust-par-2025-08-29",
+      "damodaran-erp-2025-09"
+     ],
      "cells": [
       "Cost of capital worksheet!B12",
+      "Input sheet!B45",
       "Input sheet!B46"
      ],
      "methods": [
       "dcf"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-07-operating-model"
+     ],
+     "covers": [
+      "valuation-range:coc-4",
+      "main:discount-start",
+      "main:discount-terminal"
+     ]
+    },
+    {
+     "id": "coc-5",
+     "purpose": "calculation",
+     "text": "How much does Base value per share move when the WACC changes?",
+     "answer": "With a flat WACC and every other Base input fixed, value per share is $137.01 at 7.0% and $122.75 at 7.5%: about $14 per half point around Base's 7.40%. A flat rate and a shifted path that fades are different changes; the live reverse DCF on the page shifts the whole path.",
+     "status": "answered",
+     "evidence": [
+      "model-build"
+     ],
+     "cells": [
+      "Cost of capital worksheet!B12",
+      "Input sheet!B46",
+      "Valuation output!B33"
+     ],
+     "methods": [
+      "dcf"
+     ],
+     "resolution": null,
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-11-returns-waterfall"
+     ],
+     "covers": [
+      "main:discount-sensitivity"
+     ]
     }
    ]
   },
@@ -541,21 +1109,43 @@
    "parent": "How long can WD-40 keep earning more than its cost of capital?",
    "origins": [
     {
+     "key": "FinLFQA:validation-170",
      "source": "FinLFQA",
-     "license": "MIT (Hugging Face card, Dragongon/FinLFQA)",
-     "note": "",
-     "sourceId": "validation-2",
-     "originalText": "How do changes in depreciation and amortization mean for CWT and AWK's investment strategies in Q1 2024?"
+     "sourceId": "validation-170",
+     "dataset": "finlfqa",
+     "revision": "22900e97366d0b977b6f37863486bc9828e5bdc0",
+     "datasetSha256": "83dbadda0cadc202c47d3ae9622e014d5851dabc9c77837d81be1b0a729a62c5",
+     "datasetUrl": "https://huggingface.co/datasets/Dragongon/FinLFQA",
+     "licenseKnown": false,
+     "note": "FinLFQA asks which company's return on equity shows more shareholder value; here the return is on invested capital, set against the cost of capital.",
+     "originalText": "Comparing the Return on Equity (ROE), which company demonstrated better shareholder value in Q1 2024?"
     },
     {
+     "key": "FinanceBench:financebench_id_00517",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_00517",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Are there any product categories / service categories that represent more than 20% of Boeing's revenue for FY2022?"
+    },
+    {
+     "key": "PE Bench:voltaic-07-operating-model",
+     "source": "PE Bench",
+     "sourceId": "voltaic-07-operating-model",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "",
+     "originalText": "Build me an operating model for Ironvale off the data room: drivers to EBITDA and EBIT, historicals through FY25 and a forecast to FY30. Include one toggle that switches the forecast between management's case and your buy-side case. Leave t"
     }
    ],
-   "adaptation": "FinLFQA's EVA questions ask how economic profit and capital efficiency compare across periods; FinanceBench asks whether any product exceeds 20% of revenue. Together they ask how durable WD-40's excess return is.",
+   "adaptation": "FinLFQA compares returns on equity; FinanceBench asks whether any product exceeds 20% of revenue. Together they ask how durable WD-40's excess return is, and how much of the value rests on it lasting.",
    "leaves": [
     {
      "id": "returns-1",
@@ -563,14 +1153,24 @@
      "text": "What was FY2025 return on invested capital in the workbook (after-tax operating income over invested capital)?",
      "answer": "26.3%, on invested capital of $313.4m including capitalized R&D.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "wdfc25-is",
+      "wdfc25-bs",
+      "wdfc25-rd"
+     ],
      "cells": [
       "Valuation output!B40",
       "Valuation output!B39"
      ],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinLFQA:validation-170"
+     ],
+     "covers": [
+      "valuation-range:returns-1"
+     ]
     },
     {
      "id": "returns-2",
@@ -584,43 +1184,68 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_00517"
+     ],
+     "covers": [
+      "valuation-range:returns-2",
+      "main:risks-product-concentration"
+     ]
     },
     {
      "id": "returns-3",
      "purpose": "fact",
-     "text": "What share of FY2025 net sales came from outside the United States, and did any customer reach 10%?",
-     "answer": "About 66% came from outside the US. No customer reached 10% of consolidated net sales.",
+     "text": "How were FY2025 net sales split by region, and did any customer reach 10%?",
+     "answer": "Americas 47%, EIMEA 38%, Asia-Pacific 15%. About 66% came from outside the US. No customer reached 10% of consolidated net sales.",
      "status": "answered",
      "evidence": [
-      "wdfc25-10k"
+      "wdfc25-10k",
+      "wd40-fy25-operating-research"
      ],
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_00517"
+     ],
+     "covers": [
+      "valuation-range:returns-3",
+      "main:risks-product-concentration"
+     ]
     },
     {
      "id": "returns-4",
      "purpose": "calculation",
      "text": "Does restating the DCF as invested capital plus economic profit give the same operating value?",
-     "answer": "Yes. original $1,230.6m against $1,230.6m; bear $988.2m against $988.2m; base $1,737.6m against $1,737.6m; bull $2,950.2m against $2,950.2m. The two are the same calculation arranged differently, so this checks consistency, not value.",
+     "answer": "Yes. Original $1,230.6m against $1,230.6m; Bear $988.2m against $988.2m; Base $1,737.6m against $1,737.6m; Bull $2,950.2m against $2,950.2m. The two are the same calculation arranged differently, so this checks consistency, not value. The reconciliation is in the DCF details.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "model-build"
+     ],
      "cells": [],
      "methods": [
-      "eva"
+      "dcf"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-07-operating-model"
+     ],
+     "covers": [
+      "valuation-range:returns-4"
+     ]
     },
     {
      "id": "returns-5",
      "purpose": "assumption",
-     "text": "What return on new capital after year 10 do the scenarios assume?",
-     "answer": "Bear: equal to the cost of capital (no excess return). Base: 15%. Bull: 20%. In years 1-10 the model earns 25% to 32% on capital across the four cases.",
+     "text": "What return on new capital after year 10 do the scenarios assume, and what supports it?",
+     "answer": "Bear: equal to the cost of capital (no excess return), Base: 15%, Bull: 20%. In years 1-10 the model earns 25% to 32% on capital across the four cases. No filing establishes a permanent excess return; the Base and Bull figures rest on the brand and the low capital needs above, and are analyst assumptions.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "model-build"
+     ],
      "cells": [
       "Input sheet!B48",
       "Input sheet!B49",
@@ -630,31 +1255,151 @@
       "dcf"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinLFQA:validation-170",
+      "PE Bench:voltaic-07-operating-model"
+     ],
+     "covers": [
+      "valuation-range:returns-5",
+      "main:terminal-excess-returns"
+     ]
+    },
+    {
+     "id": "returns-6",
+     "purpose": "calculation",
+     "text": "What reinvestment does each case's terminal growth and return on new capital imply?",
+     "answer": "Reinvestment is growth over the return on new capital: Original 2.5% / 8.00% = 31.2%; Bear 2.0% / 9.45% = 21.2%; Base 2.5% / 15.00% = 16.7%; Bull 3.0% / 20.00% = 15.0% of after-tax operating income. A higher assumed return lets the same growth come with less reinvestment, so the two have to be read together.",
+     "status": "answered",
+     "evidence": [
+      "model-build"
+     ],
+     "cells": [
+      "Input sheet!B48",
+      "Input sheet!B49",
+      "Valuation output!M2",
+      "Valuation output!M8",
+      "Valuation output!M40"
+     ],
+     "methods": [
+      "dcf"
+     ],
+     "resolution": null,
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-07-operating-model"
+     ],
+     "covers": [
+      "main:terminal-reinvestment"
+     ]
+    },
+    {
+     "id": "returns-7",
+     "purpose": "calculation",
+     "text": "What share of operating value comes from after year 10 in each case?",
+     "answer": "Original 55%; Bear 47%; Base 64%; Bull 75%. The cases with higher growth and returns lean more on the years after the forecast.",
+     "status": "answered",
+     "evidence": [
+      "model-build"
+     ],
+     "cells": [
+      "Valuation output!B19",
+      "Valuation output!B21",
+      "Valuation output!B24"
+     ],
+     "methods": [
+      "dcf"
+     ],
+     "resolution": null,
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-07-operating-model"
+     ],
+     "covers": [
+      "main:terminal-value-share"
+     ]
     }
    ]
   },
   {
    "id": "payouts",
    "title": "Shareholder payouts",
-   "parent": "Is the dividend sustainable at the scenarios' growth rates?",
+   "parent": "Is the dividend sustainable at the scenarios' growth rates, and how does value reach each share?",
    "origins": [
     {
+     "key": "FinanceBench:financebench_id_01244",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_01244",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Has CVS Health paid dividends to common shareholders in Q2 of FY2022?"
     },
     {
+     "key": "FinanceBench:financebench_id_01858",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_01858",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Does 3M maintain a stable trend of dividend distribution?"
+    },
+    {
+     "key": "FinanceBench:financebench_id_06272",
+     "source": "FinanceBench",
+     "sourceId": "financebench_id_06272",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
+     "originalText": "What is Coca Cola's FY2022 dividend payout ratio (using total cash dividends paid and net income attributable to shareholders)? Round answer to two decimal places. Answer the question asked by assuming you only have access to information cl"
+    },
+    {
+     "key": "FinLFQA:validation-221",
+     "source": "FinLFQA",
+     "sourceId": "validation-221",
+     "dataset": "finlfqa",
+     "revision": "22900e97366d0b977b6f37863486bc9828e5bdc0",
+     "datasetSha256": "83dbadda0cadc202c47d3ae9622e014d5851dabc9c77837d81be1b0a729a62c5",
+     "datasetUrl": "https://huggingface.co/datasets/Dragongon/FinLFQA",
+     "licenseKnown": false,
+     "note": "FinLFQA compares dividends with share repurchases in size; the same comparison is made for WD-40.",
+     "originalText": "How did OLED's dividend payments in Q1 2024 compare to CGNX's share repurchases in financial magnitude?"
+    },
+    {
+     "key": "FinLFQA:validation-41",
+     "source": "FinLFQA",
+     "sourceId": "validation-41",
+     "dataset": "finlfqa",
+     "revision": "22900e97366d0b977b6f37863486bc9828e5bdc0",
+     "datasetSha256": "83dbadda0cadc202c47d3ae9622e014d5851dabc9c77837d81be1b0a729a62c5",
+     "datasetUrl": "https://huggingface.co/datasets/Dragongon/FinLFQA",
+     "licenseKnown": false,
+     "note": "FinLFQA compares dividends paid; here the dividend becomes the base of a dividend discount model.",
+     "originalText": "How do the dividends paid by EOG and PXD compare during the first quarter of 2024, including percentage differences?"
+    },
+    {
+     "key": "PE Bench:voltaic-09-sources-uses",
+     "source": "PE Bench",
+     "sourceId": "voltaic-09-sources-uses",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "The sources-and-uses task needs a fully diluted share count; the WD-40 question asks how the model's count is built.",
+     "originalText": "We are acquiring 100% of Ironvale Digital Infrastructure (Project Voltaic). Build the transaction onto the attached operating model as a new tab: the sources and uses including the financing structure, the enterprise-to-equity value bridge,"
     }
    ],
-   "adaptation": "FinanceBench asks whether a company paid dividends and whether it keeps a stable dividend trend. The WD-40 version adds payout and a dividend-based value.",
+   "adaptation": "FinanceBench asks whether a company pays dividends, keeps a stable trend and what its payout ratio is; FinLFQA compares dividends with buybacks; PE Bench needs a diluted share count. The WD-40 version adds coverage, a dividend-based value and the share count every value is divided by.",
    "leaves": [
     {
      "id": "payouts-1",
@@ -668,13 +1413,20 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_01244",
+      "FinanceBench:financebench_id_01858"
+     ],
+     "covers": [
+      "valuation-range:payouts-1"
+     ]
     },
     {
      "id": "payouts-2",
      "purpose": "calculation",
-     "text": "What share of FY2025 earnings per share went to dividends?",
-     "answer": "$3.70 paid against $5.82 non-GAAP diluted EPS (64%) or $6.69 GAAP EPS, which includes the one-time tax benefit (55%).",
+     "text": "How well did FY2025 earnings and free cash flow cover the dividend?",
+     "answer": "$3.70 a share paid against $5.82 non-GAAP diluted EPS (64%) or $6.69 GAAP EPS, which includes the one-time tax benefit (55%). In cash, dividends of $50.3m were 60% of operating cash flow minus capex.",
      "status": "answered",
      "evidence": [
       "sec-xbrl",
@@ -683,7 +1435,14 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_06272"
+     ],
+     "covers": [
+      "valuation-range:payouts-2",
+      "main:payouts-dividends"
+     ]
     },
     {
      "id": "payouts-3",
@@ -697,21 +1456,64 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinLFQA:validation-221"
+     ],
+     "covers": [
+      "valuation-range:payouts-3"
+     ]
     },
     {
      "id": "payouts-4",
      "purpose": "calculation",
      "text": "What does a dividend discount model give with the scenarios' cost of equity?",
-     "answer": "Bear $72.68 (cost of equity 8.79%, terminal payout 77%); Base $121.42 (cost of equity 7.49%, terminal payout 83%); Bull $198.76 (cost of equity 6.65%, terminal payout 85%).",
+     "answer": "Bear $72.68 (cost of equity 8.79%, terminal payout 77%); Base $121.42 (cost of equity 7.49%, terminal payout 83%); Bull $198.76 (cost of equity 6.65%, terminal payout 85%). The discount rate is each scenario's CAPM cost of equity, not its WACC; earnings growth and payout are analyst assumptions.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "model-build"
+     ],
      "cells": [],
      "methods": [
       "ddm"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinLFQA:validation-41"
+     ],
+     "covers": [
+      "valuation-range:payouts-4",
+      "main:payouts-ddm"
+     ]
+    },
+    {
+     "id": "payouts-5",
+     "purpose": "fact",
+     "text": "Which share count divides equity value, and how is it built?",
+     "answer": "13.633263m: 13.527614m common shares plus 0.063189m restricted stock units, 0.040839m market-based units at target and 0.001621m vested deferred units. Performance units granted in FY2025 are left out because they were later forfeited. Every case uses this count.",
+     "status": "answered",
+     "evidence": [
+      "wdfc25-bs",
+      "wdfc25-rsu",
+      "wdfc25-msu",
+      "wdfc25-plan-footnote",
+      "wdfc25-psu"
+     ],
+     "cells": [
+      "Input sheet!B21",
+      "Valuation output!B32",
+      "Valuation output!B33"
+     ],
+     "methods": [],
+     "resolution": null,
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-09-sources-uses"
+     ],
+     "covers": [
+      "main:payouts-dilution"
+     ]
     }
    ]
   },
@@ -721,52 +1523,96 @@
    "parent": "What could a financial buyer pay for WD-40?",
    "origins": [
     {
+     "key": "PE Bench:voltaic-08-debt-schedule",
      "source": "PE Bench",
-     "license": "See GetCompoundAI/pe-bench repository",
-     "note": "",
      "sourceId": "voltaic-08-debt-schedule",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Build free cash flow and the debt schedule for Project Voltaic onto the attached transaction model, from the 31 March 2026 close through FY2030, financed on the terms of the staple financing posted in the data room. Fund the business plan's"
     },
     {
+     "key": "PE Bench:voltaic-09-sources-uses",
      "source": "PE Bench",
-     "license": "See GetCompoundAI/pe-bench repository",
-     "note": "",
      "sourceId": "voltaic-09-sources-uses",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "We are acquiring 100% of Ironvale Digital Infrastructure (Project Voltaic). Build the transaction onto the attached operating model as a new tab: the sources and uses including the financing structure, the enterprise-to-equity value bridge,"
     },
     {
+     "key": "PE Bench:voltaic-11-returns-waterfall",
      "source": "PE Bench",
-     "license": "See GetCompoundAI/pe-bench repository",
-     "note": "",
      "sourceId": "voltaic-11-returns-waterfall",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Build the exit, the distribution waterfall and the returns for Project Voltaic in the attached model, on the terms in returns_terms.md, for both cases the model carries. How much of the return depends on the development pipeline rather than"
     },
     {
+     "key": "PE Bench:voltaic-05-nwc-peg",
+     "source": "PE Bench",
+     "sourceId": "voltaic-05-nwc-peg",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "The peg task asks which liabilities count as debt-like; the WD-40 question asks the same of operating leases.",
+     "originalText": "We're putting together a first-round bid for Project Voltaic. Work out the net working capital we'd assume, how we got there, and what we'd treat as debt-like. Put it in Excel."
+    },
+    {
+     "key": "FinanceBench:financebench_id_00552",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_00552",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Has Microsoft increased its debt on balance sheet between FY2023 and the FY2022 period?"
     }
    ],
-   "adaptation": "PE Bench asks for a debt schedule, sources and uses, and returns; FinanceBench asks whether debt rose. Together they test what a sponsor could pay for WD-40.",
+   "adaptation": "PE Bench asks for a debt schedule, sources and uses, debt-like items and returns; FinanceBench asks whether debt rose. Together they test what a sponsor could pay for WD-40.",
    "leaves": [
     {
      "id": "financing-1",
      "purpose": "fact",
-     "text": "How did borrowings change between the end of FY2024 and FY2025?",
-     "answer": "From $94.6m to $87.0m.",
+     "text": "How did borrowings change between the end of FY2024 and FY2025, and what reaches the equity bridge?",
+     "answer": "From $94.636m to $86.995m. With cash of $58.130m, borrowings net of cash were $28.865m at FY2025 year-end; the DCF subtracts the debt and adds the cash.",
      "status": "answered",
      "evidence": [
-      "sec-xbrl"
+      "sec-xbrl",
+      "wdfc25-bs"
      ],
      "cells": [
       "Input sheet!B15",
-      "Input sheet!C15"
+      "Input sheet!C15",
+      "Input sheet!B18",
+      "Valuation output!B25",
+      "Valuation output!B27"
      ],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_00552",
+      "PE Bench:voltaic-09-sources-uses"
+     ],
+     "covers": [
+      "valuation-range:financing-1",
+      "main:financing-net-debt"
+     ]
     },
     {
      "id": "financing-2",
@@ -780,21 +1626,39 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-08-debt-schedule"
+     ],
+     "covers": [
+      "valuation-range:financing-2"
+     ]
     },
     {
      "id": "financing-3",
      "purpose": "calculation",
-     "text": "At 5.0 times FY2025 EBITDA of debt, SOFR on 29 Aug 2025 plus 3.5%, a 20% target return and an exit at the peer median multiple, what is the highest price per share that works?",
-     "answer": "$74.87, an entry multiple of 9.4 times EBITDA. Bear (4.5x debt, 25% target, 25th percentile exit) gives $65.10; Bull (5.5x, 17.5%, 75th percentile) $106.28.",
+     "text": "With the Base financing terms, what is the highest price per share a buyer can pay and still earn its target return?",
+     "answer": "$74.87 (boundary found), an entry multiple of 9.4 times EBITDA. Terms: 5.0 times FY2025 EBITDA of debt at SOFR on 29 Aug 2025 plus 3.5% (7.84%), a 20% target return, and an exit after five years at 11.2 times EBITDA, the peer median. Debt is repaid 1% a year, then from cash above a $30m minimum; fees are 2% on the transaction, 2.5% on the financing and 2% on exit. Bear (4.5x debt, 25% target, exit at the 25th percentile) gives $65.10; Bull (5.5x, 17.5%, 75th percentile) $106.28.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "model-build",
+      "nyfed-sofr-2025-08-29"
+     ],
      "cells": [],
      "methods": [
       "lbo"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-11-returns-waterfall",
+      "PE Bench:voltaic-08-debt-schedule",
+      "PE Bench:voltaic-09-sources-uses"
+     ],
+     "covers": [
+      "valuation-range:financing-3",
+      "main:financing-affordability"
+     ]
     },
     {
      "id": "financing-4",
@@ -802,14 +1666,47 @@
      "text": "Which operating case does the buyout model use?",
      "answer": "The Base DCF case: its revenue, EBIT, tax rate and free cash flow before financing in years 1-5. EBITDA is put on a reported basis by removing the R&D adjustment and adding depreciation and amortization at the FY2025 share of sales.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "model-build"
+     ],
      "cells": [],
      "methods": [
       "lbo",
       "dcf"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-08-debt-schedule"
+     ],
+     "covers": [
+      "valuation-range:financing-4"
+     ]
+    },
+    {
+     "id": "financing-5",
+     "purpose": "assumption",
+     "text": "Why are operating leases left out of debt?",
+     "answer": "The case keeps operating rent in operating income, so it leaves the $10.705m operating-lease liability out of debt and takes it and the $10.385m right-of-use asset out of book equity: $268.152m reported becomes $268.472m. Counting the liability as debt would also require moving rent out of operating income.",
+     "status": "answered",
+     "evidence": [
+      "wdfc25-leases",
+      "wdfc25-lease-expense"
+     ],
+     "cells": [
+      "Input sheet!B14",
+      "Input sheet!B15",
+      "Input sheet!B17"
+     ],
+     "methods": [],
+     "resolution": null,
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-05-nwc-peg"
+     ],
+     "covers": [
+      "main:financing-leases"
+     ]
     }
    ]
   },
@@ -819,17 +1716,27 @@
    "parent": "What does the $216.04 price assume that the cases do not?",
    "origins": [
     {
+     "key": "PE Bench:voltaic-02-comparables",
      "source": "PE Bench",
-     "license": "See GetCompoundAI/pe-bench repository",
-     "note": "",
      "sourceId": "voltaic-02-comparables",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Build a trading comparables analysis and a precedent transactions analysis for Project Voltaic from the data room, using public filings and market data for the peer companies and the deals, with the peers priced as of 30 June 2026. Put both"
     },
     {
+     "key": "FinanceBench:financebench_id_00438",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_00438",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "Does Adobe have an improving operating margin profile as of FY2022? If operating margin is not a useful metric for a company like this, then state that and explain why."
     }
    ],
@@ -841,13 +1748,26 @@
      "text": "What EV to EBITDA did five listed peers trade at on 29 Aug 2025, after adding back tagged one-off charges?",
      "answer": "25th percentile 11.1x, median 11.2x, 75th percentile 16.5x.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "sec-chd",
+      "sec-clx",
+      "sec-enr",
+      "sec-rpm",
+      "sec-kwr",
+      "yahoo-peers"
+     ],
      "cells": [],
      "methods": [
       "comps"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-02-comparables"
+     ],
+     "covers": [
+      "valuation-range:market-1"
+     ]
     },
     {
      "id": "market-2",
@@ -855,13 +1775,22 @@
      "text": "What EV to EBITDA did WD-40 trade at on 29 Aug 2025, and at its previous four fiscal year-ends?",
      "answer": "FY2021 34.6x, FY2022 28.0x, FY2023 30.5x, FY2024 34.1x, FY2025 26.4x.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "sec-xbrl",
+      "price-close"
+     ],
      "cells": [],
      "methods": [
       "own-history"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_00438"
+     ],
+     "covers": [
+      "valuation-range:market-2"
+     ]
     },
     {
      "id": "market-3",
@@ -869,13 +1798,22 @@
      "text": "Starting from Base, what single change reaches $216.04?",
      "answer": "A WACC of 5.40% in every year, or a 31.1% operating margin by year 5, or 19.0% revenue growth in years 2-5. No terminal return on capital reaches it alone: at 500% the value is $141.26.",
      "status": "answered",
-     "evidence": [],
+     "evidence": [
+      "model-build",
+      "price-close"
+     ],
      "cells": [],
      "methods": [
       "dcf"
      ],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-02-comparables"
+     ],
+     "covers": [
+      "valuation-range:market-3"
+     ]
     },
     {
      "id": "market-4",
@@ -890,7 +1828,13 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-02-comparables"
+     ],
+     "covers": [
+      "valuation-range:market-4"
+     ]
     },
     {
      "id": "market-5",
@@ -899,12 +1843,19 @@
      "answer": "Not from the material collected. The $2.4m difference sits in the company's non-GAAP reconciliation, which was not extracted.",
      "status": "insufficient data",
      "evidence": [
-      "wdfc-8k-2025-10-22"
+      "wdfc-8k-2025-10-22",
+      "wd40-fy25-operating-research"
      ],
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "PE Bench:voltaic-02-comparables"
+     ],
+     "covers": [
+      "valuation-range:market-5"
+     ]
     }
    ]
   },
@@ -914,27 +1865,45 @@
    "parent": "What could break the margin and growth assumptions?",
    "origins": [
     {
+     "key": "FinCausal:0100.00018",
      "source": "FinCausal",
-     "license": "CC BY 4.0 (FinCausal 2020 shared task)",
-     "note": "FinCausal marks cause and effect spans in financial text; 34 of its 1,109 practice pairs mention oil, commodities, currencies, tariffs, raw materials or freight. The WD-40 questions ask for the same cause and effect in WD-40's filings.",
-     "sourceId": "0037.00003"
+     "sourceId": "0100.00018",
+     "dataset": "fincausal",
+     "revision": "33a933f1bebd3317ab67edcf447c1a333fe879f5",
+     "datasetSha256": "3c587ca5afe0bd8532bc3cbe22fab40426f59d4a1c3efe37bcf14fee39dd0575",
+     "datasetUrl": "https://github.com/yseop/YseopLab/tree/develop/FNP_2020_FinCausal",
+     "licenseKnown": false,
+     "note": "A cause-effect pair in which oil prices pass through to a product price; the WD-40 question asks how oil reaches WD-40's own costs.",
+     "text": "Mr. Thummel projected that oil prices in the United States will settle at between $60 and $70 a barrel, which would lead to a roughly 25 cent increase in the retail price of gasoline.",
+     "cause": "Mr. Thummel projected that oil prices in the United States will settle at between $60 and $70 a barrel",
+     "effect": "a roughly 25 cent increase in the retail price of gasoline."
     },
     {
+     "key": "FinanceBench:financebench_id_01319",
      "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
      "sourceId": "financebench_id_01319",
+     "dataset": "financebench",
+     "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+     "datasetSha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+     "datasetUrl": "https://github.com/patronus-ai/financebench",
+     "licenseKnown": false,
+     "note": "",
      "originalText": "What is the quantity of restructuring costs directly outlined in AES Corporation's income statements for FY2022? If restructuring costs are not explicitly outlined then state 0."
     },
     {
-     "source": "FinanceBench",
-     "license": "CC BY-NC 4.0 (patronus-ai/financebench)",
-     "note": "",
-     "sourceId": "financebench_id_01091",
-     "originalText": "Has Boeing reported any materially important ongoing legal battles from FY2022?"
+     "key": "PE Bench:voltaic-07-operating-model",
+     "source": "PE Bench",
+     "sourceId": "voltaic-07-operating-model",
+     "dataset": "pe-bench",
+     "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+     "datasetSha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+     "datasetUrl": "https://github.com/GetCompoundAI/pe-bench",
+     "licenseKnown": false,
+     "note": "The operating-model task asks for testable drivers; here the test is a published margin range.",
+     "originalText": "Build me an operating model for Ironvale off the data room: drivers to EBITDA and EBIT, historicals through FY25 and a forecast to FY30. Include one toggle that switches the forecast between management's case and your buy-side case. Leave t"
     }
    ],
-   "adaptation": "FinCausal extracts cause and effect from financial text; FinanceBench asks for restructuring costs and material legal matters. The WD-40 version asks which costs move margins and through what channel.",
+   "adaptation": "FinCausal extracts cause and effect from financial text; FinanceBench asks for restructuring costs. The WD-40 version asks which costs move margins, through what channel, and which published figure would test the margin paths.",
    "leaves": [
     {
      "id": "risks-1",
@@ -948,7 +1917,13 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinCausal:0100.00018"
+     ],
+     "covers": [
+      "valuation-range:risks-1"
+     ]
     },
     {
      "id": "risks-2",
@@ -962,7 +1937,13 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinCausal:0100.00018"
+     ],
+     "covers": [
+      "valuation-range:risks-2"
+     ]
     },
     {
      "id": "risks-3",
@@ -976,28 +1957,46 @@
      "cells": [],
      "methods": [],
      "resolution": null,
-     "laterInformation": null
+     "laterInformation": null,
+     "origins": [
+      "FinanceBench:financebench_id_01319"
+     ],
+     "covers": [
+      "valuation-range:risks-3"
+     ]
     },
     {
      "id": "risks-4",
      "purpose": "forecast",
-     "text": "Will the FY2026 gross margin stay within the guided 55.5-56.5% range?",
+     "text": "Will the FY2026 gross margin stay within the guided 55.5%-56.5% range?",
      "answer": "Open at the case date.",
      "status": "open at case date",
-     "evidence": [],
+     "evidence": [
+      "wdfc-8k-2025-10-22"
+     ],
      "cells": [],
      "methods": [],
      "resolution": {
       "object": "FY2026 gross margin",
       "period": "FY ending 31 Aug 2026",
       "threshold": "55.5% to 56.5%",
-      "rule": "Read gross margin from the FY2026 10-K income statement.",
+      "rule": "Compare FY2026 gross margin on the original guidance perimeter (without the brands then held for sale) with the range. A margin below it would contradict the Base and Bull paths, which raise operating margin to 18% and 20%.",
       "linkedAssumption": "Input sheet!B27 and B29 (Base 16.9% and 18% operating margin)"
      },
      "laterInformation": {
-      "text": "The FY2026 10-K reports a gross margin of 55.3%, below the original range; the company lowered its guidance to 54.5-55.5% in July 2026.",
-      "sourceId": "wdfc26-10k"
-     }
+      "text": "The FY2026 10-K reports a gross margin of 55.3% ($380.5m over $688.0m), below the range but on a changed perimeter. In July 2026 the company moved the homecare brands back into the business and lowered its gross margin guidance to 54.5%-55.5%, putting 40 bp of the cut on that move and 60 bp on higher costs. The reported figure therefore does not resolve the question on the original basis.",
+      "sourceIds": [
+       "wdfc26-10k",
+       "wd40-fy26-guidance-july-revision"
+      ]
+     },
+     "origins": [
+      "PE Bench:voltaic-07-operating-model"
+     ],
+     "covers": [
+      "valuation-range:risks-4",
+      "main:risks-falsification"
+     ]
     }
    ]
   }
@@ -1005,25 +2004,63 @@
  "coverage": {
   "FinanceBench": {
    "records": 150,
-   "usedAsOrigin": 16
+   "usedAsOrigin": 19
   },
   "FinLFQA": {
    "records": 302,
-   "usedAsOrigin": 3
+   "usedAsOrigin": 6,
+   "why": "Records were chosen by their question text: the dataset's topic labels often do not match it, and no validation question asks about the cost of capital."
   },
   "FinCausal": {
    "records": 1109,
-   "usedAsOrigin": 1,
-   "why": "34 cause-effect pairs mention input costs, currencies, tariffs or freight; they are news texts about other companies, so they shape the form of the risk questions rather than supplying them."
+   "usedAsOrigin": 2,
+   "why": "Cause-effect pairs from news about other companies; two shape the form of the disposal and oil-cost questions, and no figure from them enters an answer."
   },
   "PE Bench": {
    "records": 12,
-   "usedAsOrigin": 5
+   "usedAsOrigin": 8
   },
   "FinTextQA": {
    "records": 240,
    "usedAsOrigin": 0,
    "why": "The public part is 240 questions on banking regulation (Federal Reserve, HKMA, EU). None applies to a non-bank consumer products company; the textbook part was not released."
+  }
+ },
+ "datasets": {
+  "FinanceBench": {
+   "dataset": "financebench",
+   "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+   "sha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+   "url": "https://github.com/patronus-ai/financebench",
+   "licenseKnown": false
+  },
+  "FinLFQA": {
+   "dataset": "finlfqa",
+   "revision": "22900e97366d0b977b6f37863486bc9828e5bdc0",
+   "sha256": "83dbadda0cadc202c47d3ae9622e014d5851dabc9c77837d81be1b0a729a62c5",
+   "url": "https://huggingface.co/datasets/Dragongon/FinLFQA",
+   "licenseKnown": false
+  },
+  "FinCausal": {
+   "dataset": "fincausal",
+   "revision": "33a933f1bebd3317ab67edcf447c1a333fe879f5",
+   "sha256": "3c587ca5afe0bd8532bc3cbe22fab40426f59d4a1c3efe37bcf14fee39dd0575",
+   "url": "https://github.com/yseop/YseopLab/tree/develop/FNP_2020_FinCausal",
+   "licenseKnown": false
+  },
+  "PE Bench": {
+   "dataset": "pe-bench",
+   "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+   "sha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+   "url": "https://github.com/GetCompoundAI/pe-bench",
+   "licenseKnown": false
+  },
+  "FinTextQA": {
+   "dataset": "fintextqa",
+   "revision": "51aa9851114adb5972ac9b6adfa662c21c6483dd",
+   "sha256": "61a590bb891a14c540e203c4e3b38446d786e3e5ab17e23aa2fff39a1cdf327d",
+   "url": "https://github.com/AlexJJJChen/FinTextQA",
+   "licenseKnown": false
   }
  },
  "sources": {
@@ -1032,11 +2069,750 @@
    "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm",
    "publishedAt": "2025-10-27"
   },
+  "model-build": {
+   "title": "Scenario and method workbook built from the scenario inputs (models/build.py)",
+   "url": "models/excel/wd40_valuation.xlsx"
+  },
   "wdfc26-10k": {
    "title": "WD-40 Company FY2026 Form 10-K (later information, outside the case)",
-   "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000105132&type=10-K",
-   "publishedAt": "2026-10-26"
+   "publishedAt": "2026-10-26",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513226000091/0000105132-26-000091-index.htm"
+  },
+  "wdfc25-is": {
+   "title": "WD-40 FY2025 audited operations",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm#f-131",
+   "publishedAt": "2025-10-27",
+   "asOf": "2025-08-31",
+   "locator": "F-4; FY2025, FY2024, FY2023; USD thousands except per-share data"
+  },
+  "wd40-fy25-guidance-original": {
+   "title": "WD-40 FY2025 earnings release and original FY2026 guidance",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000061/wdfc-20251022xexx991.htm",
+   "publishedAt": "2025-10-22",
+   "asOf": "2025-10-22",
+   "locator": "Fiscal Year 2026 Guidance; Net Sales by Segment and Product Group"
+  },
+  "wd40-fy26-guidance-july-revision": {
+   "title": "WD-40 Q3 FY2026 revised guidance",
+   "url": "https://investor.wd40company.com/news/news-details/2026/WD-40-Company-Reports-Third-Quarter-2026-Financial-Results/default.aspx",
+   "publishedAt": "2026-07-09",
+   "asOf": "2026-07-09",
+   "locator": "Updated Fiscal Year 2026 Guidance"
+  },
+  "wdfc25-rd": {
+   "title": "WD-40 R&D policy and history",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm#f-446",
+   "publishedAt": "2025-10-27",
+   "asOf": "2025-08-31",
+   "locator": "Note 2, Research and Development; FY2025-2023"
+  },
+  "wdfc23-rd": {
+   "title": "WD-40 prior R&D history",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513223000059/wdfc-20230831.htm#f-421",
+   "publishedAt": "2023-10-23",
+   "asOf": "2023-08-31",
+   "locator": "Note 2, Research and Development; FY2023-2021"
+  },
+  "wdfc25-cf": {
+   "title": "WD-40 FY2025 cash-flow statement",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm#f-271",
+   "publishedAt": "2025-10-27",
+   "asOf": "2025-08-31",
+   "locator": "F-7; tax release and prepaid finance-lease settlement"
+  },
+  "wdfc25-tax": {
+   "title": "WD-40 effective-tax-rate explanation",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm#f-942",
+   "publishedAt": "2025-10-27",
+   "asOf": "2025-08-31",
+   "locator": "Note 15, Income Taxes, F-28"
+  },
+  "wdfc25-nol": {
+   "title": "WD-40 state NOLs and tax credits",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm#f-915",
+   "publishedAt": "2025-10-27",
+   "asOf": "2025-08-31",
+   "locator": "Note 15, Income Taxes, F-27"
+  },
+  "wdfc25-bs": {
+   "title": "WD-40 FY2025 audited balance sheets",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm#f-59",
+   "publishedAt": "2025-10-27",
+   "asOf": "2025-08-31",
+   "locator": "F-3; August 31 2025 and 2024; USD thousands except actual share counts"
+  },
+  "wd40-fy25-operating-research": {
+   "title": "WD-40 FY2025 Form 10-K: operating data, segments and non-GAAP reconciliations",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm",
+   "publishedAt": "2025-10-27",
+   "asOf": "2025-08-31",
+   "locator": "MD&A, Net Sales by Segment; Performance Measures and Non-GAAP Reconciliations; Note 18 Segment Information"
+  },
+  "wdfc25-rsu": {
+   "title": "WD-40 RSU rollforward",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm#f-1002",
+   "publishedAt": "2025-10-27",
+   "asOf": "2025-08-31",
+   "locator": "Note 16, Restricted Stock Units, F-30"
+  },
+  "wdfc25-msu": {
+   "title": "WD-40 MSU rollforward",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm#f-1042",
+   "publishedAt": "2025-10-27",
+   "asOf": "2025-08-31",
+   "locator": "Note 16, Market Share Units, F-31"
+  },
+  "wdfc25-plan-footnote": {
+   "title": "WD-40 equity award composition",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000107/wdfc-20251031.htm#i7c76bc05904e41ed9c82212460f7162e_133",
+   "publishedAt": "2025-10-31",
+   "asOf": "2025-08-31",
+   "locator": "Equity Compensation Plan Information, p53, footnote2"
+  },
+  "wdfc25-psu": {
+   "title": "WD-40 PSU performance outcome",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm#f-991",
+   "publishedAt": "2025-10-27",
+   "asOf": "2025-08-31",
+   "locator": "Note 16, stock compensation expense footnote1"
+  },
+  "wdfc25-leases": {
+   "title": "WD-40 recognized lease balances",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm#f-628",
+   "publishedAt": "2025-10-27",
+   "asOf": "2025-08-31",
+   "locator": "Note 8, Leases, F-21; August 31 2025 and 2024"
+  },
+  "wdfc25-lease-expense": {
+   "title": "WD-40 lease expense and discount rates",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm#f-654",
+   "publishedAt": "2025-10-27",
+   "asOf": "2025-08-31",
+   "locator": "Note 8, paragraph following maturity schedule"
   }
+ },
+ "dispositions": [
+  {
+   "question": "main:revenue-base",
+   "text": "What FY2025 revenue anchors the WD-40 model?",
+   "disposition": "merged",
+   "into": [
+    "growth-1"
+   ]
+  },
+  {
+   "question": "main:revenue-growth",
+   "text": "What was reported FY2025 revenue growth, and is the forecast the same claim?",
+   "disposition": "merged",
+   "into": [
+    "growth-2"
+   ]
+  },
+  {
+   "question": "main:revenue-resolution",
+   "text": "Will WD-40 FY2026 reported net sales exceed the FY2025 reported base by at least 5%?",
+   "disposition": "kept",
+   "into": [
+    "growth-6"
+   ]
+  },
+  {
+   "question": "main:margin-reported",
+   "text": "What is WD-40 FY2025 reported operating margin?",
+   "disposition": "merged",
+   "into": [
+    "margin-3"
+   ]
+  },
+  {
+   "question": "main:margin-rd-bridge",
+   "text": "Why does the original model use a 17.1068% operating margin rather than the reported margin?",
+   "disposition": "kept",
+   "into": [
+    "margin-rd"
+   ]
+  },
+  {
+   "question": "main:margin-target",
+   "text": "What evidence would justify a 20% adjusted EBIT margin instead of the original flat margin?",
+   "disposition": "merged",
+   "into": [
+    "margin-5"
+   ]
+  },
+  {
+   "question": "main:capital-capex",
+   "text": "What was WD-40 FY2025 capital expenditure, and what percentage of revenue was it?",
+   "disposition": "merged",
+   "into": [
+    "capital-1"
+   ]
+  },
+  {
+   "question": "main:capital-turnover",
+   "text": "Is the model’s 2.0× sales-to-capital ratio observed or assumed?",
+   "disposition": "merged",
+   "into": [
+    "capital-5"
+   ]
+  },
+  {
+   "question": "main:capital-rd",
+   "text": "Which R&D amounts support the model’s capitalization schedule?",
+   "disposition": "merged",
+   "into": [
+    "margin-rd"
+   ]
+  },
+  {
+   "question": "main:cash-fcff",
+   "text": "What modeled free cash flow is generated in the first forecast year?",
+   "disposition": "kept",
+   "into": [
+    "cash-4"
+   ]
+  },
+  {
+   "question": "main:cash-conversion",
+   "text": "Did historical free-cash-flow conversion improve from FY2024 to FY2025?",
+   "disposition": "merged",
+   "into": [
+    "cash-2"
+   ]
+  },
+  {
+   "question": "main:cash-working-capital",
+   "text": "Does the forecast explicitly model WD-40’s working-capital funding need?",
+   "disposition": "merged",
+   "into": [
+    "capital-5"
+   ]
+  },
+  {
+   "question": "main:tax-normalization",
+   "text": "How is the model’s normalized starting tax rate calculated?",
+   "disposition": "merged",
+   "into": [
+    "tax-2"
+   ]
+  },
+  {
+   "question": "main:tax-terminal",
+   "text": "Is the 25% terminal tax rate a company fact?",
+   "disposition": "merged",
+   "into": [
+    "tax-3"
+   ]
+  },
+  {
+   "question": "main:tax-nol",
+   "text": "Why are disclosed state NOLs excluded from the simplified consolidated tax shield?",
+   "disposition": "kept",
+   "into": [
+    "tax-4"
+   ]
+  },
+  {
+   "question": "main:discount-start",
+   "text": "Which historical CAPM evidence supports the original 9% starting WACC?",
+   "disposition": "merged",
+   "into": [
+    "coc-4"
+   ]
+  },
+  {
+   "question": "main:discount-terminal",
+   "text": "Why is terminal WACC 8%, and which template tables are bypassed?",
+   "disposition": "merged",
+   "into": [
+    "coc-4"
+   ]
+  },
+  {
+   "question": "main:discount-sensitivity",
+   "text": "How does shifting the WACC path change modeled value per share?",
+   "disposition": "kept",
+   "into": [
+    "coc-5"
+   ]
+  },
+  {
+   "question": "main:terminal-reinvestment",
+   "text": "What terminal reinvestment does 2.5% growth require when ROIC equals 8% WACC?",
+   "disposition": "kept",
+   "into": [
+    "returns-6"
+   ]
+  },
+  {
+   "question": "main:terminal-excess-returns",
+   "text": "What supports terminal ROIC of 20% or 25% in an alternative scenario?",
+   "disposition": "merged",
+   "into": [
+    "returns-5"
+   ]
+  },
+  {
+   "question": "main:terminal-value-share",
+   "text": "How much of modeled operating value comes from the terminal value?",
+   "disposition": "kept",
+   "into": [
+    "returns-7"
+   ]
+  },
+  {
+   "question": "main:financing-net-debt",
+   "text": "Which debt and cash amounts enter the enterprise-to-equity bridge?",
+   "disposition": "merged",
+   "into": [
+    "financing-1"
+   ]
+  },
+  {
+   "question": "main:financing-leases",
+   "text": "Why are operating-lease liabilities excluded from this case’s debt?",
+   "disposition": "kept",
+   "into": [
+    "financing-5"
+   ]
+  },
+  {
+   "question": "main:financing-affordability",
+   "text": "What entry price can a buyer pay while meeting a 20% annualized equity return?",
+   "disposition": "merged",
+   "into": [
+    "financing-3"
+   ]
+  },
+  {
+   "question": "main:payouts-dilution",
+   "text": "What share count is used for DCF value per share, and is it the market-cap share count?",
+   "disposition": "kept",
+   "into": [
+    "payouts-5"
+   ]
+  },
+  {
+   "question": "main:payouts-dividends",
+   "text": "Were FY2025 dividends covered by recurring earnings and free cash flow?",
+   "disposition": "merged",
+   "into": [
+    "payouts-2"
+   ]
+  },
+  {
+   "question": "main:payouts-ddm",
+   "text": "Which dividend-growth and cost-of-equity assumptions support the DDM range?",
+   "disposition": "merged",
+   "into": [
+    "payouts-4"
+   ]
+  },
+  {
+   "question": "main:risks-disposal",
+   "text": "How would removing the homecare assets change the revenue and operating-income base?",
+   "disposition": "kept",
+   "into": [
+    "growth-perimeter"
+   ]
+  },
+  {
+   "question": "main:risks-product-concentration",
+   "text": "Which WD-40 product and geographic exposures could invalidate the growth scenario?",
+   "disposition": "merged",
+   "into": [
+    "returns-2",
+    "returns-3"
+   ]
+  },
+  {
+   "question": "main:risks-falsification",
+   "text": "Which published operating result would falsify the higher-margin scenario?",
+   "disposition": "merged",
+   "into": [
+    "risks-4"
+   ]
+  },
+  {
+   "question": "valuation-range:growth-1",
+   "text": "What were net sales in FY2021 and FY2025, and the compound annual growth rate between them?",
+   "disposition": "kept",
+   "into": [
+    "growth-1"
+   ]
+  },
+  {
+   "question": "valuation-range:growth-2",
+   "text": "How much of the FY2025 change in net sales came from volume, price and currency?",
+   "disposition": "kept",
+   "into": [
+    "growth-2"
+   ]
+  },
+  {
+   "question": "valuation-range:growth-3",
+   "text": "What growth did management guide for FY2026, from what base and at what exchange rates?",
+   "disposition": "kept",
+   "into": [
+    "growth-3"
+   ]
+  },
+  {
+   "question": "valuation-range:growth-4",
+   "text": "Which growth rates do the scenarios use after year 1, and how do they compare with the FY2021-FY2025 rate?",
+   "disposition": "kept",
+   "into": [
+    "growth-4"
+   ]
+  },
+  {
+   "question": "valuation-range:growth-5",
+   "text": "Will FY2026 net sales on the guidance basis (pro forma, FY2025 exchange rates) reach the $642.5m midpoint?",
+   "disposition": "kept",
+   "into": [
+    "growth-5"
+   ]
+  },
+  {
+   "question": "valuation-range:margin-1",
+   "text": "What was the gross margin in each fiscal year from 2021 to 2025?",
+   "disposition": "kept",
+   "into": [
+    "margin-1"
+   ]
+  },
+  {
+   "question": "valuation-range:margin-2",
+   "text": "What explained the change in gross margin from FY2024 to FY2025?",
+   "disposition": "kept",
+   "into": [
+    "margin-2"
+   ]
+  },
+  {
+   "question": "valuation-range:margin-3",
+   "text": "What was the operating margin in each fiscal year from 2021 to 2025?",
+   "disposition": "kept",
+   "into": [
+    "margin-3"
+   ]
+  },
+  {
+   "question": "valuation-range:margin-4",
+   "text": "How far was FY2025 cost of doing business from the company's own target?",
+   "disposition": "kept",
+   "into": [
+    "margin-4"
+   ]
+  },
+  {
+   "question": "valuation-range:margin-5",
+   "text": "Which margin paths do the scenarios use, and on what basis?",
+   "disposition": "kept",
+   "into": [
+    "margin-5"
+   ]
+  },
+  {
+   "question": "valuation-range:capital-1",
+   "text": "What were capital expenditures as a share of net sales in each year from FY2021 to FY2025?",
+   "disposition": "kept",
+   "into": [
+    "capital-1"
+   ]
+  },
+  {
+   "question": "valuation-range:capital-2",
+   "text": "How many times did inventory turn in FY2025 (cost of products sold over average inventory)?",
+   "disposition": "kept",
+   "into": [
+    "capital-2"
+   ]
+  },
+  {
+   "question": "valuation-range:capital-3",
+   "text": "What were receivables plus inventory minus payables at the end of FY2025, as a share of FY2025 net sales?",
+   "disposition": "kept",
+   "into": [
+    "capital-3"
+   ]
+  },
+  {
+   "question": "valuation-range:capital-4",
+   "text": "How much revenue did each dollar of added invested capital bring between FY2021 and FY2025?",
+   "disposition": "kept",
+   "into": [
+    "capital-4"
+   ]
+  },
+  {
+   "question": "valuation-range:capital-5",
+   "text": "Which sales-to-capital ratio does the model use, and does the history above support it?",
+   "disposition": "kept",
+   "into": [
+    "capital-5"
+   ]
+  },
+  {
+   "question": "valuation-range:cash-1",
+   "text": "What were operating cash flow and capital expenditures in each year from FY2021 to FY2025?",
+   "disposition": "kept",
+   "into": [
+    "cash-1"
+   ]
+  },
+  {
+   "question": "valuation-range:cash-2",
+   "text": "What was free cash flow (operating cash flow minus capex) as a share of net income in FY2023, FY2024 and FY2025?",
+   "disposition": "kept",
+   "into": [
+    "cash-2"
+   ]
+  },
+  {
+   "question": "valuation-range:cash-3",
+   "text": "Among operating, investing and financing activities, which brought in the most cash in FY2025?",
+   "disposition": "kept",
+   "into": [
+    "cash-3"
+   ]
+  },
+  {
+   "question": "valuation-range:tax-1",
+   "text": "How much did the effective tax rate change between FY2024 and FY2025?",
+   "disposition": "kept",
+   "into": [
+    "tax-1"
+   ]
+  },
+  {
+   "question": "valuation-range:tax-2",
+   "text": "What one-time item explains the FY2025 rate?",
+   "disposition": "kept",
+   "into": [
+    "tax-2"
+   ]
+  },
+  {
+   "question": "valuation-range:tax-3",
+   "text": "Which starting tax rate do the scenarios use?",
+   "disposition": "kept",
+   "into": [
+    "tax-3"
+   ]
+  },
+  {
+   "question": "valuation-range:coc-1",
+   "text": "What was the 10-year Treasury yield on 29 Aug 2025, and Damodaran's implied equity risk premium at the start of September 2025?",
+   "disposition": "kept",
+   "into": [
+    "coc-1"
+   ]
+  },
+  {
+   "question": "valuation-range:coc-2",
+   "text": "What betas do regressions of WD-40 on the S&P 500 give, and how much of the variation do they explain?",
+   "disposition": "kept",
+   "into": [
+    "coc-2"
+   ]
+  },
+  {
+   "question": "valuation-range:coc-3",
+   "text": "What were Damodaran's January 2025 unlevered betas for Chemical (Specialty) and Household Products?",
+   "disposition": "kept",
+   "into": [
+    "coc-3"
+   ]
+  },
+  {
+   "question": "valuation-range:coc-4",
+   "text": "Which WACC do the scenarios use, and what did the original case use?",
+   "disposition": "kept",
+   "into": [
+    "coc-4"
+   ]
+  },
+  {
+   "question": "valuation-range:returns-1",
+   "text": "What was FY2025 return on invested capital in the workbook (after-tax operating income over invested capital)?",
+   "disposition": "kept",
+   "into": [
+    "returns-1"
+   ]
+  },
+  {
+   "question": "valuation-range:returns-2",
+   "text": "What share of FY2025 net sales came from WD-40 Multi-Use Product?",
+   "disposition": "kept",
+   "into": [
+    "returns-2"
+   ]
+  },
+  {
+   "question": "valuation-range:returns-3",
+   "text": "What share of FY2025 net sales came from outside the United States, and did any customer reach 10%?",
+   "disposition": "kept",
+   "into": [
+    "returns-3"
+   ]
+  },
+  {
+   "question": "valuation-range:returns-4",
+   "text": "Does restating the DCF as invested capital plus economic profit give the same operating value?",
+   "disposition": "kept",
+   "into": [
+    "returns-4"
+   ]
+  },
+  {
+   "question": "valuation-range:returns-5",
+   "text": "What return on new capital after year 10 do the scenarios assume?",
+   "disposition": "kept",
+   "into": [
+    "returns-5"
+   ]
+  },
+  {
+   "question": "valuation-range:payouts-1",
+   "text": "What dividend per share did WD-40 pay in each year from FY2021 to FY2025?",
+   "disposition": "kept",
+   "into": [
+    "payouts-1"
+   ]
+  },
+  {
+   "question": "valuation-range:payouts-2",
+   "text": "What share of FY2025 earnings per share went to dividends?",
+   "disposition": "kept",
+   "into": [
+    "payouts-2"
+   ]
+  },
+  {
+   "question": "valuation-range:payouts-3",
+   "text": "How did FY2025 share repurchases compare with dividends?",
+   "disposition": "kept",
+   "into": [
+    "payouts-3"
+   ]
+  },
+  {
+   "question": "valuation-range:payouts-4",
+   "text": "What does a dividend discount model give with the scenarios' cost of equity?",
+   "disposition": "kept",
+   "into": [
+    "payouts-4"
+   ]
+  },
+  {
+   "question": "valuation-range:financing-1",
+   "text": "How did borrowings change between the end of FY2024 and FY2025?",
+   "disposition": "kept",
+   "into": [
+    "financing-1"
+   ]
+  },
+  {
+   "question": "valuation-range:financing-2",
+   "text": "What was FY2025 operating income over interest expense?",
+   "disposition": "kept",
+   "into": [
+    "financing-2"
+   ]
+  },
+  {
+   "question": "valuation-range:financing-3",
+   "text": "At 5.0 times FY2025 EBITDA of debt, SOFR on 29 Aug 2025 plus 3.5%, a 20% target return and an exit at the peer median multiple, what is the highest price per share that works?",
+   "disposition": "kept",
+   "into": [
+    "financing-3"
+   ]
+  },
+  {
+   "question": "valuation-range:financing-4",
+   "text": "Which operating case does the buyout model use?",
+   "disposition": "kept",
+   "into": [
+    "financing-4"
+   ]
+  },
+  {
+   "question": "valuation-range:market-1",
+   "text": "What EV to EBITDA did five listed peers trade at on 29 Aug 2025, after adding back tagged one-off charges?",
+   "disposition": "kept",
+   "into": [
+    "market-1"
+   ]
+  },
+  {
+   "question": "valuation-range:market-2",
+   "text": "What EV to EBITDA did WD-40 trade at on 29 Aug 2025, and at its previous four fiscal year-ends?",
+   "disposition": "kept",
+   "into": [
+    "market-2"
+   ]
+  },
+  {
+   "question": "valuation-range:market-3",
+   "text": "Starting from Base, what single change reaches $216.04?",
+   "disposition": "kept",
+   "into": [
+    "market-3"
+   ]
+  },
+  {
+   "question": "valuation-range:market-4",
+   "text": "What price targets had analysts published by 29 Aug 2025?",
+   "disposition": "kept",
+   "into": [
+    "market-4"
+   ]
+  },
+  {
+   "question": "valuation-range:market-5",
+   "text": "Can the company-defined adjusted EBITDA of $114.4m be reconciled to EBIT plus depreciation and amortization of $112.0m?",
+   "disposition": "kept",
+   "into": [
+    "market-5"
+   ]
+  },
+  {
+   "question": "valuation-range:risks-1",
+   "text": "Which inputs does WD-40 name as its main costs, and how does the price of oil reach them?",
+   "disposition": "kept",
+   "into": [
+    "risks-1"
+   ]
+  },
+  {
+   "question": "valuation-range:risks-2",
+   "text": "How did currency translation affect FY2025 net sales by segment?",
+   "disposition": "kept",
+   "into": [
+    "risks-2"
+   ]
+  },
+  {
+   "question": "valuation-range:risks-3",
+   "text": "Are restructuring costs shown separately in the FY2025 income statement?",
+   "disposition": "kept",
+   "into": [
+    "risks-3"
+   ]
+  },
+  {
+   "question": "valuation-range:risks-4",
+   "text": "Will the FY2026 gross margin stay within the guided 55.5-56.5% range?",
+   "disposition": "kept",
+   "into": [
+    "risks-4"
+   ]
+  }
+ ],
+ "mergeInputs": {
+  "main": "70b6ba82999fcaa3c2a29e82b7d1121f006e5c68",
+  "valuation-range": "aa9dce51d74b3530ea1241aebba3d1c898634b73"
  },
  "fixtures": {
   "growth-1": {
@@ -1045,7 +2821,7 @@
   },
   "capital-2": {
    "purpose": "calculation",
-   "expect": "3.51 times"
+   "expect": "times"
   },
   "market-5": {
    "purpose": "fact",
@@ -1055,9 +2831,9 @@
    "purpose": "forecast",
    "expect": "open at case date"
   },
-  "tax-1": {
-   "purpose": "calculation",
-   "expect": "-13.4 points"
+  "tax-2": {
+   "purpose": "fact",
+   "expect": "22.20%"
   }
  }
 }
