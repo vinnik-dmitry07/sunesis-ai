@@ -1,0 +1,127 @@
+{
+ "schemaVersion": 1,
+ "assumptionSetVersion": "2025-10-27-retrospective-v1",
+ "timeBasis": {
+  "priceDate": "2025-08-29",
+  "price": 216.04,
+  "fiscalYearEnd": "2025-08-31",
+  "latestSourcePublication": "2025-10-27",
+  "note": "Retrospective FY2025 review: uses the FY2025 10-K (27 Oct 2025) and the FY2026 guidance (22 Oct 2025), which were published after the price date."
+ },
+ "notChanged": [
+  "Sales-to-capital stays at 2.0 in all scenarios (Input sheet!B31, B32).",
+  "Terminal tax rate stays at 25% (Input sheet!B24).",
+  "Expected proceeds from the Americas homecare sale are not added: no price was disclosed and the sale had not closed."
+ ],
+ "scenarios": {
+  "bear": {
+   "label": "Bear",
+   "overrides": {
+    "Input sheet!B26": 0.016154,
+    "Input sheet!B28": 0.04,
+    "Input sheet!B27": 0.163839,
+    "Input sheet!B29": 0.163839,
+    "Input sheet!B30": 5,
+    "Input sheet!B23": 0.235,
+    "Cost of capital worksheet!B12": 0.077021,
+    "Input sheet!B46": 0.083213,
+    "Input sheet!B68": 0.02,
+    "Input sheet!B19": 0.0,
+    "Input sheet!B48": "No"
+   },
+   "rationale": [
+    "Year-1 revenue at the low end of FY2026 guidance ($630m pro forma), then 4% a year, below the 6.2% FY2017-FY2025 compound rate.",
+    "Margin stays at the level implied by the low end of operating-income guidance; no recovery toward the FY2017-FY2020 range.",
+    "Cost of capital from the Household Products unlevered beta and the higher Damodaran ERP variant; it drifts to the market's cost of capital by year 10.",
+    "No excess returns on new capital after year 10 (terminal ROIC equals terminal WACC). Terminal growth 2.0%."
+   ]
+  },
+  "base": {
+   "label": "Base",
+   "overrides": {
+    "Input sheet!B26": 0.036315,
+    "Input sheet!B28": 0.06,
+    "Input sheet!B27": 0.169287,
+    "Input sheet!B29": 0.18,
+    "Input sheet!B30": 5,
+    "Input sheet!B23": 0.23,
+    "Cost of capital worksheet!B12": 0.074014,
+    "Input sheet!B46": 0.074014,
+    "Input sheet!B68": 0.025,
+    "Input sheet!B19": 0.0,
+    "Input sheet!B48": "Yes",
+    "Input sheet!B49": 0.15
+   },
+   "rationale": [
+    "Year-1 revenue at the midpoint of FY2026 guidance ($642.5m pro forma, about 3.6% above reported FY2025 because divested homecare sales leave the base), then 6% a year, in line with the 6.2% FY2017-FY2025 compound rate.",
+    "Year-1 margin at the guidance midpoint ($106.5m operating income) plus the workbook's R&D adjustment; target 18% by year 5, about a third of the way from the FY2022-FY2025 average back to the FY2017-FY2020 average (both after the R&D adjustment).",
+    "Cost of capital from a bottom-up beta (average of Damodaran's Chemical (Specialty) and Household Products unlevered betas, January 2025) relevered at WD-40's market debt-to-equity, the 29 Aug 2025 10-year Treasury yield and Damodaran's September 2025 implied ERP. Held flat because WD-40 is already a mature company.",
+    "New capital after year 10 earns 15%: above the cost of capital because the brand and distribution persist, well below the 26% the model earns through year 10. Terminal growth 2.5%."
+   ]
+  },
+  "bull": {
+   "label": "Bull",
+   "overrides": {
+    "Input sheet!B26": 0.056477,
+    "Input sheet!B28": 0.07,
+    "Input sheet!B27": 0.174734,
+    "Input sheet!B29": 0.2,
+    "Input sheet!B30": 5,
+    "Input sheet!B23": 0.225,
+    "Cost of capital worksheet!B12": 0.06581,
+    "Input sheet!B46": 0.06581,
+    "Input sheet!B68": 0.03,
+    "Input sheet!B19": 0.0,
+    "Input sheet!B48": "Yes",
+    "Input sheet!B49": 0.2
+   },
+   "rationale": [
+    "Year-1 revenue at the top of FY2026 guidance ($655m pro forma), then 7% a year, above the 6.6% FY2019-FY2025 compound rate.",
+    "Year-1 margin at the top of operating-income guidance; target 20% by year 5, the FY2017-FY2020 average operating margin plus the R&D adjustment.",
+    "Cost of capital from the Blume-adjusted 5-year weekly regression beta and the lower Damodaran ERP variant.",
+    "New capital after year 10 earns 20%. Terminal growth 3.0%, below the 4.23% risk-free rate."
+   ]
+  }
+ },
+ "sources": {
+  "ust-par-2025-08-29": {
+   "title": "US Treasury daily par yield curve, 29 Aug 2025",
+   "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2025",
+   "file": "models/data/rates/ustreasury_par_yield_curve_2025.csv",
+   "asOf": "2025-08-29"
+  },
+  "damodaran-erp-2025-09": {
+   "title": "Damodaran, implied ERP by month (start of September 2025)",
+   "url": "https://pages.stern.nyu.edu/~adamodar/pc/implprem/ERPbymonth.xlsx",
+   "file": "models/data/damodaran/ERPbymonth.xlsx",
+   "asOf": "2025-09-01"
+  },
+  "damodaran-betas-2025-01": {
+   "title": "Damodaran, US industry betas, January 2025",
+   "url": "https://pages.stern.nyu.edu/~adamodar/pc/archives/betas24.xls",
+   "file": "models/data/damodaran/betas_us_2025-01.xls",
+   "asOf": "2025-01-06"
+  },
+  "damodaran-wacc-2025-01": {
+   "title": "Damodaran, US industry cost of capital, January 2025",
+   "url": "https://pages.stern.nyu.edu/~adamodar/pc/archives/wacc24.xls",
+   "file": "models/data/damodaran/wacc_us_2025-01.xls",
+   "asOf": "2025-01-08"
+  },
+  "yahoo-prices": {
+   "title": "WDFC and S&P 500 weekly and monthly adjusted closes, Aug 2020 to Aug 2025 (Yahoo Finance chart API)",
+   "file": "models/data/market/",
+   "asOf": "2025-08-29"
+  },
+  "sec-xbrl": {
+   "title": "WD-40 Company XBRL company facts (SEC EDGAR)",
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000105132.json",
+   "file": "models/data/sec/wdfc_companyfacts.json"
+  },
+  "wdfc-8k-2025-10-22": {
+   "title": "WD-40 Company FY2025 results and FY2026 guidance (8-K exhibit 99.1, 22 Oct 2025)",
+   "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000061/wdfc-20251022xexx991.htm",
+   "publishedAt": "2025-10-22"
+  }
+ }
+}
