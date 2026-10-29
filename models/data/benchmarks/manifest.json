@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "1.0",
+  "retrievedAt": "2026-10-29T07:35:33.467688+00:00",
+  "sources": [
+    {
+      "id": "financebench",
+      "title": "FinanceBench public annotated sample",
+      "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+      "url": "https://raw.githubusercontent.com/patronus-ai/financebench/cc39aeb4afdf33909ee1412188bf89035950c2eb/data/financebench_open_source.jsonl",
+      "page": "https://github.com/patronus-ai/financebench",
+      "filename": "financebench.jsonl",
+      "format": "jsonl",
+      "licenseKnown": false,
+      "status": "available",
+      "sha256": "a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+      "sizeBytes": 929848,
+      "localFile": "financebench.jsonl"
+    },
+    {
+      "id": "finlfqa",
+      "title": "FinLFQA development / validation set",
+      "revision": "22900e97366d0b977b6f37863486bc9828e5bdc0",
+      "url": "https://huggingface.co/datasets/Dragongon/FinLFQA/resolve/22900e97366d0b977b6f37863486bc9828e5bdc0/data/validation.json",
+      "page": "https://huggingface.co/datasets/Dragongon/FinLFQA",
+      "filename": "finlfqa_validation.json",
+      "format": "json",
+      "licenseKnown": false,
+      "status": "available",
+      "sha256": "83dbadda0cadc202c47d3ae9622e014d5851dabc9c77837d81be1b0a729a62c5",
+      "sizeBytes": 4874306,
+      "localFile": "finlfqa_validation.json"
+    },
+    {
+      "id": "pe-bench",
+      "title": "PE Bench public Voltaic tasks and rubrics",
+      "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+      "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+      "page": "https://github.com/GetCompoundAI/pe-bench",
+      "filename": "pe_bench_voltaic.jsonl",
+      "format": "jsonl",
+      "licenseKnown": false,
+      "status": "available",
+      "sha256": "a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+      "sizeBytes": 709479,
+      "localFile": "pe_bench_voltaic.jsonl"
+    },
+    {
+      "id": "fincausal",
+      "title": "FinCausal 2020 Task 2 practice cause-effect spans",
+      "revision": "33a933f1bebd3317ab67edcf447c1a333fe879f5",
+      "url": "https://raw.githubusercontent.com/yseop/YseopLab/33a933f1bebd3317ab67edcf447c1a333fe879f5/FNP_2020_FinCausal/data/practice/fnp2020-fincausal2-task2.csv",
+      "page": "https://github.com/yseop/YseopLab/tree/develop/FNP_2020_FinCausal",
+      "filename": "fincausal_2020_practice.csv",
+      "format": "csv",
+      "licenseKnown": false,
+      "status": "available",
+      "sha256": "3c587ca5afe0bd8532bc3cbe22fab40426f59d4a1c3efe37bcf14fee39dd0575",
+      "sizeBytes": 877488,
+      "localFile": "fincausal_2020_practice.csv"
+    },
+    {
+      "id": "fintextqa",
+      "title": "FinTextQA publicly released policy / regulation QA",
+      "revision": "51aa9851114adb5972ac9b6adfa662c21c6483dd",
+      "url": "https://raw.githubusercontent.com/AlexJJJChen/FinTextQA/51aa9851114adb5972ac9b6adfa662c21c6483dd/manual-qa-regulation%20policy.xlsx",
+      "page": "https://github.com/AlexJJJChen/FinTextQA",
+      "filename": "fintextqa_policy.xlsx",
+      "format": "xlsx",
+      "licenseKnown": false,
+      "status": "available",
+      "sha256": "61a590bb891a14c540e203c4e3b38446d786e3e5ab17e23aa2fff39a1cdf327d",
+      "sizeBytes": 639899,
+      "localFile": "fintextqa_policy.xlsx"
+    }
+  ],
+  "note": "Source snapshots are inert data. Availability does not establish reuse rights."
+}

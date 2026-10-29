@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "1.0",
+  "basis": "Retrospective FY2025 operating evidence with a historical 2025-08-29 price reference. Later guidance is retained only to explain version differences.",
+  "sources": [
+    {
+      "id": "wd40-fy25-operating-research",
+      "title": "WD-40 FY2025 Form 10-K: operating data, segments and non-GAAP reconciliations",
+      "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/wdfc-20250831.htm",
+      "publishedAt": "2025-10-27",
+      "asOf": "2025-08-31",
+      "locator": "MD&A, Net Sales by Segment; Performance Measures and Non-GAAP Reconciliations; Note 18 Segment Information",
+      "kind": "issuer_filing"
+    },
+    {
+      "id": "wd40-fy25-guidance-original",
+      "title": "WD-40 FY2025 earnings release and original FY2026 guidance",
+      "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000061/wdfc-20251022xexx991.htm",
+      "publishedAt": "2025-10-22",
+      "asOf": "2025-10-22",
+      "locator": "Fiscal Year 2026 Guidance; Net Sales by Segment and Product Group",
+      "kind": "issuer_release"
+    },
+    {
+      "id": "wd40-fy26-guidance-july-revision",
+      "title": "WD-40 Q3 FY2026 revised guidance",
+      "url": "https://investor.wd40company.com/news/news-details/2026/WD-40-Company-Reports-Third-Quarter-2026-Financial-Results/default.aspx",
+      "publishedAt": "2026-07-09",
+      "asOf": "2026-07-09",
+      "locator": "Updated Fiscal Year 2026 Guidance",
+      "kind": "later_issuer_release",
+      "excludedFromHistoricalForecast": true
+    },
+    {
+      "id": "treasury-10y-20250829",
+      "title": "U.S. Treasury daily par yield curve, August 29 2025",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2025&type=daily_treasury_yield_curve",
+      "publishedAt": "2025-08-29",
+      "asOf": "2025-08-29",
+      "locator": "08/29/2025 row, 10 Yr column",
+      "kind": "government_market_data"
+    },
+    {
+      "id": "damodaran-country-risk-july-2025",
+      "title": "Aswath Damodaran: Country Risk 2025",
+      "url": "https://aswathdamodaran.blogspot.com/2025/07/country-risk-2025-story-behind-numbers.html",
+      "publishedAt": "2025-07-31",
+      "asOf": "2025-07-01",
+      "locator": "July 2025 risk-premium update: US expected return, dollar risk-free rate, mature-market premium",
+      "kind": "author_estimate"
+    }
+  ],
+  "operatingFacts": {
+    "period": "FY2025",
+    "units": "USD millions except ratios",
+    "revenue": 619.985,
+    "reportedEbit": 103.793,
+    "reportedEbitMargin": 0.16741211480922927,
+    "issuerAdjustedEbitda": 114.426,
+    "issuerAdjustedEbitdaMargin": 0.18456252973862272,
+    "operatingEbitdaFromEbitPlusCashFlowDa": 111.984,
+    "operatingEbitdaDefinition": "Reported operating income plus cash-flow-statement depreciation and amortization of 8.191; distinct from the issuer's Adjusted EBITDA.",
+    "rdCapitalizedEbit": 106.05966666666667,
+    "rdCapitalizedEbitMargin": 0.17106811723939558,
+    "rdCapitalizedEbitDefinition": "Ginzu modeling convention: reported EBIT plus current R&D 8.7 less three-year amortization (8.0 + 6.2 + 5.1) / 3. Not an issuer-reported margin.",
+    "regions": [
+      {"id": "americas", "label": "Americas", "revenue": 290.599, "priorRevenue": 281.883},
+      {"id": "eimea", "label": "EIMEA", "revenue": 236.434, "priorRevenue": 221.045},
+      {"id": "asiaPacific", "label": "Asia-Pacific", "revenue": 92.952, "priorRevenue": 87.629}
+    ],
+    "products": [
+      {"id": "multiUse", "label": "WD-40 Multi-Use Product", "revenue": 477.961, "priorRevenue": 452.925},
+      {"id": "specialist", "label": "WD-40 Specialist", "revenue": 81.962, "priorRevenue": 73.938},
+      {"id": "otherMaintenance", "label": "Other maintenance", "revenue": 31.043, "priorRevenue": 31.173},
+      {"id": "homecare", "label": "Homecare and cleaning products", "revenue": 29.019, "priorRevenue": 32.521}
+    ],
+    "historicalRegionProductMatrix": {
+      "units": "USD millions",
+      "columns": ["americas", "eimea", "asiaPacific"],
+      "rows": [
+        {"productId": "multiUse", "values": [224.811, 181.604, 71.546]},
+        {"productId": "specialist", "values": [34.990, 35.651, 11.321]},
+        {"productId": "otherMaintenance", "values": [17.033, 12.963, 1.047]},
+        {"productId": "homecare", "values": [13.765, 6.216, 9.038]}
+      ],
+      "forecastStatus": "Historical disclosed matrix; no regional-product growth forecast is inferred."
+    },
+    "sourceIds": ["wd40-fy25-operating-research"]
+  },
+  "guidance": [
+    {
+      "id": "fy26-original",
+      "kind": "management_guidance",
+      "publishedAt": "2025-10-22",
+      "forecastPeriod": "FY2026",
+      "netSalesLow": 630.0,
+      "netSalesHigh": 655.0,
+      "growthLow": 0.05,
+      "growthHigh": 0.09,
+      "basis": "Pro forma, excludes assets expected to be divested; currency-adjusted using FY2025 weighted-average rates.",
+      "fy25ProFormaCurrencyAdjustedRevenueApprox": 603.0,
+      "grossMarginLow": 0.555,
+      "grossMarginHigh": 0.565,
+      "operatingIncomeLow": 103.0,
+      "operatingIncomeHigh": 110.0,
+      "taxRateLow": 0.225,
+      "taxRateHigh": 0.235,
+      "divestmentFailureIncrement": {"netSalesApprox": 12.5, "operatingIncomeApprox": 3.6, "epsApprox": 0.20},
+      "sourceIds": ["wd40-fy25-guidance-original"],
+      "interpretation": "The growth range cannot be applied directly to reported FY2025 revenue 619.985 without a pro forma and FX bridge. No sale proceeds are assumed in the standalone DCF."
+    },
+    {
+      "id": "fy26-july-revised",
+      "kind": "later_management_guidance",
+      "publishedAt": "2026-07-09",
+      "forecastPeriod": "FY2026",
+      "netSalesLow": 652.0,
+      "netSalesHigh": 667.0,
+      "growthLow": 0.06,
+      "growthHigh": 0.09,
+      "basis": "Excluding currency fluctuations; revised to include Americas homecare brands reclassified from held for sale to held for use.",
+      "reclassifiedBrandsNetSalesApprox": 12.0,
+      "reclassifiedBrandsOperatingIncomeApprox": 2.9,
+      "excludedFromHistoricalForecast": true,
+      "sourceIds": ["wd40-fy26-guidance-july-revision"],
+      "interpretation": "Explains the 6–9% range in the draft plan; it is a later forecast on a changed business perimeter, not the original FY2026 forecast."
+    }
+  ],
+  "longTermFinancialModel": {
+    "kind": "management_target",
+    "grossMargin": 0.55,
+    "costOfDoingBusinessRatio": 0.30,
+    "adjustedEbitdaMargin": 0.25,
+    "sourceIds": ["wd40-fy25-operating-research"],
+    "interpretation": "Long-term issuer targets. The 25% measure is Adjusted EBITDA; EBIT margins of 20% or 22% in analyst scenarios remain separate assumptions."
+  },
+  "capitalCostEvidence": {
+    "status": "incomplete_capm",
+    "treasury10y": {"value": 0.0423, "asOf": "2025-08-29", "kind": "observed_par_yield", "sourceIds": ["treasury-10y-20250829"]},
+    "matureMarketErpHistorical": {"value": 0.0421, "asOf": "2025-07-01", "publishedAt": "2025-07-31", "kind": "author_model_estimate", "sourceIds": ["damodaran-country-risk-july-2025"]},
+    "usErpHistorical": {"value": 0.0448, "asOf": "2025-07-01", "publishedAt": "2025-07-31", "kind": "author_model_estimate", "sourceIds": ["damodaran-country-risk-july-2025"]},
+    "usDefaultSpreadHistorical": {"value": 0.0027, "asOf": "2025-07-01", "kind": "author_model_estimate", "sourceIds": ["damodaran-country-risk-july-2025"]},
+    "beta": null,
+    "costOfDebt": null,
+    "marketCapitalWeights": null,
+    "missing": ["Dated, method-defined WD-40 or peer-relevered beta", "Forward borrowing cost on the selected valuation basis", "Consistent market-value debt and equity weights", "Explicit US-default-spread treatment and regional country-risk policy"],
+    "interpretation": "Treasury yields and an earlier published ERP estimate are evidence, not a complete WACC derivation. Keep scenario WACC values labeled analyst assumptions. The workbook's 2026 reference tables are not historical FY2025 capital-cost evidence."
+  },
+  "scenarioSupport": [
+    {"scenarioId": "bear", "kind": "analyst_assumption", "note": "3% nominal growth and original margins/rates constitute a downside assumption, not company guidance.", "sourceIds": ["wd40-fy25-operating-research"]},
+    {"scenarioId": "base", "kind": "analyst_assumption", "note": "6% nominal consolidated growth lies near a separately aggregated regional illustration. A 20% adjusted EBIT target is an analyst transition assumption; WACC and terminal ROIC are unverified valuation inputs.", "sourceIds": ["wd40-fy25-operating-research", "wd40-fy25-guidance-original"]},
+    {"scenarioId": "bull", "kind": "analyst_assumption", "note": "8% nominal growth and 22% adjusted EBIT require durable brand growth and operating efficiency. Neither the 25% Adjusted EBITDA target nor current returns establish perpetual excess returns.", "sourceIds": ["wd40-fy25-operating-research", "wd40-fy25-guidance-original"]}
+  ],
+  "limitations": [
+    "The forecast guidance is published after the historical reference price.",
+    "A precise regional allocation of divestment, sale proceeds and future FX has not been established.",
+    "Historical region-product facts do not establish a forecast matrix.",
+    "The July 2026 guidance revision is excluded from historical forecast inputs.",
+    "Scenario WACC and terminal ROIC remain explicit analyst assumptions pending a complete dated derivation."
+  ]
+}
