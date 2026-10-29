@@ -2,3 +2,4 @@ models/out/
 *.bak
 __pycache__/
 models/data/benchmarks/
+.claude/

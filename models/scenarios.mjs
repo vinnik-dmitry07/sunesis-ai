@@ -33,23 +33,23 @@ for (const [k, s] of Object.entries(S.scenarios)) {
   results[k] = {label: s.label, inputSetHash: stableHash(full), overrides: s.overrides, rationale: s.rationale, result: evaluate(full)};
 }
 
-function solve(label, baseOverrides, changes, lo, hi) {
+function solve(id, label, baseValue, baseOverrides, changes, lo, hi) {
   const f = x => { const r = evaluate({...baseOverrides, ...changes(x)}); return r.value == null ? null : r.value - PRICE; };
   let a = lo, b = hi, fa = f(a), fb = f(b);
-  if (fa == null || fb == null) return {label, range: [lo, hi], status: 'blocked at a bound'};
-  if (Math.sign(fa) === Math.sign(fb)) return {label, range: [lo, hi], status: 'no solution in range', valueAtBounds: [fa + PRICE, fb + PRICE]};
+  if (fa == null || fb == null) return {id, label, baseValue, range: [lo, hi], status: 'blocked at a bound'};
+  if (Math.sign(fa) === Math.sign(fb)) return {id, label, baseValue, range: [lo, hi], status: 'no solution in range', valueAtBounds: [fa + PRICE, fb + PRICE]};
   let x, fx, it = 0;
   for (; it < 60; it++) { x = (a + b) / 2; fx = f(x); if (Math.abs(fx) <= 0.01) break; if (Math.sign(fx) === Math.sign(fa)) { a = x; fa = fx; } else { b = x; fb = fx; } }
-  return {label, range: [lo, hi], status: Math.abs(fx) <= 0.01 ? 'solved' : 'not converged', solution: x, residual: fx, iterations: it + 1};
+  return {id, label, baseValue, range: [lo, hi], status: Math.abs(fx) <= 0.01 ? 'solved' : 'not converged', solution: x, residual: fx, iterations: it + 1};
 }
 const base = {...ORIGINAL, ...S.scenarios.base.overrides};
 const bw = S.scenarios.base.overrides['Cost of capital worksheet!B12'];
 const gT = S.scenarios.base.overrides['Input sheet!B68'];
 const reverseFromBase = [
-  solve('Flat WACC', base, r => ({'Cost of capital worksheet!B12': r, 'Input sheet!B46': r}), gT + 0.0001, 0.12),
-  solve('Terminal ROIC', base, r => ({'Input sheet!B48': 'Yes', 'Input sheet!B49': r}), bw, 5),
-  solve('Target operating margin by year 5', base, m => ({'Input sheet!B29': m}), 0.10, 0.80),
-  solve('Revenue growth in years 2-5', base, g => ({'Input sheet!B28': g}), 0.0, 0.40),
+  solve('wacc', 'Flat WACC', bw, base, r => ({'Cost of capital worksheet!B12': r, 'Input sheet!B46': r}), gT + 0.0001, 0.12),
+  solve('margin', 'Target operating margin by year 5', S.scenarios.base.overrides['Input sheet!B29'], base, m => ({'Input sheet!B29': m}), 0.10, 0.80),
+  solve('growth', 'Revenue growth in years 2-5', S.scenarios.base.overrides['Input sheet!B28'], base, g => ({'Input sheet!B28': g}), 0.0, 0.40),
+  solve('roic', 'Terminal ROIC', S.scenarios.base.overrides['Input sheet!B49'], base, r => ({'Input sheet!B48': 'Yes', 'Input sheet!B49': r}), bw, 5),
 ];
 writeFileSync(join(ROOT, 'models/out/scenarios_eval.json'), JSON.stringify({timeBasis: S.timeBasis, results, reverseFromBase}, null, 1));
 
@@ -102,7 +102,7 @@ L.push('Not changed in any scenario: ' + S.notChanged.join(' '), '', '## Results
   '## What Base would need to reach the price, one driver at a time', '',
   '| Driver | Search range | Needed | Base value |', '|---|---|---|---|',
   ...reverseFromBase.map((r, i) => {
-    const baseVal = [pc(bw, 2), pc(0.15, 1), pc(0.18, 1), pc(0.06, 1)][i];
+    const baseVal = pc(r.baseValue, r.id === 'wacc' ? 2 : 1);
     return `| ${r.label} | ${r.range.map(x => pc(x, 1)).join(' to ')} | ${r.status === 'solved' ? pc(r.solution, 2) : r.status + (r.valueAtBounds ? ` (value ${usd(r.valueAtBounds[0])} to ${usd(r.valueAtBounds[1])})` : '')} | ${baseVal} |`;
   }), '',
   'Each line moves one driver with every other Base input fixed. A solved value says what the price requires under those conditions; it is not a forecast.', '');

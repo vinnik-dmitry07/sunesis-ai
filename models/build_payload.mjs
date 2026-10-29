@@ -1,0 +1,74 @@
+// Assembles BUNDLED_VALUATION from saved model outputs. No network, no clock.
+// Usage: node models/build_payload.mjs  ->  models/out/valuation.json
+import {readFileSync, writeFileSync, existsSync} from 'node:fs';
+import {join} from 'node:path';
+import {ROOT} from './lib/page.mjs';
+
+const read = p => JSON.parse(readFileSync(join(ROOT, p), 'utf8'));
+const S = read('models/scenarios.json');
+const E = read('models/out/scenarios_eval.json');
+const M = read('models/out/measure/stage1.json');
+const extra = existsSync(join(ROOT, 'models/out/methods.json')) ? read('models/out/methods.json') : {methods: [], sources: {}, books: {}};
+const questions = existsSync(join(ROOT, 'models/out/questions.json')) ? read('models/out/questions.json') : null;
+
+// 52-week range to the price date, from the saved daily file
+const daily = readFileSync(join(ROOT, 'models/data/market/wdfc_daily_2024-08-01_2025-09-09.csv'), 'utf8').trim().split('\n').slice(1)
+  .map(l => l.split(',')).map(([date, open, high, low, close]) => ({date, high: +high, low: +low, close: +close}))
+  .filter(r => r.date > '2024-08-29' && r.date <= '2025-08-29');
+const hi = daily.reduce((a, b) => b.high > a.high ? b : a), lo = daily.reduce((a, b) => b.low < a.low ? b : a);
+const r2 = x => Math.round(x * 100) / 100;
+
+const sources = {
+  'price-close': {title: 'WDFC daily prices, Nasdaq (Yahoo Finance chart API)', file: 'models/data/market/wdfc_daily_2024-08-01_2025-09-09.csv', asOf: '2025-08-29'},
+  'proxy-price': {title: 'WD-40 2025 proxy statement, outstanding equity awards footnote 2', url: 'https://www.sec.gov/Archives/edgar/data/105132/000010513225000107/wdfc-20251031.htm', publishedAt: '2025-10-31'},
+  'target-dadavidson': {title: 'DA Davidson lowers WD-40 target to $300 from $322, Buy (Investing.com)', url: 'https://www.investing.com/news/analyst-ratings/wd40-stock-price-target-lowered-to-300-at-da-davidson-on-currency-trends-93CH-4131713', publishedAt: '2025-07-11'},
+  'target-jefferies': {title: 'Jefferies raises WD-40 target to $280 from $250, Hold (The Fly via TipRanks)', url: 'https://www.tipranks.com/news/the-fly/wd-40-price-target-raised-to-280-from-250-at-jefferies', publishedAt: '2024-10-18'},
+  ...Object.fromEntries(Object.entries(S.sources).map(([k, v]) => [k, v])),
+  ...extra.sources,
+};
+
+const sc = k => {
+  const r = E.results[k];
+  return {label: r.label, value: r.result.value, terminalShare: r.result.terminalShare, operatingAssets: r.result.operatingAssets,
+    inputSetHash: r.inputSetHash, overrides: r.overrides, rationale: r.rationale ?? [],
+    year10ROIC: r.result.roic?.[9] ?? null, terminalROIC: r.result.terminalROIC, terminalWACC: r.result.terminalWACC, terminalGrowth: r.result.terminalGrowth};
+};
+const methods = [
+  {id: 'dcf', group: 'standalone', label: 'DCF, Bear to Bull', sublabel: 'FCFF Ginzu, saved scenarios', kind: 'range',
+    low: E.results.bear.result.value, base: E.results.base.result.value, high: E.results.bull.result.value,
+    scenarios: {bear: sc('bear'), base: sc('base'), bull: sc('bull')},
+    note: 'Each scenario is a complete set of Ginzu inputs: the original case plus the listed changes. They keep their values when you edit your review.',
+    sourceIds: ['ust-par-2025-08-29', 'damodaran-erp-2025-09', 'damodaran-betas-2025-01', 'wdfc-8k-2025-10-22', 'sec-xbrl'], status: 'verified-js'},
+  {id: 'dcf-original', group: 'standalone', label: 'DCF, original case', sublabel: '70 proposals as researched', kind: 'point',
+    base: E.results.original.result.value, scenarios: {original: sc('original')},
+    note: 'The case as researched: WACC 9% fading to 8%, flat margin, terminal ROIC equal to WACC. The case labels these as illustrative placeholders.', sourceIds: [], status: 'verified-js'},
+  ...extra.methods,
+];
+
+const payload = {
+  schemaVersion: 1,
+  timeBasis: {...S.timeBasis, assumptionSetVersion: S.assumptionSetVersion, priceType: 'Nasdaq unadjusted close'},
+  markers: [
+    {id: 'price', kind: 'point', label: 'Close 29 Aug 2025', value: S.timeBasis.price, asOf: S.timeBasis.priceDate, sourceIds: ['price-close', 'proxy-price']},
+    {id: 'range52w', kind: 'range', label: '52-week range', low: r2(lo.low), high: r2(hi.high), lowDate: lo.date, highDate: hi.date, basis: 'intraday', asOf: S.timeBasis.priceDate, sourceIds: ['price-close']},
+    {id: 'targets', kind: 'points', label: 'Analyst targets', asOf: S.timeBasis.priceDate, points: [
+      {value: 280, label: 'Jefferies, Hold', date: '2024-10-18', sourceIds: ['target-jefferies']},
+      {value: 300, label: 'DA Davidson, Buy', date: '2025-07-11', sourceIds: ['target-dadavidson']}],
+      note: 'Latest published targets found for each firm on or before 29 Aug 2025. Other firms may have had targets that were not found.'},
+  ],
+  methods,
+  reverse: {from: 'base', price: S.timeBasis.price, baseValue: E.results.base.result.value, items: E.reverseFromBase.map(r => ({id: r.id, label: r.label, baseValue: r.baseValue, status: r.status, solution: r.solution ?? null, valueAtBounds: r.valueAtBounds ?? null, range: r.range}))},
+  originalCheck: {value: M.base.value, inputSetHash: M.inputSetHash},
+  notChanged: S.notChanged,
+  newProposals: [
+    {id: 'v2-Input_sheet-B49', cell: 'Input sheet!B49', label: 'Terminal return on new capital (used only when the override is Yes)', value: 0.15,
+      unit: 'percentage_decimal', type: 'percentage_decimal', kind: 'assumption', status: 'proposed', defaultStatus: 'accepted', sourceIds: [],
+      rationale: 'Workbook default. It has no effect while "Terminal excess-return override" is No. The Base scenario turns the override on and uses 15%.',
+      period: 'Forward scenario assumption', agent: 'stage2', caveats: ['Added with the valuation range. Kept at the workbook value until you change it.']},
+  ],
+  books: extra.books,
+  questions,
+  sources,
+};
+writeFileSync(join(ROOT, 'models/out/valuation.json'), JSON.stringify(payload));
+console.log('methods', methods.map(m => `${m.id} ${m.low ?? ''} ${m.base} ${m.high ?? ''}`).join(' | '), '\n52w', lo.low, lo.date, hi.high, hi.date);

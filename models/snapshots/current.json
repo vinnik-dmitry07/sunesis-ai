@@ -77,10 +77,10 @@
   "Input sheet!B32"
  ],
  "provenance": {
-  "indexHtmlSha256": "f8537b3a701022b96e55bcbf7851cf8752d4d1ae4024385e612b5f0de408f226",
+  "indexHtmlSha256": "70a8544c31a43aafb8ec86a78de08e7c0e7148b5b02145cbfe15cfeb2af7590b",
   "engineSha256": "0c9f5d591cdc252c4a6d6a65e9e83131c4c37dbd0159172098f4e9472fc9a288",
   "workbookSha256": "d6ffb67d965dc22463e4d013636befab3da431e7fc608936a82612fa73198e72",
   "caseCreatedAt": "2026-10-14T07:39:35.820Z",
-  "gitCommitOfIndexHtml": "70714e02afe8160f9253f0f6e53a277fc7ab9e9f"
+  "gitCommitOfIndexHtml": "4e62d7a41a367c790692b7fe18a338544ab013cb"
  }
 }

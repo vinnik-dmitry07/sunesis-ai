@@ -135,8 +135,8 @@ Reference price $216.04. Base sits $89.74 below it.
 | Driver | Search range | Needed | Base value |
 |---|---|---|---|
 | Flat WACC | 2.5% to 12.0% | 5.42% | 7.40% |
-| Terminal ROIC | 7.4% to 500.0% | no solution in range (value $109.26 to $142.40) | 15.0% |
 | Target operating margin by year 5 | 10.0% to 80.0% | 30.87% | 18.0% |
 | Revenue growth in years 2-5 | 0.0% to 40.0% | 19.03% | 6.0% |
+| Terminal ROIC | 7.4% to 500.0% | no solution in range (value $109.26 to $142.40) | 15.0% |
 
 Each line moves one driver with every other Base input fixed. A solved value says what the price requires under those conditions; it is not a forecast.
