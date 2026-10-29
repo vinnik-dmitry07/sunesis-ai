@@ -341,7 +341,7 @@ methods = [
     {"id": "ddm", "group": "standalone", "label": "Dividend discount", "sublabel": "dividends only, Bear to Bull", "kind": "range",
      "low": Dd["bear"]["value"], "base": Dd["base"]["value"], "high": Dd["bull"]["value"], "status": "workbook",
      "note": ("Dividends per share grow with EPS for ten years from FY2025 non-GAAP EPS of $5.82 and a $3.76 annual dividend, then the payout rises to 1 - growth / return on equity. "
-              "Cost of equity is the Stage 2 CAPM figure for each scenario. Buybacks are left out because FY2025 repurchases were $12.3m against $50.3m of dividends."),
+              "Cost of equity is the Stage 2 CAPM figure for each scenario; EPS growth, the starting payout and the terminal return on equity are analyst assumptions. Buybacks are left out because FY2025 repurchases were $12.3m against $50.3m of dividends."),
      "table": [["Scenario", "EPS growth, years 1-10", "Cost of equity", "Terminal growth", "Terminal return on equity", "Terminal payout", "Value per share"]] +
               [[k.title(), pc(d["g"], 0), pc(d["costOfEquity"], 2), pc(d["gT"]), "cost of equity" if d["roe"] is None else pc(d["roe"], 0), pc(d["terminalPayout"], 0), f"${d['value']:.2f}"] for k, d in Dd.items()],
      "cells": [d["cell"] for d in Dd.values()], "sourceIds": ["wdfc-8k-2025-10-22", "sec-xbrl", "damodaran-erp-2025-09"]},
@@ -358,7 +358,7 @@ methods = [
     {"id": "synergies", "group": "buyer", "label": "Strategic buyer", "sublabel": "Base value plus all cost synergies", "kind": "range",
      "low": Sy["bear"]["buyerValue"], "base": Sy["base"]["buyerValue"], "high": Sy["bull"]["buyerValue"], "status": "workbook",
      "note": ("Base standalone value plus the present value of after-tax cost synergies, phased in at half in year 1 and fully from year 2, less one-time costs equal to one year of run-rate synergies. "
-              f"Run-rate synergies are {pc(SYN['bear'])}, {pc(SYN['base'])} and {pc(SYN['bull'])} of WD-40's revenue, the lowest, median and highest share announced in the precedent deals that disclosed them. "
+              f"Run-rate synergies are {pc(SYN['bear'])}, {pc(SYN['base'])} and {pc(SYN['bull'])} of WD-40's revenue, the lowest, median and highest share announced in the precedent deals that disclosed them. Those are other acquirers' expectations for other businesses, applied to WD-40 by analogy, not a synergy plan. "
               "The bar is the most a buyer could pay before handing all synergies to WD-40's shareholders. Base already includes WD-40's own margin improvement to 18%, which is not counted again."),
      "table": [["Scenario", "Synergies / revenue", "Synergy value per share", "Value per share to the buyer"]] +
               [[k.title(), pc(d["pct"]), f"${d['perShare']:.2f}", f"${d['buyerValue']:.2f}"] for k, d in Sy.items()],
