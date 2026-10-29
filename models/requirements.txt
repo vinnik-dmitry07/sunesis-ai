@@ -1,0 +1,4 @@
+portable-spreadsheet==2.2.1
+numpy==2.5.4
+numpy-financial==1.0.0
+XlsxWriter==3.3.1

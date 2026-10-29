@@ -1,0 +1,9 @@
+{
+  "buildFingerprint": "1082edcb0b11dab9497c0c15b94dbb6c17c4a8cb9fb71445bd911a29052f9cd0",
+  "status": "passed",
+  "formulaCells": 2038,
+  "scenarioCount": 4,
+  "originalValue": 88.15029580134913,
+  "failures": [],
+  "nativeExcelRecalculated": false
+}

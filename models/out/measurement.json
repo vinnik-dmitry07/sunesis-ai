@@ -1,0 +1,1401 @@
+{
+  "schemaVersion": "1.0",
+  "inputHash": "5f565c2c8d9e12f8d5e67ba5cc4479da396ae147087671f1b05b84771b6f9b74",
+  "sourceModelHash": "c19228206807a9babd41144799d22a0e7b44b3abe5d801aa9e2a6495af7008e3",
+  "reference": {
+    "price": 216.04,
+    "priceAsOf": "2025-08-29",
+    "financialPeriod": "FY2025",
+    "basis": "Retrospective FY2025; filings published after the reference price.",
+    "valuationShareCount": 13.633263,
+    "shareCountDefinition": "Common shares plus explicit stock-unit dilution proxy"
+  },
+  "original": {
+    "value": 88.15029580134913,
+    "operatingValue": 1230.6411661875882,
+    "equityValue": 1201.7761661875884,
+    "pvTerminalValue": 670.7666409826161,
+    "pvCashFlows": 1230.6411661875882,
+    "terminalShare": 0.5450546100782478,
+    "rows": [
+      {
+        "year": 1,
+        "cells": {
+          "C1": {
+            "value": 1,
+            "error": null
+          },
+          "C2": {
+            "value": 0.05,
+            "error": null
+          },
+          "C3": {
+            "value": 650.9842500000001,
+            "error": null
+          },
+          "C4": {
+            "value": 0.17106811723939558,
+            "error": null
+          },
+          "C5": {
+            "value": 111.36265000000002,
+            "error": null
+          },
+          "C6": {
+            "value": 0.22200027552004406,
+            "error": null
+          },
+          "C7": {
+            "value": 86.64011101735778,
+            "error": null
+          },
+          "C8": {
+            "value": 16.274606250000033,
+            "error": null
+          },
+          "C9": {
+            "value": 70.36550476735775,
+            "error": null
+          },
+          "C10": {
+            "value": 0,
+            "error": null
+          },
+          "C11": {
+            "value": null,
+            "error": null
+          },
+          "C12": {
+            "value": 0.09,
+            "error": null
+          },
+          "C13": {
+            "value": 0.9174311926605504,
+            "error": null
+          },
+          "C14": {
+            "value": 64.55550896087867,
+            "error": null
+          }
+        }
+      },
+      {
+        "year": 2,
+        "cells": {
+          "D1": {
+            "value": 2,
+            "error": null
+          },
+          "D2": {
+            "value": 0.05,
+            "error": null
+          },
+          "D3": {
+            "value": 683.5334625000002,
+            "error": null
+          },
+          "D4": {
+            "value": 0.17106811723939558,
+            "error": null
+          },
+          "D5": {
+            "value": 116.93078250000002,
+            "error": null
+          },
+          "D6": {
+            "value": 0.22200027552004406,
+            "error": null
+          },
+          "D7": {
+            "value": 90.97211656822567,
+            "error": null
+          },
+          "D8": {
+            "value": 17.088336562500047,
+            "error": null
+          },
+          "D9": {
+            "value": 73.88378000572563,
+            "error": null
+          },
+          "D10": {
+            "value": 0,
+            "error": null
+          },
+          "D11": {
+            "value": null,
+            "error": null
+          },
+          "D12": {
+            "value": 0.09,
+            "error": null
+          },
+          "D13": {
+            "value": 0.84167999326656,
+            "error": null
+          },
+          "D14": {
+            "value": 62.186499457727145,
+            "error": null
+          }
+        }
+      },
+      {
+        "year": 3,
+        "cells": {
+          "E1": {
+            "value": 3,
+            "error": null
+          },
+          "E2": {
+            "value": 0.05,
+            "error": null
+          },
+          "E3": {
+            "value": 717.7101356250002,
+            "error": null
+          },
+          "E4": {
+            "value": 0.17106811723939558,
+            "error": null
+          },
+          "E5": {
+            "value": 122.77732162500004,
+            "error": null
+          },
+          "E6": {
+            "value": 0.22200027552004406,
+            "error": null
+          },
+          "E7": {
+            "value": 95.52072239663697,
+            "error": null
+          },
+          "E8": {
+            "value": 17.942753390625,
+            "error": null
+          },
+          "E9": {
+            "value": 77.57796900601197,
+            "error": null
+          },
+          "E10": {
+            "value": 0,
+            "error": null
+          },
+          "E11": {
+            "value": null,
+            "error": null
+          },
+          "E12": {
+            "value": 0.09,
+            "error": null
+          },
+          "E13": {
+            "value": 0.7721834800610641,
+            "error": null
+          },
+          "E14": {
+            "value": 59.90442608313169,
+            "error": null
+          }
+        }
+      },
+      {
+        "year": 4,
+        "cells": {
+          "F1": {
+            "value": 4,
+            "error": null
+          },
+          "F2": {
+            "value": 0.05,
+            "error": null
+          },
+          "F3": {
+            "value": 753.5956424062502,
+            "error": null
+          },
+          "F4": {
+            "value": 0.17106811723939558,
+            "error": null
+          },
+          "F5": {
+            "value": 128.91618770625004,
+            "error": null
+          },
+          "F6": {
+            "value": 0.22200027552004406,
+            "error": null
+          },
+          "F7": {
+            "value": 100.29675851646881,
+            "error": null
+          },
+          "F8": {
+            "value": 18.839891060156276,
+            "error": null
+          },
+          "F9": {
+            "value": 81.45686745631254,
+            "error": null
+          },
+          "F10": {
+            "value": 0,
+            "error": null
+          },
+          "F11": {
+            "value": null,
+            "error": null
+          },
+          "F12": {
+            "value": 0.09,
+            "error": null
+          },
+          "F13": {
+            "value": 0.7084252110651964,
+            "error": null
+          },
+          "F14": {
+            "value": 57.70609852044794,
+            "error": null
+          }
+        }
+      },
+      {
+        "year": 5,
+        "cells": {
+          "G1": {
+            "value": 5,
+            "error": null
+          },
+          "G2": {
+            "value": 0.05,
+            "error": null
+          },
+          "G3": {
+            "value": 791.2754245265628,
+            "error": null
+          },
+          "G4": {
+            "value": 0.17106811723939558,
+            "error": null
+          },
+          "G5": {
+            "value": 135.36199709156256,
+            "error": null
+          },
+          "G6": {
+            "value": 0.22200027552004406,
+            "error": null
+          },
+          "G7": {
+            "value": 105.31159644229227,
+            "error": null
+          },
+          "G8": {
+            "value": 17.80369705184762,
+            "error": null
+          },
+          "G9": {
+            "value": 87.50789939044465,
+            "error": null
+          },
+          "G10": {
+            "value": 0,
+            "error": null
+          },
+          "G11": {
+            "value": null,
+            "error": null
+          },
+          "G12": {
+            "value": 0.09,
+            "error": null
+          },
+          "G13": {
+            "value": 0.6499313862983452,
+            "error": null
+          },
+          "G14": {
+            "value": 56.87413036288781,
+            "error": null
+          }
+        }
+      },
+      {
+        "year": 6,
+        "cells": {
+          "H1": {
+            "value": 6,
+            "error": null
+          },
+          "H2": {
+            "value": 0.045000000000000005,
+            "error": null
+          },
+          "H3": {
+            "value": 826.882818630258,
+            "error": null
+          },
+          "H4": {
+            "value": 0.17106811723939558,
+            "error": null
+          },
+          "H5": {
+            "value": 141.45328696068285,
+            "error": null
+          },
+          "H6": {
+            "value": 0.22760022041603525,
+            "error": null
+          },
+          "H7": {
+            "value": 109.25848766985874,
+            "error": null
+          },
+          "H8": {
+            "value": 16.53765637260517,
+            "error": null
+          },
+          "H9": {
+            "value": 92.72083129725357,
+            "error": null
+          },
+          "H10": {
+            "value": 0,
+            "error": null
+          },
+          "H11": {
+            "value": null,
+            "error": null
+          },
+          "H12": {
+            "value": 0.088,
+            "error": null
+          },
+          "H13": {
+            "value": 0.5973634065242144,
+            "error": null
+          },
+          "H14": {
+            "value": 55.38803163948438,
+            "error": null
+          }
+        }
+      },
+      {
+        "year": 7,
+        "cells": {
+          "I1": {
+            "value": 7,
+            "error": null
+          },
+          "I2": {
+            "value": 0.04,
+            "error": null
+          },
+          "I3": {
+            "value": 859.9581313754684,
+            "error": null
+          },
+          "I4": {
+            "value": 0.17106811723939558,
+            "error": null
+          },
+          "I5": {
+            "value": 147.11141843911017,
+            "error": null
+          },
+          "I6": {
+            "value": 0.23320016531202645,
+            "error": null
+          },
+          "I7": {
+            "value": 112.80501133982298,
+            "error": null
+          },
+          "I8": {
+            "value": 15.049267299070664,
+            "error": null
+          },
+          "I9": {
+            "value": 97.75574404075232,
+            "error": null
+          },
+          "I10": {
+            "value": 0,
+            "error": null
+          },
+          "I11": {
+            "value": null,
+            "error": null
+          },
+          "I12": {
+            "value": 0.086,
+            "error": null
+          },
+          "I13": {
+            "value": 0.5500583853814128,
+            "error": null
+          },
+          "I14": {
+            "value": 53.77136672881489,
+            "error": null
+          }
+        }
+      },
+      {
+        "year": 8,
+        "cells": {
+          "J1": {
+            "value": 8,
+            "error": null
+          },
+          "J2": {
+            "value": 0.035,
+            "error": null
+          },
+          "J3": {
+            "value": 890.0566659736097,
+            "error": null
+          },
+          "J4": {
+            "value": 0.17106811723939558,
+            "error": null
+          },
+          "J5": {
+            "value": 152.26031808447902,
+            "error": null
+          },
+          "J6": {
+            "value": 0.23880011020801764,
+            "error": null
+          },
+          "J7": {
+            "value": 115.90053734559761,
+            "error": null
+          },
+          "J8": {
+            "value": 13.350849989604171,
+            "error": null
+          },
+          "J9": {
+            "value": 102.54968735599344,
+            "error": null
+          },
+          "J10": {
+            "value": 0,
+            "error": null
+          },
+          "J11": {
+            "value": null,
+            "error": null
+          },
+          "J12": {
+            "value": 0.08399999999999999,
+            "error": null
+          },
+          "J13": {
+            "value": 0.5074339348537018,
+            "error": null
+          },
+          "J14": {
+            "value": 52.037191373068666,
+            "error": null
+          }
+        }
+      },
+      {
+        "year": 9,
+        "cells": {
+          "K1": {
+            "value": 9,
+            "error": null
+          },
+          "K2": {
+            "value": 0.030000000000000002,
+            "error": null
+          },
+          "K3": {
+            "value": 916.758365952818,
+            "error": null
+          },
+          "K4": {
+            "value": 0.17106811723939558,
+            "error": null
+          },
+          "K5": {
+            "value": 156.8281276270134,
+            "error": null
+          },
+          "K6": {
+            "value": 0.24440005510400883,
+            "error": null
+          },
+          "K7": {
+            "value": 118.49932459311279,
+            "error": null
+          },
+          "K8": {
+            "value": 11.459479574410182,
+            "error": null
+          },
+          "K9": {
+            "value": 107.03984501870261,
+            "error": null
+          },
+          "K10": {
+            "value": 0,
+            "error": null
+          },
+          "K11": {
+            "value": null,
+            "error": null
+          },
+          "K12": {
+            "value": 0.08199999999999999,
+            "error": null
+          },
+          "K13": {
+            "value": 0.46897775864482605,
+            "error": null
+          },
+          "K14": {
+            "value": 50.199306602560696,
+            "error": null
+          }
+        }
+      },
+      {
+        "year": 10,
+        "cells": {
+          "L1": {
+            "value": 10,
+            "error": null
+          },
+          "L2": {
+            "value": 0.025,
+            "error": null
+          },
+          "L3": {
+            "value": 939.6773251016384,
+            "error": null
+          },
+          "L4": {
+            "value": 0.17106811723939558,
+            "error": null
+          },
+          "L5": {
+            "value": 160.7488308176887,
+            "error": null
+          },
+          "L6": {
+            "value": 0.25,
+            "error": null
+          },
+          "L7": {
+            "value": 120.56162311326653,
+            "error": null
+          },
+          "L8": {
+            "value": 11.745966563770423,
+            "error": null
+          },
+          "L9": {
+            "value": 108.81565654949611,
+            "error": null
+          },
+          "L10": {
+            "value": 0,
+            "error": null
+          },
+          "L11": {
+            "value": null,
+            "error": null
+          },
+          "L12": {
+            "value": 0.07999999999999999,
+            "error": null
+          },
+          "L13": {
+            "value": 0.43423866541187595,
+            "error": null
+          },
+          "L14": {
+            "value": 47.25196547597025,
+            "error": null
+          }
+        }
+      },
+      {
+        "year": "Terminal",
+        "cells": {
+          "M1": {
+            "value": "Terminal year",
+            "error": null
+          },
+          "M2": {
+            "value": 0.025,
+            "error": null
+          },
+          "M3": {
+            "value": 963.1692582291793,
+            "error": null
+          },
+          "M4": {
+            "value": 0.17106811723939558,
+            "error": null
+          },
+          "M5": {
+            "value": 164.7675515881309,
+            "error": null
+          },
+          "M6": {
+            "value": 0.25,
+            "error": null
+          },
+          "M7": {
+            "value": 123.57566369109819,
+            "error": null
+          },
+          "M8": {
+            "value": 38.61739490346819,
+            "error": null
+          },
+          "M9": {
+            "value": 84.95826878763,
+            "error": null
+          },
+          "M10": {
+            "value": 0,
+            "error": null
+          },
+          "M11": {
+            "value": null,
+            "error": null
+          },
+          "M12": {
+            "value": 0.08,
+            "error": null
+          },
+          "M13": {
+            "value": null,
+            "error": null
+          },
+          "M14": {
+            "value": null,
+            "error": null
+          }
+        }
+      }
+    ]
+  },
+  "sensitivities": [
+    {
+      "id": "wacc-down-100bp",
+      "label": "WACC path −100 bp",
+      "changes": {
+        "Cost of capital worksheet!B12": 0.08,
+        "Input sheet!B46": 0.07
+      },
+      "value": 102.67256629543397,
+      "operatingValue": 1428.6270991905867,
+      "equityValue": 1399.762099190587,
+      "pvTerminalValue": 840.818497961461,
+      "pvCashFlows": 1428.6270991905867,
+      "terminalShare": 0.5885500131124779,
+      "delta": 14.522270494084836
+    },
+    {
+      "id": "wacc-up-100bp",
+      "label": "WACC path +100 bp",
+      "changes": {
+        "Cost of capital worksheet!B12": 0.09999999999999999,
+        "Input sheet!B46": 0.09
+      },
+      "value": 76.9492404630353,
+      "operatingValue": 1077.934232882802,
+      "equityValue": 1049.069232882802,
+      "pvTerminalValue": 544.061085670575,
+      "pvCashFlows": 1077.934232882802,
+      "terminalShare": 0.5047256772016144,
+      "delta": -11.201055338313836
+    },
+    {
+      "id": "roic-20",
+      "label": "Terminal ROIC 20%",
+      "changes": {
+        "Input sheet!B48": "Yes",
+        "Input sheet!B49": 0.2
+      },
+      "value": 101.56867969313075,
+      "operatingValue": 1413.5775228192108,
+      "equityValue": 1384.7125228192108,
+      "pvTerminalValue": 853.7029976142387,
+      "pvCashFlows": 1413.5775228192108,
+      "terminalShare": 0.603930795328176,
+      "delta": 13.418383891781616
+    },
+    {
+      "id": "margin-20",
+      "label": "Target adjusted EBIT margin 20%",
+      "changes": {
+        "Input sheet!B29": 0.2
+      },
+      "value": 102.60238804948763,
+      "operatingValue": 1427.6703407067216,
+      "equityValue": 1398.8053407067218,
+      "pvTerminalValue": 784.2099998609725,
+      "pvCashFlows": 1427.6703407067216,
+      "terminalShare": 0.5492934730806097,
+      "delta": 14.452092248138499
+    },
+    {
+      "id": "growth-7",
+      "label": "Years 2–5 growth 7%",
+      "changes": {
+        "Input sheet!B28": 0.07
+      },
+      "value": 94.52320452585582,
+      "operatingValue": 1317.5247069037825,
+      "equityValue": 1288.6597069037825,
+      "pvTerminalValue": 751.5504461767468,
+      "pvCashFlows": 1317.5247069037825,
+      "terminalShare": 0.5704260741666924,
+      "delta": 6.372908724506686
+    },
+    {
+      "id": "combined",
+      "label": "Combined diagnostic: 7% flat WACC, ROIC 20%, growth 7%, margin 20%",
+      "changes": {
+        "Cost of capital worksheet!B12": 0.07,
+        "Input sheet!B46": 0.07,
+        "Input sheet!B48": "Yes",
+        "Input sheet!B49": 0.2,
+        "Input sheet!B28": 0.07,
+        "Input sheet!B29": 0.2
+      },
+      "value": 168.3842229916435,
+      "operatingValue": 2324.4913970957223,
+      "equityValue": 2295.6263970957225,
+      "pvTerminalValue": 1600.0675409953503,
+      "pvCashFlows": 2324.4913970957223,
+      "terminalShare": 0.6883516725398574,
+      "delta": 80.23392719029437
+    }
+  ],
+  "reverse": {
+    "status": "solved",
+    "parameter": "parallel WACC shift",
+    "shift": -0.04423838275177403,
+    "waccInitial": 0.045761617248225965,
+    "waccTerminal": 0.03576161724822597,
+    "price": 216.04,
+    "residual": 3.590447761325777e-7,
+    "iterations": 30,
+    "bounds": [
+      -0.0549,
+      0.2
+    ]
+  },
+  "proposals": [
+    {
+      "id": "wdfc-Input_sheet-B3",
+      "cell": "Input sheet!B3",
+      "value": "2025-08-31",
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-bs",
+        "wdfc25-price"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B4",
+      "cell": "Input sheet!B4",
+      "value": "WD-40 Company",
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-company"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B7",
+      "cell": "Input sheet!B7",
+      "value": "United States",
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-company"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B8",
+      "cell": "Input sheet!B8",
+      "value": "Chemical (Specialty)",
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-company"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B9",
+      "cell": "Input sheet!B9",
+      "value": "Chemical (Specialty)",
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-company"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B11",
+      "cell": "Input sheet!B11",
+      "value": 619.985,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-is"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-C11",
+      "cell": "Input sheet!C11",
+      "value": 590.557,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-is"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B12",
+      "cell": "Input sheet!B12",
+      "value": 103.793,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-is"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-C12",
+      "cell": "Input sheet!C12",
+      "value": 96.351,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-is"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B13",
+      "cell": "Input sheet!B13",
+      "value": 3.441,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-is"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-C13",
+      "cell": "Input sheet!C13",
+      "value": 4.287,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-is"
+      ]
+    },
+    {
+      "id": "audit-Input_sheet-B14",
+      "cell": "Input sheet!B14",
+      "value": 268.472,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-bs",
+        "wdfc25-leases"
+      ]
+    },
+    {
+      "id": "audit-Input_sheet-C14",
+      "cell": "Input sheet!C14",
+      "value": 230.647,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-bs",
+        "wdfc25-leases"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B15",
+      "cell": "Input sheet!B15",
+      "value": 86.995,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-bs"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-C15",
+      "cell": "Input sheet!C15",
+      "value": 94.636,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-bs"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B18",
+      "cell": "Input sheet!B18",
+      "value": 58.13,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-bs"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-C18",
+      "cell": "Input sheet!C18",
+      "value": 46.699,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-bs"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-D11",
+      "cell": "Input sheet!D11",
+      "value": 1,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-is"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B19",
+      "cell": "Input sheet!B19",
+      "value": 0,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-bs"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B20",
+      "cell": "Input sheet!B20",
+      "value": 0,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-consolidation",
+        "wdfc25-bs"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-C19",
+      "cell": "Input sheet!C19",
+      "value": 0,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-bs"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-C20",
+      "cell": "Input sheet!C20",
+      "value": 0,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-consolidation",
+        "wdfc25-bs"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B21",
+      "cell": "Input sheet!B21",
+      "value": 13.633263,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-bs",
+        "wdfc25-rsu",
+        "wdfc25-msu",
+        "wdfc25-plan-footnote",
+        "wdfc25-psu"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B22",
+      "cell": "Input sheet!B22",
+      "value": 216.04,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-price"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B23",
+      "cell": "Input sheet!B23",
+      "value": 0.22200027552004406,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-tax",
+        "wdfc25-is",
+        "wdfc25-cf"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B16",
+      "cell": "Input sheet!B16",
+      "value": "Yes",
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-rd",
+        "wdfc23-rd"
+      ]
+    },
+    {
+      "id": "wdfc-Rand_D_converter-F6",
+      "cell": "R& D converter!F6",
+      "value": 3,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-rd"
+      ]
+    },
+    {
+      "id": "wdfc-Rand_D_converter-F7",
+      "cell": "R& D converter!F7",
+      "value": 8.7,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-rd"
+      ]
+    },
+    {
+      "id": "wdfc-Rand_D_converter-B11",
+      "cell": "R& D converter!B11",
+      "value": 8,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-rd"
+      ]
+    },
+    {
+      "id": "wdfc-Rand_D_converter-B12",
+      "cell": "R& D converter!B12",
+      "value": 6.2,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-rd"
+      ]
+    },
+    {
+      "id": "wdfc-Rand_D_converter-B13",
+      "cell": "R& D converter!B13",
+      "value": 5.1,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc23-rd"
+      ]
+    },
+    {
+      "id": "wdfc-Rand_D_converter-B14",
+      "cell": "R& D converter!B14",
+      "value": 5.6,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc23-rd"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B37",
+      "cell": "Input sheet!B37",
+      "value": "No",
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-plan",
+        "wdfc25-plan-footnote"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B38",
+      "cell": "Input sheet!B38",
+      "value": 0,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-plan",
+        "wdfc25-plan-footnote"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B39",
+      "cell": "Input sheet!B39",
+      "value": null,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-plan"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B40",
+      "cell": "Input sheet!B40",
+      "value": null,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-plan"
+      ]
+    },
+    {
+      "id": "wdfc-Input_sheet-B41",
+      "cell": "Input sheet!B41",
+      "value": null,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-plan"
+      ]
+    },
+    {
+      "id": "wdfc-Operating_lease_converter-B7",
+      "cell": "Operating lease converter!B7",
+      "value": 2.844,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-lease-schedule"
+      ]
+    },
+    {
+      "id": "wdfc-Operating_lease_converter-B8",
+      "cell": "Operating lease converter!B8",
+      "value": 2.237,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-lease-schedule"
+      ]
+    },
+    {
+      "id": "wdfc-Operating_lease_converter-B9",
+      "cell": "Operating lease converter!B9",
+      "value": 1.522,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-lease-schedule"
+      ]
+    },
+    {
+      "id": "wdfc-Operating_lease_converter-B10",
+      "cell": "Operating lease converter!B10",
+      "value": 1.458,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-lease-schedule"
+      ]
+    },
+    {
+      "id": "wdfc-Operating_lease_converter-B11",
+      "cell": "Operating lease converter!B11",
+      "value": 1.372,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-lease-schedule"
+      ]
+    },
+    {
+      "id": "wdfc-Operating_lease_converter-B12",
+      "cell": "Operating lease converter!B12",
+      "value": 3.114,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-lease-schedule"
+      ]
+    },
+    {
+      "id": "wdfc-Operating_lease_converter-E4",
+      "cell": "Operating lease converter!E4",
+      "value": null,
+      "operation": "override",
+      "sourceIds": [
+        "wdfc25-lease-expense"
+      ]
+    },
+    {
+      "id": "audit-Input_sheet-B17",
+      "cell": "Input sheet!B17",
+      "value": "No",
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B61",
+      "cell": "Input sheet!B61",
+      "value": "No",
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B62",
+      "cell": "Input sheet!B62",
+      "value": 0,
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B24",
+      "cell": "Input sheet!B24",
+      "value": 0.25,
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B26",
+      "cell": "Input sheet!B26",
+      "value": 0.05,
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B30",
+      "cell": "Input sheet!B30",
+      "value": 5,
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B31",
+      "cell": "Input sheet!B31",
+      "value": 2,
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B34",
+      "cell": "Input sheet!B34",
+      "value": 0.04,
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Cost_of_capital_worksheet-B11",
+      "cell": "Cost of capital worksheet!B11",
+      "value": "I will input",
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Cost_of_capital_worksheet-B12",
+      "cell": "Cost of capital worksheet!B12",
+      "value": 0.09,
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B45",
+      "cell": "Input sheet!B45",
+      "value": "Yes",
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B46",
+      "cell": "Input sheet!B46",
+      "value": 0.08,
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B48",
+      "cell": "Input sheet!B48",
+      "value": "No",
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B51",
+      "cell": "Input sheet!B51",
+      "value": "No",
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B56",
+      "cell": "Input sheet!B56",
+      "value": "No",
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B59",
+      "cell": "Input sheet!B59",
+      "value": "No",
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B64",
+      "cell": "Input sheet!B64",
+      "value": "No",
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B67",
+      "cell": "Input sheet!B67",
+      "value": "Yes",
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B68",
+      "cell": "Input sheet!B68",
+      "value": 0.025,
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B70",
+      "cell": "Input sheet!B70",
+      "value": "No",
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B53",
+      "cell": "Input sheet!B53",
+      "value": "V",
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "audit-Input_sheet-B54",
+      "cell": "Input sheet!B54",
+      "value": 0.5,
+      "operation": "override",
+      "sourceIds": []
+    },
+    {
+      "id": "retain-Input_sheet_B27",
+      "cell": "Input sheet!B27",
+      "value": 0.17106811723939558,
+      "operation": "retain_formula",
+      "sourceIds": []
+    },
+    {
+      "id": "retain-Input_sheet_B28",
+      "cell": "Input sheet!B28",
+      "value": 0.05,
+      "operation": "retain_formula",
+      "sourceIds": []
+    },
+    {
+      "id": "retain-Input_sheet_B29",
+      "cell": "Input sheet!B29",
+      "value": 0.17106811723939558,
+      "operation": "retain_formula",
+      "sourceIds": []
+    },
+    {
+      "id": "retain-Input_sheet_B32",
+      "cell": "Input sheet!B32",
+      "value": 2,
+      "operation": "retain_formula",
+      "sourceIds": []
+    }
+  ],
+  "knownLimits": [
+    "Original published-result claim is verified against the repository engine only at this stage.",
+    "No fresh Excel recalculation has been performed.",
+    "Sensitivities are conditional and are not an additive attribution of the price gap."
+  ]
+}

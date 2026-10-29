@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0",
+  "basis": "Retrospective FY2025 with historical reference price; not an as-known August2025 forecast",
+  "reference": {
+    "price": 216.04, "priceAsOf": "2025-08-29", "sourceAsOf": "2025-08-31",
+    "priceDateNote": "The proxy calls this the August31 fiscal-year-end price. August31 was Sunday; the preceding trading date is August29. No separate raw historical-price download is claimed.",
+    "priceSourceId": "wdfc25-price", "publishedAt": "2025-10-31",
+    "commonSharesOutstanding": 13.527614, "commonSharesAsOf": "2025-08-31",
+    "shareSourceId": "wdfc25-common-shares", "valuationShareProxy": 13.633263,
+    "cash": 58.13, "debt": 86.995,
+    "debtConvention": "Interest-bearing borrowings; operating leases remain operating expenses",
+    "moneyUnit": "USD millions", "shareUnit": "million shares"
+  },
+  "markers": [
+    {"id": "fiscal-year-price", "kind": "point", "value": 216.04, "asOf": "2025-08-29", "sourceId": "wdfc25-price", "status": "proxy_disclosed_reference"}
+  ],
+  "unavailableMarkers": [
+    {"id": "52-week", "status": "missing_data", "reason": "A consistent historical daily-price series ending August29 has not been verified."},
+    {"id": "analyst-targets", "status": "missing_data", "reason": "A historical August29 analyst-target snapshot has not been verified."}
+  ]
+}

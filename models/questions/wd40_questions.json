@@ -1,0 +1,1021 @@
+{
+  "schemaVersion": "1.0",
+  "company": "WD-40 Company",
+  "caseBasis": "FY2025 retrospective illustrative DCF",
+  "caseProposalHash": "488f9578523d12325b4fd0b23ab0bf258fc654f5f5f6e550315c1acc5f3c4427",
+  "sources": [
+    {
+      "id": "financebench",
+      "title": "FinanceBench public annotated sample",
+      "url": "https://github.com/patronus-ai/financebench",
+      "downloadUrl": "https://raw.githubusercontent.com/patronus-ai/financebench/cc39aeb4afdf33909ee1412188bf89035950c2eb/data/financebench_open_source.jsonl",
+      "version": "sha256:a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+      "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+      "licenseKnown": false,
+      "recordCount": 150,
+      "usage": "Actual records inspected; selected patterns are explicitly adapted."
+    },
+    {
+      "id": "finlfqa",
+      "title": "FinLFQA development / validation set",
+      "url": "https://huggingface.co/datasets/Dragongon/FinLFQA",
+      "downloadUrl": "https://huggingface.co/datasets/Dragongon/FinLFQA/resolve/22900e97366d0b977b6f37863486bc9828e5bdc0/data/validation.json",
+      "version": "sha256:83dbadda0cadc202c47d3ae9622e014d5851dabc9c77837d81be1b0a729a62c5",
+      "revision": "22900e97366d0b977b6f37863486bc9828e5bdc0",
+      "licenseKnown": false,
+      "recordCount": 302,
+      "usage": "Actual records inspected; selected patterns are explicitly adapted."
+    },
+    {
+      "id": "pe-bench",
+      "title": "PE Bench public Voltaic tasks and rubrics",
+      "url": "https://github.com/GetCompoundAI/pe-bench",
+      "downloadUrl": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+      "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+      "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+      "licenseKnown": false,
+      "recordCount": 12,
+      "usage": "Actual records inspected; selected patterns are explicitly adapted."
+    },
+    {
+      "id": "fincausal",
+      "title": "FinCausal 2020 Task 2 practice cause-effect spans",
+      "url": "https://github.com/yseop/YseopLab/tree/develop/FNP_2020_FinCausal",
+      "downloadUrl": "https://raw.githubusercontent.com/yseop/YseopLab/33a933f1bebd3317ab67edcf447c1a333fe879f5/FNP_2020_FinCausal/data/practice/fnp2020-fincausal2-task2.csv",
+      "version": "sha256:3c587ca5afe0bd8532bc3cbe22fab40426f59d4a1c3efe37bcf14fee39dd0575",
+      "revision": "33a933f1bebd3317ab67edcf447c1a333fe879f5",
+      "licenseKnown": false,
+      "recordCount": 1109,
+      "usage": "Actual records inspected; selected patterns are explicitly adapted."
+    },
+    {
+      "id": "fintextqa",
+      "title": "FinTextQA publicly released policy / regulation QA",
+      "url": "https://github.com/AlexJJJChen/FinTextQA",
+      "downloadUrl": "https://raw.githubusercontent.com/AlexJJJChen/FinTextQA/51aa9851114adb5972ac9b6adfa662c21c6483dd/manual-qa-regulation%20policy.xlsx",
+      "version": "sha256:61a590bb891a14c540e203c4e3b38446d786e3e5ab17e23aa2fff39a1cdf327d",
+      "revision": "51aa9851114adb5972ac9b6adfa662c21c6483dd",
+      "licenseKnown": false,
+      "recordCount": 240,
+      "usage": "Inspected but not selected: banking and regulatory QA does not support WD-40 valuation assumptions; textbook portion is not released."
+    }
+  ],
+  "parents": [
+    {
+      "id": "revenue",
+      "question": "What supports the revenue forecast?",
+      "description": "Separate the audited base, reported growth and forward expectations."
+    },
+    {
+      "id": "margins",
+      "question": "What supports the operating-margin forecast?",
+      "description": "Reconcile reported EBIT, R&D adjustments and the target margin."
+    },
+    {
+      "id": "capital",
+      "question": "How much investment does growth require?",
+      "description": "Distinguish observed capital spending from the sales-to-capital assumption."
+    },
+    {
+      "id": "cash",
+      "question": "How much accounting profit becomes distributable cash?",
+      "description": "Trace reinvestment and cash-flow conversion before inferring value."
+    },
+    {
+      "id": "tax",
+      "question": "Which tax effects will recur?",
+      "description": "Separate the reported tax benefit, normalization and terminal rate."
+    },
+    {
+      "id": "discount",
+      "question": "What supports the discount rates?",
+      "description": "Identify explicit rate assumptions and the historical evidence still needed."
+    },
+    {
+      "id": "terminal",
+      "question": "What must remain true beyond year ten?",
+      "description": "Expose terminal growth, excess returns and their contribution to value."
+    },
+    {
+      "id": "financing",
+      "question": "What can a financed buyer afford?",
+      "description": "Reconcile debt-like items, liquidity and the return requirement."
+    },
+    {
+      "id": "payouts",
+      "question": "How does operating value reach each shareholder?",
+      "description": "Review cash, dilution and the sustainability of shareholder distributions."
+    },
+    {
+      "id": "risks",
+      "question": "Which unresolved facts could change the investment decision?",
+      "description": "Prioritize missing evidence, business changes and testable outcomes."
+    }
+  ],
+  "questions": [
+    {
+      "id": "revenue-base",
+      "parentId": "revenue",
+      "question": "What FY2025 revenue anchors the WD-40 model?",
+      "category": "fact",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-01-historicals",
+        "originalQuestion": "Project Voltaic is a data centre platform we're looking at buying; the data room is attached. Build me a clean historicals workbook in Excel: income statement, balance sheet, cash flow statement and the operating KPIs (capacity, leased MW, occupancy) for FY2023 through FY2025, Q1 FY25 and Q1 FY26, and LTM through 3/31/26.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B11",
+        "Input sheet!C11"
+      ],
+      "sourceIds": [
+        "wdfc25-is"
+      ],
+      "answer": "The original audited-input proposals record FY2025 revenue of $619.985m and FY2024 revenue of $590.557m. Both are USD millions.",
+      "status": "answered",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "revenue-growth",
+      "parentId": "revenue",
+      "question": "What was reported FY2025 revenue growth, and is the forecast the same claim?",
+      "category": "fact",
+      "benchmark": {
+        "name": "financebench",
+        "recordId": "financebench_id_01198",
+        "originalQuestion": "What drove revenue change as of the FY22 for AMD?",
+        "adapted": true,
+        "version": "sha256:a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+        "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+        "url": "https://raw.githubusercontent.com/patronus-ai/financebench/cc39aeb4afdf33909ee1412188bf89035950c2eb/data/financebench_open_source.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B11",
+        "Input sheet!C11",
+        "Input sheet!B26",
+        "Input sheet!B28"
+      ],
+      "sourceIds": [
+        "wdfc25-is"
+      ],
+      "answer": "Reported growth from the original revenue proposals is 4.9831%. The 5% next-year and years-2–5 inputs are explicit forward assumptions, not observed FY2026 growth.",
+      "status": "answered",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "revenue-resolution",
+      "parentId": "revenue",
+      "question": "Will WD-40 FY2026 reported net sales exceed the FY2025 reported base by at least 5%?",
+      "category": "forecast",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-07-operating-model",
+        "originalQuestion": "Build me an operating model for Ironvale off the data room: drivers to EBITDA and EBIT, historicals through FY25 and a forecast to FY30. Include one toggle that switches the forecast between management's case and your buy-side case. Leave the model set to the buy-side case, and tell me where you land against management's plan. Put the model in Excel.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B11",
+        "Input sheet!B26"
+      ],
+      "sourceIds": [
+        "wdfc25-is"
+      ],
+      "answer": "No contemporaneous probability or FY2026 outcome is supplied in this historical case. This is a retrospective resolution template, not an advance forecast record.",
+      "status": "unresolved_forecast",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately.",
+      "resolution": {
+        "metric": "Reported consolidated net sales, USD",
+        "period": "FY2026 versus FY2025",
+        "threshold": "FY2026 / FY2025 - 1 >= 0.05",
+        "source": "WD-40 FY2026 annual report",
+        "resolveAfter": "FY2026 annual report publication",
+        "retrospectiveTemplate": true
+      }
+    },
+    {
+      "id": "margin-reported",
+      "parentId": "margins",
+      "question": "What is WD-40 FY2025 reported operating margin?",
+      "category": "fact",
+      "benchmark": {
+        "name": "financebench",
+        "recordId": "financebench_id_01226",
+        "originalQuestion": "What drove operating margin change as of FY2022 for 3M? If operating margin is not a useful metric for a company like this, then please state that and explain why.",
+        "adapted": true,
+        "version": "sha256:a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+        "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+        "url": "https://raw.githubusercontent.com/patronus-ai/financebench/cc39aeb4afdf33909ee1412188bf89035950c2eb/data/financebench_open_source.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B11",
+        "Input sheet!B12"
+      ],
+      "sourceIds": [
+        "wdfc25-is"
+      ],
+      "answer": "$103.793m reported EBIT / $619.985m revenue = 16.7412%. This is the reported EBIT margin before the model’s R&D adjustment.",
+      "status": "answered",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "margin-rd-bridge",
+      "parentId": "margins",
+      "question": "Why does the original model use a 17.1068% operating margin rather than the reported margin?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-04-ebitda-bridge",
+        "originalQuestion": "Bridge Project Voltaic's FY25 reported result to adjusted EBITDA for pricing from a buyer's perspective, using the data room. Put it in a workbook we can send to the seller's advisers.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B12",
+        "Input sheet!B27",
+        "Input sheet!B29",
+        "R& D converter!F6",
+        "R& D converter!B6"
+      ],
+      "sourceIds": [
+        "wdfc25-is",
+        "wdfc25-rd",
+        "wdfc23-rd"
+      ],
+      "answer": "The original case capitalizes R&D over a three-year assumed life. Its adjusted EBIT adds current R&D and subtracts modeled amortization. The retained 17.1068% next-year and target margins use that adjusted base. R&D capitalization and flat future margins are modeling choices.",
+      "status": "assumption",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "margin-target",
+      "parentId": "margins",
+      "question": "What evidence would justify a 20% adjusted EBIT margin instead of the original flat margin?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-07-operating-model",
+        "originalQuestion": "Build me an operating model for Ironvale off the data room: drivers to EBITDA and EBIT, historicals through FY25 and a forecast to FY30. Include one toggle that switches the forecast between management's case and your buy-side case. Leave the model set to the buy-side case, and tell me where you land against management's plan. Put the model in Excel.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B27",
+        "Input sheet!B29",
+        "Input sheet!B30"
+      ],
+      "sourceIds": [
+        "wdfc25-is",
+        "wdfc25-rd"
+      ],
+      "answer": "A higher target requires a bridge from sales and gross profit through operating expenses and R&D treatment. The original case provides no sourced 20% EBIT target. An EBITDA target alone does not establish an EBIT margin.",
+      "status": "needs_evidence",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "capital-capex",
+      "parentId": "capital",
+      "question": "What was WD-40 FY2025 capital expenditure, and what percentage of revenue was it?",
+      "category": "fact",
+      "benchmark": {
+        "name": "financebench",
+        "recordId": "financebench_id_03029",
+        "originalQuestion": "What is the FY2018 capital expenditure amount (in USD millions) for 3M? Give a response to the question by relying on the details shown in the cash flow statement.",
+        "adapted": true,
+        "version": "sha256:a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+        "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+        "url": "https://raw.githubusercontent.com/patronus-ai/financebench/cc39aeb4afdf33909ee1412188bf89035950c2eb/data/financebench_open_source.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B11"
+      ],
+      "sourceIds": [
+        "wdfc25-cf"
+      ],
+      "answer": "The original proposal set does not include a separate verified capex input. Extract purchases of property, plant and equipment from the FY2025 cash-flow statement, document the sign convention, then divide by revenue. Do not substitute the model’s forecast reinvestment.",
+      "status": "needs_evidence",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "capital-turnover",
+      "parentId": "capital",
+      "question": "Is the model’s 2.0× sales-to-capital ratio observed or assumed?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "financebench",
+        "recordId": "financebench_id_00499",
+        "originalQuestion": "Is 3M a capital-intensive business based on FY2022 data?",
+        "adapted": true,
+        "version": "sha256:a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+        "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+        "url": "https://raw.githubusercontent.com/patronus-ai/financebench/cc39aeb4afdf33909ee1412188bf89035950c2eb/data/financebench_open_source.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B31",
+        "Input sheet!B32",
+        "Input sheet!B14",
+        "Input sheet!B15",
+        "Input sheet!B18"
+      ],
+      "sourceIds": [
+        "wdfc25-bs",
+        "wdfc25-leases"
+      ],
+      "answer": "Both forecast sales-to-capital ratios are explicit 2.0× assumptions. Historical revenue divided by book capital is a scale comparison, not a direct observation of the incremental reinvestment needed for future growth.",
+      "status": "assumption",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "capital-rd",
+      "parentId": "capital",
+      "question": "Which R&D amounts support the model’s capitalization schedule?",
+      "category": "fact",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-01-historicals",
+        "originalQuestion": "Project Voltaic is a data centre platform we're looking at buying; the data room is attached. Build me a clean historicals workbook in Excel: income statement, balance sheet, cash flow statement and the operating KPIs (capacity, leased MW, occupancy) for FY2023 through FY2025, Q1 FY25 and Q1 FY26, and LTM through 3/31/26.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "R& D converter!B6",
+        "R& D converter!B7",
+        "R& D converter!B8",
+        "R& D converter!B9",
+        "R& D converter!F6"
+      ],
+      "sourceIds": [
+        "wdfc25-rd",
+        "wdfc23-rd"
+      ],
+      "answer": "The recorded disclosures are $8.7m, $8.0m and $6.2m for FY2025–FY2023, and $5.1m for FY2022. The assumed three-year useful life determines which history enters amortization; it is not a disclosed accounting useful life for an R&D asset.",
+      "status": "answered",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "cash-fcff",
+      "parentId": "cash",
+      "question": "What modeled free cash flow is generated in the first forecast year?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "financebench",
+        "recordId": "financebench_id_04854",
+        "originalQuestion": "According to the information provided in the statement of cash flows, what is the FY2020 free cash flow (FCF) for General Mills? FCF here is defined as: (cash from operations - capex). Answer in USD millions.",
+        "adapted": true,
+        "version": "sha256:a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+        "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+        "url": "https://raw.githubusercontent.com/patronus-ai/financebench/cc39aeb4afdf33909ee1412188bf89035950c2eb/data/financebench_open_source.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Valuation output!C7",
+        "Valuation output!C8",
+        "Valuation output!C9"
+      ],
+      "sourceIds": [
+        "wdfc25-is"
+      ],
+      "answer": "Inspect modeled NOPAT less modeled reinvestment in the linked forecast cells. These are forecast FCFF values, distinct from historical cash from operations less capex.",
+      "status": "assumption",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "cash-conversion",
+      "parentId": "cash",
+      "question": "Did historical free-cash-flow conversion improve from FY2024 to FY2025?",
+      "category": "fact",
+      "benchmark": {
+        "name": "financebench",
+        "recordId": "financebench_id_00591",
+        "originalQuestion": "Does Adobe have an improving Free cashflow conversion as of FY2022?",
+        "adapted": true,
+        "version": "sha256:a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+        "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+        "url": "https://raw.githubusercontent.com/patronus-ai/financebench/cc39aeb4afdf33909ee1412188bf89035950c2eb/data/financebench_open_source.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B11",
+        "Input sheet!C11",
+        "Input sheet!B12"
+      ],
+      "sourceIds": [
+        "wdfc25-cf",
+        "wdfc25-is"
+      ],
+      "answer": "This requires cash from operations and capex for both years under one definition. The original proposal set does not supply that complete comparison. A DCF output cannot resolve this historical question.",
+      "status": "needs_evidence",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "cash-working-capital",
+      "parentId": "cash",
+      "question": "Does the forecast explicitly model WD-40’s working-capital funding need?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-05-nwc-peg",
+        "originalQuestion": "We're putting together a first-round bid for Project Voltaic. Work out the net working capital we'd assume, how we got there, and what we'd treat as debt-like. Put it in Excel.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B31",
+        "Input sheet!B32",
+        "Valuation output!C8"
+      ],
+      "sourceIds": [
+        "wdfc25-bs",
+        "wdfc25-cf"
+      ],
+      "answer": "Ginzu’s sales-to-capital reinvestment approach aggregates net capital spending and working-capital investment. It does not provide a standalone receivables, inventory and payables schedule or an acquisition working-capital peg.",
+      "status": "assumption",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "tax-normalization",
+      "parentId": "tax",
+      "question": "How is the model’s normalized starting tax rate calculated?",
+      "category": "fact",
+      "benchmark": {
+        "name": "financebench",
+        "recordId": "financebench_id_01351",
+        "originalQuestion": "How much has the effective tax rate of American Express changed between FY2021 and FY2022?",
+        "adapted": true,
+        "version": "sha256:a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+        "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+        "url": "https://raw.githubusercontent.com/patronus-ai/financebench/cc39aeb4afdf33909ee1412188bf89035950c2eb/data/financebench_open_source.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B23"
+      ],
+      "sourceIds": [
+        "wdfc25-tax",
+        "wdfc25-is",
+        "wdfc25-cf"
+      ],
+      "answer": "The original case uses (reported tax $10.632m + nonrecurring benefit $11.929m) / pretax income $101.626m = 22.200028%. The result is an explicit normalization convention, not the reported effective rate.",
+      "status": "answered",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "tax-terminal",
+      "parentId": "tax",
+      "question": "Is the 25% terminal tax rate a company fact?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "finlfqa",
+        "recordId": "82",
+        "originalQuestion": "How does the adjusted effective tax rate due to non-GAAP measures differ between MDT and SYK?",
+        "adapted": true,
+        "version": "sha256:83dbadda0cadc202c47d3ae9622e014d5851dabc9c77837d81be1b0a729a62c5",
+        "revision": "22900e97366d0b977b6f37863486bc9828e5bdc0",
+        "url": "https://huggingface.co/datasets/Dragongon/FinLFQA/resolve/22900e97366d0b977b6f37863486bc9828e5bdc0/data/validation.json",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B23",
+        "Input sheet!B24",
+        "Input sheet!B59"
+      ],
+      "sourceIds": [
+        "wdfc25-tax"
+      ],
+      "answer": "The 25% long-run combined marginal rate is an analyst assumption. The original case fades the normalized starting rate toward it because the permanent-effective-rate override is off.",
+      "status": "assumption",
+      "note": "The FinLFQA comparison was changed into a single-company normalization question; it is not scored as the original two-company item.",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "tax-nol",
+      "parentId": "tax",
+      "question": "Why are disclosed state NOLs excluded from the simplified consolidated tax shield?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "finlfqa",
+        "recordId": "97",
+        "originalQuestion": "How do the tax-related adjustments for MDT and ISRG affect their effective tax rates, and what are the implications for financial strategy?",
+        "adapted": true,
+        "version": "sha256:83dbadda0cadc202c47d3ae9622e014d5851dabc9c77837d81be1b0a729a62c5",
+        "revision": "22900e97366d0b977b6f37863486bc9828e5bdc0",
+        "url": "https://huggingface.co/datasets/Dragongon/FinLFQA/resolve/22900e97366d0b977b6f37863486bc9828e5bdc0/data/validation.json",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B61",
+        "Input sheet!B62"
+      ],
+      "sourceIds": [
+        "wdfc25-nol"
+      ],
+      "answer": "The original source records $7.8m of state NOLs with a $0.5m deferred-tax asset. Their treatment is not equivalent to deducting $7.8m against all consolidated operating income at one modeled tax rate, so this case leaves the simplified NOL shield inactive.",
+      "status": "assumption",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "discount-start",
+      "parentId": "discount",
+      "question": "Which historical CAPM evidence supports the original 9% starting WACC?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-07-operating-model",
+        "originalQuestion": "Build me an operating model for Ironvale off the data room: drivers to EBITDA and EBIT, historicals through FY25 and a forecast to FY30. Include one toggle that switches the forecast between management's case and your buy-side case. Leave the model set to the buy-side case, and tell me where you land against management's plan. Put the model in Excel.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Cost of capital worksheet!B11",
+        "Cost of capital worksheet!B12",
+        "Input sheet!B34",
+        "Input sheet!B35"
+      ],
+      "sourceIds": [],
+      "answer": "The original 9% WACC and 4% risk-free rate are explicit illustrative parameters. No date-matched CAPM calculation is supplied. A sourced replacement needs the risk-free rate, equity risk premium, beta, borrowing cost and capital weights.",
+      "status": "needs_evidence",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "discount-terminal",
+      "parentId": "discount",
+      "question": "Why is terminal WACC 8%, and which template tables are bypassed?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-07-operating-model",
+        "originalQuestion": "Build me an operating model for Ironvale off the data room: drivers to EBITDA and EBIT, historicals through FY25 and a forecast to FY30. Include one toggle that switches the forecast between management's case and your buy-side case. Leave the model set to the buy-side case, and tell me where you land against management's plan. Put the model in Excel.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B45",
+        "Input sheet!B46",
+        "Valuation output!M12"
+      ],
+      "sourceIds": [],
+      "answer": "The case explicitly overrides terminal WACC to 8%. This avoids inheriting the template’s later reference premium. The selected 8% remains an analyst assumption; it is not verified August 2025 market data.",
+      "status": "assumption",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "discount-sensitivity",
+      "parentId": "discount",
+      "question": "How does shifting the WACC path change modeled value per share?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-11-returns-waterfall",
+        "originalQuestion": "Build the exit, the distribution waterfall and the returns for Project Voltaic in the attached model, on the terms in returns_terms.md, for both cases the model carries. How much of the return depends on the development pipeline rather than the committed build, and what is the most we could have paid for a 20% IRR or a 2.5x MOIC? Deliver the updated workbook.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Cost of capital worksheet!B12",
+        "Input sheet!B46",
+        "Valuation output!B33"
+      ],
+      "sourceIds": [],
+      "answer": "Use the sensitivity and reverse-DCF calculations with all other inputs fixed. State whether the whole path shifts or becomes flat; those are different counterfactuals. The implied rate does not establish market participants’ beliefs.",
+      "status": "assumption",
+      "note": "The PE Bench maximum-price task is adapted into a required-return sensitivity; its transaction terms and original answer are not transferred.",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "terminal-reinvestment",
+      "parentId": "terminal",
+      "question": "What terminal reinvestment does 2.5% growth require when ROIC equals 8% WACC?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "financebench",
+        "recordId": "financebench_id_00499",
+        "originalQuestion": "Is 3M a capital-intensive business based on FY2022 data?",
+        "adapted": true,
+        "version": "sha256:a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+        "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+        "url": "https://raw.githubusercontent.com/patronus-ai/financebench/cc39aeb4afdf33909ee1412188bf89035950c2eb/data/financebench_open_source.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B48",
+        "Input sheet!B49",
+        "Input sheet!B68",
+        "Valuation output!M40",
+        "Valuation output!M8"
+      ],
+      "sourceIds": [],
+      "answer": "Under the original default, terminal ROIC equals terminal WACC. The steady-state reinvestment rate is g / ROIC = 2.5% / 8% = 31.25% of terminal NOPAT. Growth, ROIC and reinvestment must be considered together.",
+      "status": "assumption",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "terminal-excess-returns",
+      "parentId": "terminal",
+      "question": "What supports terminal ROIC of 20% or 25% in an alternative scenario?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-07-operating-model",
+        "originalQuestion": "Build me an operating model for Ironvale off the data room: drivers to EBITDA and EBIT, historicals through FY25 and a forecast to FY30. Include one toggle that switches the forecast between management's case and your buy-side case. Leave the model set to the buy-side case, and tell me where you land against management's plan. Put the model in Excel.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B48",
+        "Input sheet!B49",
+        "Valuation output!M40"
+      ],
+      "sourceIds": [
+        "wdfc25-company"
+      ],
+      "answer": "A durable excess-return scenario needs evidence on competition, brand economics, capital requirements and the duration of advantages. A high historical return alone does not establish a perpetual terminal return.",
+      "status": "needs_evidence",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "terminal-value-share",
+      "parentId": "terminal",
+      "question": "How much of modeled operating value comes from the terminal value?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-07-operating-model",
+        "originalQuestion": "Build me an operating model for Ironvale off the data room: drivers to EBITDA and EBIT, historicals through FY25 and a forecast to FY30. Include one toggle that switches the forecast between management's case and your buy-side case. Leave the model set to the buy-side case, and tell me where you land against management's plan. Put the model in Excel.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Valuation output!B19",
+        "Valuation output!B21",
+        "Valuation output!B24"
+      ],
+      "sourceIds": [],
+      "answer": "Calculate present value of terminal value divided by the corresponding operating-value cash-flow sum. Read this alongside terminal growth, margin, WACC and reinvestment; it is a model-dependence measure.",
+      "status": "assumption",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "financing-net-debt",
+      "parentId": "financing",
+      "question": "Which debt and cash amounts enter the enterprise-to-equity bridge?",
+      "category": "fact",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-09-sources-uses",
+        "originalQuestion": "We are acquiring 100% of Ironvale Digital Infrastructure (Project Voltaic). Build the transaction onto the attached operating model as a new tab: the sources and uses including the financing structure, the enterprise-to-equity value bridge, and post-close ownership. Finance it with the staple financing posted in the data room. Deliver the updated workbook.\n\nTransaction assumptions:\n  Completion date             31 March 2026\n  Entry                       21.0x LTM Management Adjusted EBITDA, cash-free\n                              and debt-free\n  Buyer transaction fees      1.5% of enterprise value\n  Minimum cash at close       $50M\n  Management rollover         30% of management's total sale proceeds\n  Management incentive plan   8% of post-close fully diluted equity, struck\n                              at close",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B15",
+        "Input sheet!B18",
+        "Valuation output!B26",
+        "Valuation output!B31"
+      ],
+      "sourceIds": [
+        "wdfc25-bs"
+      ],
+      "answer": "The original proposals record gross interest-bearing borrowings of $86.995m and cash of $58.130m. This implies $28.865m of net borrowings under the stated lease convention, before any separately justified transaction adjustments.",
+      "status": "answered",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "financing-leases",
+      "parentId": "financing",
+      "question": "Why are operating-lease liabilities excluded from this case’s debt?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-05-nwc-peg",
+        "originalQuestion": "We're putting together a first-round bid for Project Voltaic. Work out the net working capital we'd assume, how we got there, and what we'd treat as debt-like. Put it in Excel.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B15",
+        "Input sheet!B17",
+        "Input sheet!B14"
+      ],
+      "sourceIds": [
+        "wdfc25-leases",
+        "wdfc25-lease-expense"
+      ],
+      "answer": "The case leaves operating rent in EBIT and excludes the $10.705m recognized operating-lease liability from debt. It also adjusts book equity for the net lease-capitalization difference. This is a consistent chosen convention, not absence of lease obligations.",
+      "status": "assumption",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "financing-affordability",
+      "parentId": "financing",
+      "question": "What entry price can a buyer pay while meeting a 20% annualized equity return?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-11-returns-waterfall",
+        "originalQuestion": "Build the exit, the distribution waterfall and the returns for Project Voltaic in the attached model, on the terms in returns_terms.md, for both cases the model carries. How much of the return depends on the development pipeline rather than the committed build, and what is the most we could have paid for a 20% IRR or a 2.5x MOIC? Deliver the updated workbook.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B12",
+        "Input sheet!B15",
+        "Input sheet!B18",
+        "Input sheet!B21"
+      ],
+      "sourceIds": [
+        "wdfc25-is",
+        "wdfc25-bs"
+      ],
+      "answer": "Use the LBO ability-to-pay schedule with explicit debt, interest, fees, reinvestment, liquidity and exit assumptions. Without those terms the original DCF does not answer the buyer’s maximum-price question.",
+      "status": "needs_evidence",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "payouts-dilution",
+      "parentId": "payouts",
+      "question": "What share count is used for DCF value per share, and is it the market-cap share count?",
+      "category": "fact",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-09-sources-uses",
+        "originalQuestion": "We are acquiring 100% of Ironvale Digital Infrastructure (Project Voltaic). Build the transaction onto the attached operating model as a new tab: the sources and uses including the financing structure, the enterprise-to-equity value bridge, and post-close ownership. Finance it with the staple financing posted in the data room. Deliver the updated workbook.\n\nTransaction assumptions:\n  Completion date             31 March 2026\n  Entry                       21.0x LTM Management Adjusted EBITDA, cash-free\n                              and debt-free\n  Buyer transaction fees      1.5% of enterprise value\n  Minimum cash at close       $50M\n  Management rollover         30% of management's total sale proceeds\n  Management incentive plan   8% of post-close fully diluted equity, struck\n                              at close",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B21",
+        "Valuation output!B32",
+        "Valuation output!B33"
+      ],
+      "sourceIds": [
+        "wdfc25-bs",
+        "wdfc25-rsu",
+        "wdfc25-msu",
+        "wdfc25-plan-footnote",
+        "wdfc25-psu"
+      ],
+      "answer": "The original DCF denominator is 13.633263m: 13.527614m common shares plus 0.063189m RSUs, 0.040839m target MSUs and 0.001621m vested DPUs. It is an explicit stock-unit dilution proxy; point-in-time common shares should be identified separately for market capitalization.",
+      "status": "answered",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "payouts-dividends",
+      "parentId": "payouts",
+      "question": "Were FY2025 dividends covered by recurring earnings and free cash flow?",
+      "category": "fact",
+      "benchmark": {
+        "name": "financebench",
+        "recordId": "financebench_id_06272",
+        "originalQuestion": "What is Coca Cola's FY2022 dividend payout ratio (using total cash dividends paid and net income attributable to shareholders)? Round answer to two decimal places. Answer the question asked by assuming you only have access to information clearly displayed in the cash flow statement and the income statement.",
+        "adapted": true,
+        "version": "sha256:a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+        "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+        "url": "https://raw.githubusercontent.com/patronus-ai/financebench/cc39aeb4afdf33909ee1412188bf89035950c2eb/data/financebench_open_source.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B12",
+        "Input sheet!B23"
+      ],
+      "sourceIds": [
+        "wdfc25-is",
+        "wdfc25-cf",
+        "wdfc25-tax"
+      ],
+      "answer": "Verify total cash dividends, normalized net income and cash from operations less capex under consistent definitions. The original proposals do not include the complete payout-coverage calculation; the tax-release benefit must not be treated as recurring earnings.",
+      "status": "needs_evidence",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "payouts-ddm",
+      "parentId": "payouts",
+      "question": "Which dividend-growth and cost-of-equity assumptions support the DDM range?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "finlfqa",
+        "recordId": "41",
+        "originalQuestion": "How do the dividends paid by EOG and PXD compare during the first quarter of 2024, including percentage differences?",
+        "adapted": true,
+        "version": "sha256:83dbadda0cadc202c47d3ae9622e014d5851dabc9c77837d81be1b0a729a62c5",
+        "revision": "22900e97366d0b977b6f37863486bc9828e5bdc0",
+        "url": "https://huggingface.co/datasets/Dragongon/FinLFQA/resolve/22900e97366d0b977b6f37863486bc9828e5bdc0/data/validation.json",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B21",
+        "Input sheet!B34"
+      ],
+      "sourceIds": [
+        "wdfc25-is",
+        "wdfc25-cf"
+      ],
+      "answer": "A dividend valuation requires a dated dividend base, sustainable per-share payout growth and cost of equity. WACC is not the discount rate for dividends. The original DCF input set alone does not establish these inputs.",
+      "status": "needs_evidence",
+      "note": "The source’s two-company dividend comparison is adapted into a single-company payout-underwriting question.",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "risks-disposal",
+      "parentId": "risks",
+      "question": "How would removing the homecare assets change the revenue and operating-income base?",
+      "category": "assumption",
+      "benchmark": {
+        "name": "fincausal",
+        "recordId": "0209.00019",
+        "originalQuestion": null,
+        "adapted": true,
+        "version": "sha256:3c587ca5afe0bd8532bc3cbe22fab40426f59d4a1c3efe37bcf14fee39dd0575",
+        "revision": "33a933f1bebd3317ab67edcf447c1a333fe879f5",
+        "url": "https://raw.githubusercontent.com/yseop/YseopLab/33a933f1bebd3317ab67edcf447c1a333fe879f5/FNP_2020_FinCausal/data/practice/fnp2020-fincausal2-task2.csv",
+        "adaptation": "Analyst-authored question inspired by a cause-effect annotation; the source contains spans, not a question.",
+        "originalText": "Its operating income was $1.8 billion, while net income decreased a little to $1.2 billion due to disposals.",
+        "cause": "disposals.",
+        "effect": "Its operating income was $1.8 billion, while net income decreased a little to $1.2 billion"
+      },
+      "cellIds": [
+        "Input sheet!B11",
+        "Input sheet!B12",
+        "Input sheet!B26"
+      ],
+      "sourceIds": [
+        "wdfc25-is",
+        "wdfc25-bs"
+      ],
+      "answer": "Reconcile reported results to the pro forma scope, then account separately for the value, tax and costs of any disposal. The original case has no complete divestiture bridge. An announced intention to sell does not establish a completed transaction.",
+      "status": "needs_evidence",
+      "note": "The source cause-effect spans concern a different company. Only the disposal-to-results reasoning pattern is reused; no source-company figures become WD-40 facts.",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "risks-product-concentration",
+      "parentId": "risks",
+      "question": "Which WD-40 product and geographic exposures could invalidate the growth scenario?",
+      "category": "fact",
+      "benchmark": {
+        "name": "financebench",
+        "recordId": "financebench_id_00517",
+        "originalQuestion": "Are there any product categories / service categories that represent more than 20% of Boeing's revenue for FY2022?",
+        "adapted": true,
+        "version": "sha256:a5a2aa673e573e55675fc3c0f9aa38c1cf59d2abc91edb077534f71f10a71877",
+        "revision": "cc39aeb4afdf33909ee1412188bf89035950c2eb",
+        "url": "https://raw.githubusercontent.com/patronus-ai/financebench/cc39aeb4afdf33909ee1412188bf89035950c2eb/data/financebench_open_source.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B11",
+        "Input sheet!B26",
+        "Input sheet!B28"
+      ],
+      "sourceIds": [
+        "wdfc25-company",
+        "wdfc25-is"
+      ],
+      "answer": "Inspect product and regional disclosures in the annual report before assigning exposures or probabilities. The original proposal set contains consolidated revenue and business identity, not a fully verified concentration analysis.",
+      "status": "needs_evidence",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately."
+    },
+    {
+      "id": "risks-falsification",
+      "parentId": "risks",
+      "question": "Which published operating result would falsify the higher-margin scenario?",
+      "category": "forecast",
+      "benchmark": {
+        "name": "pe-bench",
+        "recordId": "voltaic-07-operating-model",
+        "originalQuestion": "Build me an operating model for Ironvale off the data room: drivers to EBITDA and EBIT, historicals through FY25 and a forecast to FY30. Include one toggle that switches the forecast between management's case and your buy-side case. Leave the model set to the buy-side case, and tell me where you land against management's plan. Put the model in Excel.",
+        "adapted": true,
+        "version": "sha256:a8bf6c42935cd5e099d5aa9838ac8379db95e2394e446815ea64225fbda9cf16",
+        "revision": "4e596185e3d64af6223a158e3fae66a4eb901421",
+        "url": "https://raw.githubusercontent.com/GetCompoundAI/pe-bench/4e596185e3d64af6223a158e3fae66a4eb901421/tasks/voltaic.jsonl",
+        "adaptation": "Analyst-authored WD-40 adaptation of the cited question or task; not an original benchmark item."
+      },
+      "cellIds": [
+        "Input sheet!B29",
+        "Input sheet!B30",
+        "Input sheet!B27"
+      ],
+      "sourceIds": [
+        "wdfc25-is",
+        "wdfc25-rd"
+      ],
+      "answer": "No advance probability is recorded. The margin scenario needs an explicit adjustment policy and a dated observable test. This retrospective template is not a historical forecasting track record.",
+      "status": "unresolved_forecast",
+      "note": "",
+      "answerBasis": "Original FY2025 proposal snapshot; linked cells expose the current model separately.",
+      "resolution": {
+        "metric": "Reported EBIT margin with a separately documented R&D adjustment",
+        "period": "FY2030",
+        "threshold": "Adjusted EBIT / revenue >= 0.20",
+        "source": "WD-40 FY2030 annual report and the fixed R&D adjustment policy",
+        "resolveAfter": "FY2030 annual report publication",
+        "retrospectiveTemplate": true
+      }
+    }
+  ],
+  "initialQuestionIds": [
+    "revenue-base",
+    "margin-reported",
+    "margin-rd-bridge",
+    "capital-turnover",
+    "cash-fcff",
+    "tax-normalization",
+    "discount-start",
+    "discount-terminal",
+    "terminal-reinvestment",
+    "terminal-value-share",
+    "financing-net-debt",
+    "payouts-dilution"
+  ],
+  "counts": {
+    "sourceRecords": {
+      "financebench": 150,
+      "finlfqa": 302,
+      "pe-bench": 12,
+      "fincausal": 1109,
+      "fintextqa": 240
+    },
+    "curatedQuestions": 30
+  },
+  "limitations": [
+    "These are analyst-authored company adaptations, not published WD-40 benchmark questions or a benchmark score.",
+    "Static answers describe the original proposal snapshot; current user edits can differ.",
+    "Source snapshots were parsed as inert data; code fields were not executed.",
+    "Source-specific reuse rights remain to be independently confirmed before redistributing full raw datasets.",
+    "FinCausal contains cause-effect spans, not prewritten questions.",
+    "No suitable WD-40 valuation question was selected from the released FinTextQA banking-policy subset."
+  ]
+}

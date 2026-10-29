@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+models/data/benchmarks/*
+!models/data/benchmarks/manifest.json
+models/out/*.tmp
+models/out/engine.mjs
+models/out/export-report.json
+models/out/*-test.xlsx
+.artifacts/
+.openai/hosting.json
+dist/

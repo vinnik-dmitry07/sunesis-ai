@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0",
+  "sources": [
+    {
+      "id": "wdfc25-release",
+      "title": "WD-40 FY2025 results and initial FY2026 guidance",
+      "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000061/wdfc-20251022xexx991.htm",
+      "asOf": "2025-08-31",
+      "publishedAt": "2025-10-22",
+      "locator": "FY2025 statements, dividend update, and initial FY2026 guidance",
+      "summary": "Reported EBIT 103.793m, cash-flow D&A 8.191m, normalized adjusted EPS 5.82, quarterly dividend 0.94. Initial FY2026 sales growth guidance 5-9% is on a pro forma currency-adjusted basis; it differs from the later 6-9% guidance. Operating EBIT plus cash-flow D&A is a derived proxy, not issuer adjusted EBITDA.",
+      "facts": {"revenue": 619.985, "reportedEbit": 103.793, "dandA": 8.191, "sga": 199.936, "advertising": 37.431, "amortizationIntangibles": 0.183, "operatingExpenses": 237.55, "quarterlyDividend": 0.94, "normalizedEps": 5.82}
+    },
+    {
+      "id": "wdfc25-common-shares",
+      "title": "WD-40 FY2025 balance sheet: actual common shares outstanding",
+      "url": "https://www.sec.gov/Archives/edgar/data/105132/000010513225000067/R4.htm",
+      "asOf": "2025-08-31",
+      "publishedAt": "2025-10-27",
+      "locator": "Consolidated balance sheets, common stock outstanding",
+      "summary": "13,527,614 common shares outstanding. This differs from the valuation case's13,633,263 share dilution proxy.",
+      "facts": {"commonSharesOutstanding": 13.527614, "unit": "million shares"}
+    },
+    {
+      "id": "chd-waterpik-announcement",
+      "title": "Church & Dwight announces Waterpik acquisition",
+      "url": "https://www.sec.gov/Archives/edgar/data/313927/000119312517228910/d426675dex991.htm",
+      "publishedAt": "2017-07-17",
+      "asOf": "2017-06-30",
+      "summary": "Announced approximately1bn cash acquisition and approximately80m trailing-twelve-month EBITDA. Announcement consideration is retained separately from a verified net-debt-adjusted EV."
+    },
+    {
+      "id": "chd-therabreath-announcement",
+      "title": "Church & Dwight announces TheraBreath acquisition",
+      "url": "https://s203.q4cdn.com/233583214/files/doc_events/2021/11/11-29-21-Therabreath-Announcement.pdf",
+      "publishedAt": "2021-11-29",
+      "asOf": "2021-09-30",
+      "summary": "580m announced consideration;27m TTM EBITDA. The36m2022 estimate includes4m synergies; the85m tax shield is a separate adjustment. Context calculations use unadjusted consideration and TTM EBITDA."
+    },
+    {
+      "id": "chd-hero-presentation",
+      "title": "Church & Dwight2022 Barclays presentation: Hero acquisition",
+      "url": "https://s203.q4cdn.com/233583214/files/doc_events/2022/09/Barclays-Presentation-2022-FINAL.pdf",
+      "publishedAt": "2022-09-06",
+      "asOf": "2022-06-30",
+      "summary": "630m purchase price and approximately45m TTM EBITDA. Cash and restricted-stock consideration; no independent acquired net-debt bridge is assumed."
+    },
+    {
+      "id": "zep-acquisition-announcement",
+      "title": "New Mountain Capital closes Zep acquisition",
+      "url": "https://www.newmountaincapital.com/new-mountain-capital-acquires-zep-inc/",
+      "publishedAt": "2015-06-26",
+      "asOf": "2015-06-26",
+      "summary": "Approximately692m announced transaction value. A consistent contemporaneous EBITDA denominator has not been verified for this implementation."
+    },
+    {
+      "id": "henkel-sun-announcement",
+      "title": "Henkel announces Sun Products acquisition",
+      "url": "https://www.henkel.co.id/en/press/press-releases-and-kits/2016-06-24-henkel-to-acquire-sun-products-corporation-692268",
+      "publishedAt": "2016-06-24",
+      "asOf": "2016-06-24",
+      "summary": "3.6bn transaction value including debt and1.6bn FY2015 sales. EBITDA not verified here; excluded from EBITDA multiple context."
+    }
+  ]
+}
