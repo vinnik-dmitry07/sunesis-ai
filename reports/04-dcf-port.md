@@ -4,9 +4,9 @@
 
 | Case | Values compared | First divergence | Worst relative difference | Python | Engine |
 |---|---:|---|---:|---:|---:|
-| base | 161 | none | 0.0e+00 | 126.299209 | 126.299209 |
-| bear | 161 | none | 0.0e+00 | 80.908313 | 80.908313 |
-| bull | 161 | none | 2.0e-16 | 205.264765 | 205.264765 |
+| base | 161 | none | 2.4e-16 | 126.299989 | 126.299989 |
+| bear | 161 | none | 2.9e-16 | 82.674065 | 82.674065 |
+| bull | 161 | none | 2.2e-16 | 205.006754 | 205.006754 |
 | original | 161 | none | 1.6e-16 | 88.150296 | 88.150296 |
 
 ## Why the earlier replica gave $88.06
@@ -16,9 +16,9 @@ The quick replica written during planning funded each year's growth with that ye
 | Case | Workbook timing (t to t+1) | Same-year timing (t-1 to t) |
 |---|---:|---:|
 | original | $88.1503 | $88.0636 |
-| bear | $80.9083 | $81.2710 |
-| base | $126.2992 | $126.5954 |
-| bull | $205.2648 | $205.3967 |
+| bear | $82.6741 | $83.0367 |
+| base | $126.3000 | $126.5962 |
+| bull | $205.0068 | $205.1387 |
 
 With workbook timing the replica returns the engine's value. Same-year timing lowers the original case to about $88.06, the figure the earlier replica produced, so the timing explains the gap. Rounding does not.
 

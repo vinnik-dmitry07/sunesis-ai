@@ -200,7 +200,7 @@
      "id": "margin-5",
      "purpose": "assumption",
      "text": "Which margin paths do the scenarios use, and on what basis?",
-     "answer": "Year-1 margins come from operating-income guidance plus the workbook's R&D adjustment: 16.4%, 16.9%, 17.5%. Targets by year 5: Bear stays flat, Base 18%, Bull 20%. FY2017-FY2020 averaged 19.4% reported.",
+     "answer": "Year-1 margins come from operating-income guidance plus the workbook's R&D adjustment: 16.7%, 16.9%, 17.1%. Targets by year 5: Bear stays flat, Base 18%, Bull 20%. FY2017-FY2020 averaged 19.4% reported.",
      "status": "answered",
      "evidence": [],
      "cells": [
@@ -604,7 +604,7 @@
      "id": "returns-4",
      "purpose": "calculation",
      "text": "Does restating the DCF as invested capital plus economic profit give the same operating value?",
-     "answer": "Yes. original $1,230.6m against $1,230.6m; bear $1,131.9m against $1,131.9m; base $1,750.7m against $1,750.7m; bull $2,827.3m against $2,827.3m. The two are the same calculation arranged differently, so this checks consistency, not value.",
+     "answer": "Yes. original $1,230.6m against $1,230.6m; bear $1,156.0m against $1,156.0m; base $1,750.7m against $1,750.7m; bull $2,823.8m against $2,823.8m. The two are the same calculation arranged differently, so this checks consistency, not value.",
      "status": "answered",
      "evidence": [],
      "cells": [],

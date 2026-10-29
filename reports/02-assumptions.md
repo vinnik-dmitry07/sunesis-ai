@@ -35,7 +35,7 @@ Reported operating margin averaged 19.4% in FY2017-FY2020 and 16.6% in FY2022-FY
 
 ## Growth and the homecare sale
 
-Revenue compounded at 6.3% a year over FY2017-FY2025 and 6.2% over FY2021-FY2025. FY2026 guidance is 5-9% growth from a pro forma FY2025 base that excludes the Americas homecare and cleaning brands held for sale (about $12.5m of sales and $3.6m of operating income), at FY2025 average exchange rates. The guided $630-655m therefore sits only 1.6% to 5.6% above reported FY2025 revenue, and that is the year-1 growth each scenario uses. The sale had not closed, and no price was disclosed, so no proceeds are added.
+Revenue compounded at 6.3% a year over FY2017-FY2025 and 6.2% over FY2021-FY2025. FY2026 guidance is 5-9% growth from a pro forma FY2025 base that excludes the Americas homecare and cleaning brands held for sale, at FY2025 average exchange rates. The release adds that guidance would be about $12.5m of sales and $3.6m of operating income higher if the sale did not happen. The guided $630-655m therefore sits only 1.6% to 5.6% above reported FY2025 revenue, and that is the year-1 growth each scenario uses. The sale had not closed, and no price was disclosed, so no proceeds are added.
 
 ## Cost of capital
 
@@ -54,7 +54,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 ### Bear
 
 - Year-1 revenue at the low end of FY2026 guidance ($630m pro forma), then 4% a year, below the 6.2% FY2017-FY2025 compound rate.
-- Margin stays at the level implied by the low end of operating-income guidance; no recovery toward the FY2017-FY2020 range.
+- Year-1 margin from the low end of guidance ($103m operating income on $630m of sales) plus the workbook's R&D adjustment, held flat; reported operating margin averaged 16.6% in FY2022-FY2025.
 - Cost of capital from the Household Products unlevered beta and the higher Damodaran ERP variant; it drifts to the market's cost of capital by year 10.
 - No excess returns on new capital after year 10 (terminal ROIC equals terminal WACC). Terminal growth 2.0%.
 
@@ -62,8 +62,8 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 |---|---:|---:|
 | Input sheet!B26 | 5.00% | 1.62% |
 | Input sheet!B28 | 5.00% | 4.00% |
-| Input sheet!B27 | 17.11% | 16.38% |
-| Input sheet!B29 | 17.11% | 16.38% |
+| Input sheet!B27 | 17.11% | 16.71% |
+| Input sheet!B29 | 17.11% | 16.71% |
 | Input sheet!B30 | 5.00 | 5.00 |
 | Input sheet!B23 | 22.20% | 23.50% |
 | Cost of capital worksheet!B12 | 9.00% | 7.70% |
@@ -74,8 +74,8 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 
 ### Base
 
-- Year-1 revenue at the midpoint of FY2026 guidance ($642.5m pro forma, about 3.6% above reported FY2025 because divested homecare sales leave the base), then 6% a year, in line with the 6.2% FY2017-FY2025 compound rate.
-- Year-1 margin at the guidance midpoint ($106.5m operating income) plus the workbook's R&D adjustment; target 18% by year 5, about a third of the way from the FY2022-FY2025 average back to the FY2017-FY2020 average (both after the R&D adjustment).
+- Year-1 revenue at the midpoint of FY2026 guidance ($642.5m on the pro forma base, which leaves out the homecare brands held for sale), then 6% a year, in line with the 6.2% FY2017-FY2025 compound rate.
+- Year-1 margin from the guidance midpoint ($106.5m operating income on $642.5m of sales) plus the workbook's R&D adjustment. The 18% target by year 5 is an analyst assumption; reported operating margin averaged 16.6% in FY2022-FY2025 and 19.4% in FY2017-FY2020.
 - Cost of capital from a bottom-up beta (average of Damodaran's Chemical (Specialty) and Household Products unlevered betas, January 2025) relevered at WD-40's market debt-to-equity, the 29 Aug 2025 10-year Treasury yield and Damodaran's September 2025 implied ERP. Held flat because WD-40 is already a mature company.
 - New capital after year 10 earns 15%, above the cost of capital because the brand and distribution persist, and well below the 27% or so the Base case earns in years 1-10. Terminal growth 2.5%.
 
@@ -97,7 +97,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 ### Bull
 
 - Year-1 revenue at the top of FY2026 guidance ($655m pro forma), then 7% a year, above the 6.6% FY2019-FY2025 compound rate.
-- Year-1 margin at the top of operating-income guidance; target 20% by year 5, the FY2017-FY2020 average operating margin plus the R&D adjustment.
+- Year-1 margin from the top of guidance ($110m operating income on $655m of sales) plus the workbook's R&D adjustment. The 20% target by year 5 is an analyst assumption near the 19.4% reported FY2017-FY2020 average.
 - Cost of capital from the Blume-adjusted 5-year weekly regression beta and the lower Damodaran ERP variant.
 - New capital after year 10 earns 20%. Terminal growth 3.0%, below the 4.23% risk-free rate.
 
@@ -105,7 +105,7 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 |---|---:|---:|
 | Input sheet!B26 | 5.00% | 5.65% |
 | Input sheet!B28 | 5.00% | 7.00% |
-| Input sheet!B27 | 17.11% | 17.47% |
+| Input sheet!B27 | 17.11% | 17.14% |
 | Input sheet!B29 | 17.11% | 20.00% |
 | Input sheet!B30 | 5.00 | 5.00 |
 | Input sheet!B23 | 22.20% | 22.50% |
@@ -116,16 +116,16 @@ The original case uses 9% fading to 8%, labelled in the case as an illustrative 
 | Input sheet!B48 | No | Yes |
 | Input sheet!B49 | 15.00% | 20.00% |
 
-Not changed in any scenario: Sales-to-capital stays at 2.0 in all scenarios (Input sheet!B31, B32). Terminal tax rate stays at 25% (Input sheet!B24). Expected proceeds from the Americas homecare sale are not added because no price was disclosed and the sale had not closed.
+Not changed in any scenario: Sales-to-capital stays at 2.0 in all scenarios (Input sheet!B31, B32). Terminal tax rate stays at 25% (Input sheet!B24). The FY2025 R&D capitalization adjustment ($2.27m) is added to guided operating income in every scenario; using the same amount in FY2026 is an assumption. Expected proceeds from the Americas homecare sale are not added because no price was disclosed and the sale had not closed.
 
 ## Results
 
 | Case | Value / share | Operating assets | PV terminal / operating assets | Year-10 ROIC | Terminal ROIC | Status |
 |---|---:|---:|---:|---:|---:|---|
 | Original case | $88.15 | 1,230.6 | 54.5% | 26.3% | 8.0% | valid |
-| Bear | $80.91 | 1,131.9 | 52.7% | 24.7% | 8.3% | valid |
+| Bear | $82.67 | 1,156.0 | 52.6% | 25.2% | 8.3% | valid |
 | Base | $126.30 | 1,750.7 | 64.6% | 27.4% | 15.0% | valid |
-| Bull | $205.26 | 2,827.3 | 73.7% | 30.8% | 20.0% | valid |
+| Bull | $205.01 | 2,823.8 | 73.8% | 30.8% | 20.0% | valid |
 
 Reference price $216.04. Base sits $89.74 below it.
 

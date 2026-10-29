@@ -50,7 +50,7 @@ Origins: FinanceBench `financebench_id_00684` (Does AMCOR have an improving gros
 - *fact*: How far was FY2025 cost of doing business from the company's own target?  
   37% of net sales against a long-term target of 30%; gross margin was at its 55% target and adjusted EBITDA was 18% against 25%.
 - *assumption*: Which margin paths do the scenarios use, and on what basis?  
-  Year-1 margins come from operating-income guidance plus the workbook's R&D adjustment: 16.4%, 16.9%, 17.5%. Targets by year 5: Bear stays flat, Base 18%, Bull 20%. FY2017-FY2020 averaged 19.4% reported.
+  Year-1 margins come from operating-income guidance plus the workbook's R&D adjustment: 16.7%, 16.9%, 17.1%. Targets by year 5: Bear stays flat, Base 18%, Bull 20%. FY2017-FY2020 averaged 19.4% reported.
 
 ## Capital intensity and reinvestment
 
@@ -133,7 +133,7 @@ Origins: FinLFQA `validation-2` (How do changes in depreciation and amortization
 - *fact*: What share of FY2025 net sales came from outside the United States, and did any customer reach 10%?  
   About 66% came from outside the US. No customer reached 10% of consolidated net sales.
 - *calculation*: Does restating the DCF as invested capital plus economic profit give the same operating value?  
-  Yes. original $1,230.6m against $1,230.6m; bear $1,131.9m against $1,131.9m; base $1,750.7m against $1,750.7m; bull $2,827.3m against $2,827.3m. The two are the same calculation arranged differently, so this checks consistency, not value.
+  Yes. original $1,230.6m against $1,230.6m; bear $1,156.0m against $1,156.0m; base $1,750.7m against $1,750.7m; bull $2,823.8m against $2,823.8m. The two are the same calculation arranged differently, so this checks consistency, not value.
 - *assumption*: What return on new capital after year 10 do the scenarios assume?  
   Bear: equal to the cost of capital (no excess return). Base: 15%. Bull: 20%. In years 1-10 the model earns 25% to 32% on capital across the four cases.
 

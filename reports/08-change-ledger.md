@@ -1,0 +1,8 @@
+# Change ledger
+
+One row per integration step, each measured with a full build. A delta is against the row above and depends on the order of the steps; the deltas are not independent effects.
+
+| State | What changed | Original | Bear | Base | Bull | Comps median | Precedents median | DDM base | LBO base | Strategic base |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| M0 valuation-range / merge checkpoint | Pinned aa9dce5 merged with main 70b6ba8; no value changed | $88.15 | $80.91 | $126.30 | $205.26 | $89.58 | $95.08 | $121.42 | $76.15 | $165.41 |<!--{"Original": 88.15029580134913, "Bear": 80.90831287150667, "Base": 126.29920921035679, "Bull": 205.26476456734304, "Comps median": 89.57585226065027, "Precedents median": 95.08207976329662, "DDM base": 121.42232490422, "LBO base": 76.15234375, "Strategic base": 165.40558629963803}-->
+| M1a year-1 margin fix | Bear and Bull year-1 margin uses their own guided sales; inputs at full precision | $88.15 | $82.67 (+1.77) | $126.30 | $205.01 (-0.26) | $89.58 | $95.08 | $121.42 | $76.15 | $165.41 |<!--{"Original": 88.15029580134913, "Bear": 82.67406486731895, "Base": 126.29998915646284, "Bull": 205.00675376173893, "Comps median": 89.57585226065027, "Precedents median": 95.08207976329662, "DDM base": 121.42232490422, "LBO base": 76.15234375, "Strategic base": 165.40662328467232}-->

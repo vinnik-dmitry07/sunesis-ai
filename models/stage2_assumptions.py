@@ -159,19 +159,22 @@ margin_post = [h["operatingMargin"] for h in history if 2022 <= h["fiscalYear"] 
 # ---------------------------------------------------------------- 5. FY2026 guidance -> year-1 inputs
 # Guidance (8-K 2025-10-22): pro forma net sales $630-655m (5-9% growth from FY2025 pro forma, FY2025 average FX),
 # operating income $103-110m (5-12% growth from FY2025 pro forma), tax rate 22.5-23.5%.
-# Pro forma excludes the Americas homecare and cleaning brands held for sale (about $12.5m sales, $3.6m operating income).
+# Pro forma excludes the Americas homecare and cleaning brands held for sale. The release says guidance would be about $12.5m of
+# sales and $3.6m of operating income higher if that sale did not happen; that is a FY2026 figure, not FY2025 revenue of those brands.
 REPORTED_REVENUE = 619.985
 RND_ADJUSTMENT = 106.05966666666667 - 103.793   # R&D capitalization adds this to EBIT in the workbook (Valuation output!B5)
 guid_sales = {"bear": 630.0, "base": 642.5, "bull": 655.0}
 guid_oi = {"bear": 103.0, "base": 106.5, "bull": 110.0}
 year1_growth = {k: v / REPORTED_REVENUE - 1 for k, v in guid_sales.items()}
-year1_margin = {k: (guid_oi[k] + RND_ADJUSTMENT) / guid_sales["base"] for k in guid_oi}
+# Each scenario pairs its own guided operating income with its own guided sales. The FY2025 R&D adjustment is added to
+# every scenario; carrying the same amount into FY2026 is an assumption.
+year1_margin = {k: (guid_oi[k] + RND_ADJUSTMENT) / guid_sales[k] for k in guid_oi}
 
 # ---------------------------------------------------------------- 6. scenarios as Ginzu cell overrides
 C = {"growth1": "Input sheet!B26", "margin1": "Input sheet!B27", "growth25": "Input sheet!B28", "marginTarget": "Input sheet!B29",
      "convergence": "Input sheet!B30", "tax0": "Input sheet!B23", "wacc0": "Cost of capital worksheet!B12", "waccT": "Input sheet!B46",
      "roicOn": "Input sheet!B48", "roicT": "Input sheet!B49", "gT": "Input sheet!B68", "nonOp": "Input sheet!B19"}
-r4 = lambda x: round(x, 6)
+r4 = lambda x: x  # inputs kept at full precision so guidance can be checked exactly
 scen = {}
 spec = {
     "bear": {"growth25": 0.04, "marginTarget": year1_margin["bear"], "tax0": 0.235, "gT": 0.020, "roic": None, "waccT": market_terminal_bear, "nonOp": 0.0},
@@ -193,19 +196,19 @@ for k, s in spec.items():
 why = {
     "bear": [
         "Year-1 revenue at the low end of FY2026 guidance ($630m pro forma), then 4% a year, below the 6.2% FY2017-FY2025 compound rate.",
-        "Margin stays at the level implied by the low end of operating-income guidance; no recovery toward the FY2017-FY2020 range.",
+        f"Year-1 margin from the low end of guidance ($103m operating income on $630m of sales) plus the workbook's R&D adjustment, held flat; reported operating margin averaged {sum(margin_post) / len(margin_post):.1%} in FY2022-FY2025.",
         "Cost of capital from the Household Products unlevered beta and the higher Damodaran ERP variant; it drifts to the market's cost of capital by year 10.",
         "No excess returns on new capital after year 10 (terminal ROIC equals terminal WACC). Terminal growth 2.0%.",
     ],
     "base": [
-        "Year-1 revenue at the midpoint of FY2026 guidance ($642.5m pro forma, about 3.6% above reported FY2025 because divested homecare sales leave the base), then 6% a year, in line with the 6.2% FY2017-FY2025 compound rate.",
-        "Year-1 margin at the guidance midpoint ($106.5m operating income) plus the workbook's R&D adjustment; target 18% by year 5, about a third of the way from the FY2022-FY2025 average back to the FY2017-FY2020 average (both after the R&D adjustment).",
+        "Year-1 revenue at the midpoint of FY2026 guidance ($642.5m on the pro forma base, which leaves out the homecare brands held for sale), then 6% a year, in line with the 6.2% FY2017-FY2025 compound rate.",
+        f"Year-1 margin from the guidance midpoint ($106.5m operating income on $642.5m of sales) plus the workbook's R&D adjustment. The 18% target by year 5 is an analyst assumption; reported operating margin averaged {sum(margin_post) / len(margin_post):.1%} in FY2022-FY2025 and {sum(margin_pre) / len(margin_pre):.1%} in FY2017-FY2020.",
         "Cost of capital from a bottom-up beta (average of Damodaran's Chemical (Specialty) and Household Products unlevered betas, January 2025) relevered at WD-40's market debt-to-equity, the 29 Aug 2025 10-year Treasury yield and Damodaran's September 2025 implied ERP. Held flat because WD-40 is already a mature company.",
         "New capital after year 10 earns 15%, above the cost of capital because the brand and distribution persist, and well below the 27% or so the Base case earns in years 1-10. Terminal growth 2.5%.",
     ],
     "bull": [
         "Year-1 revenue at the top of FY2026 guidance ($655m pro forma), then 7% a year, above the 6.6% FY2019-FY2025 compound rate.",
-        "Year-1 margin at the top of operating-income guidance; target 20% by year 5, the FY2017-FY2020 average operating margin plus the R&D adjustment.",
+        f"Year-1 margin from the top of guidance ($110m operating income on $655m of sales) plus the workbook's R&D adjustment. The 20% target by year 5 is an analyst assumption near the {sum(margin_pre) / len(margin_pre):.1%} reported FY2017-FY2020 average.",
         "Cost of capital from the Blume-adjusted 5-year weekly regression beta and the lower Damodaran ERP variant.",
         "New capital after year 10 earns 20%. Terminal growth 3.0%, below the 4.23% risk-free rate.",
     ],
@@ -216,6 +219,7 @@ scenarios = {"schemaVersion": 1, "assumptionSetVersion": "2025-10-27-retrospecti
                            "note": "Retrospective FY2025 review: uses the FY2025 10-K (27 Oct 2025) and the FY2026 guidance (22 Oct 2025), which were published after the price date."},
              "notChanged": ["Sales-to-capital stays at 2.0 in all scenarios (Input sheet!B31, B32).",
                             "Terminal tax rate stays at 25% (Input sheet!B24).",
+                            "The FY2025 R&D capitalization adjustment ($2.27m) is added to guided operating income in every scenario; using the same amount in FY2026 is an assumption.",
                             "Expected proceeds from the Americas homecare sale are not added because no price was disclosed and the sale had not closed."],
              "scenarios": {k: {"label": k.title(), "overrides": scen[k], "rationale": why[k]} for k in ("bear", "base", "bull")},
              "sources": SOURCES}
